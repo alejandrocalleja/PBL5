@@ -28,22 +28,55 @@ pipeline {
         sh 'mvn clean test'
       }
     }
+    
+    stage('Remove docker container and image') {
+      when {
+        branch 'develop'
+      }
+      steps {
+        sh 'docker ps -f name=decklearn -q | xargs --no-run-if-empty docker container stop'
+        sh 'docker container ls -a -fname=decklearn -q | xargs -r docker container rm'
+        sh 'docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi'
+      }
+    }
 
-    stage('Publish Docker') {z
+    stage('Create docker image') {
+      when {
+        branch 'develop'
+      }
+      withCredentials(bindings: [usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'pass', usernameVariable: 'name')]) {
+        sh 'mvn compile jib:dockerBuild -Djib.to.auth.username=$name -Djib.to.auth.password=$pass'
+      }
+    }
+
+    stage('Run decklearn container') {
+      when {
+        branch 'develop'
+      }
+      steps {
+        sh 'docker run -d -p 8080:8080 --name decklearn alejandrocalleja/pbl5-test'
+      }
+    }
+
+    stage('Publish docker image') {
+      when {
+        branch 'release'
+      }
       steps {
         withCredentials(bindings: [usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'pass', usernameVariable: 'name')]) {
           sh 'mvn compile jib:build -Djib.to.auth.username=$name -Djib.to.auth.password=$pass'
         }
-
       }
     }
 
   }
+
   post {
-        always {
-            junit 'build/reports/**/*.xml'
-        }
+    always {
+      junit 'build/reports/**/*.xml'
     }
+  }
+  
   tools {
     maven 'maven'
   }
