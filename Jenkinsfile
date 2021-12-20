@@ -54,7 +54,7 @@ pipeline {
         branch 'develop'
       }
       steps {
-        sh 'docker run -d -p 8080:8080 --name decklearn alejandrocalleja/pbl5-test'
+        sh 'docker run -d -p 8080:8080 --name decklearn alejandrocalleja/decklearn'
       }
     }
 
