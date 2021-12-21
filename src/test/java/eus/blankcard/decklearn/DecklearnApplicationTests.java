@@ -8,6 +8,6 @@ class DecklearnApplicationTests {
 
 	@Test
 	void contextLoads() {
-	}
 
+	}
 }

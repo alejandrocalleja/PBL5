@@ -1,0 +1,75 @@
+@font-face {
+  font-family: 'Sans Forgetica Regular';
+  src: local("Sans Forgetica Regular"), url("../../../font/SansForgetica-Regular.woff") format("woff"); }
+
+* {
+  margin: 0;
+  box-sizing: border-box; }
+
+.profile__top-title {
+  border-bottom: #8D8D8D 1px solid;
+  padding: 0.1rem; }
+
+.profile-data {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  text-align: center; }
+  .profile-data__img-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 1rem; }
+  .profile-data__image {
+    padding: 1rem;
+    object-fit: cover;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%; }
+  .profile-data__button {
+    padding-bottom: 2rem; }
+
+.button-editProfile {
+  text-decoration: none;
+  background-color: #01CDA9;
+  border-radius: 1.3rem;
+  color: #FFFFFF;
+  padding: 0.3rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  font-size: 1.3rem;
+  cursor: pointer; }
+
+.user-name h3 {
+  font-weight: normal;
+  color: #8D8D8D; }
+
+.user-follower {
+  display: flex;
+  width: 100%;
+  justify-content: space-between; }
+  .user-follower p span {
+    font-weight: bold; }
+
+.profile-nav {
+  border-bottom: #8D8D8D 1px solid;
+  display: flex;
+  justify-content: space-between; }
+  .profile-nav p {
+    height: 100%; }
+
+.selected {
+  border-bottom: #46B6A0 solid 3px; }
+
+@media (min-width: 762px) {
+  .profile-data {
+    flex-direction: row;
+    align-items: flex-end; }
+    .profile-data__img-user {
+      flex-direction: row; }
+    .profile-data__button {
+      display: flex;
+      padding-bottom: 1rem; }
+  .user-name h3 {
+    text-align: left; } }

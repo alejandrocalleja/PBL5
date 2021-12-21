@@ -1,0 +1,9 @@
+$media-sizes: (
+    "medium": 762px,
+    "large": 1024px,
+    "extra-large": 1300px
+);
+
+@function screen-size($pixels) {
+    @return map-get($media-sizes, $pixels);
+}
