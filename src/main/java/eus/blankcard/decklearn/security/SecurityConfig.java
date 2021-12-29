@@ -52,11 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                // .antMatchers("/static/**").permitAll()
-                .antMatchers("/styles/**", "/images/**", "/font/**", "/js/**").permitAll()
+                .antMatchers("/styles/**", "/images/**", "/font/**", "/js/**", "/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").successForwardUrl("/")
+                .formLogin().loginPage("/login").successForwardUrl("/home")
                 .successHandler(successHandler).permitAll()
                 .failureHandler(failureHandler).permitAll()
                 .and()

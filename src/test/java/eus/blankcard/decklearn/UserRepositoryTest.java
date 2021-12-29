@@ -24,15 +24,12 @@ public class UserRepositoryTest {
     @Test
     public void loadUserLogin() {
         UserModel expectedUser = new UserModel();
-        expectedUser.setId(4);
-        expectedUser.setEmail("a");
-        expectedUser.setName("a");
         expectedUser.setPassword("a");
         expectedUser.setUsername("a");
 
         UserModel actualUser = userRepository.loadUser("a", "a");
 
-        assertEquals(expectedUser, actualUser);
+        assertEquals(expectedUser.getUsername(), actualUser.getUsername());
     }
 
     @Test

@@ -22,11 +22,6 @@ public class LoginController {
     public String login() {
         return "login";
     }
-    
-    @GetMapping("/login")
-    public String showLoginForm() {
-        return "login"; 
-    }
 
     @PostMapping("/login")
     public String userLogin(HttpServletRequest req, HttpServletResponse response) {
@@ -36,6 +31,8 @@ public class LoginController {
 
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        System.out.println(username);
+        System.out.println(password);
 
         UserModel user = null;
 

@@ -19,7 +19,7 @@ public class SuccessHandler implements AuthenticationSuccessHandler {
 
         System.out.println("Logged user: " + authentication.getName());
 
-        response.sendRedirect("/");
+        response.sendRedirect("/home");
     }
 
 }

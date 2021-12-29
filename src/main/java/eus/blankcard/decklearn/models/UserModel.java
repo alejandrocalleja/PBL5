@@ -12,7 +12,8 @@ import javax.persistence.Table;
 public class UserModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="user_id")
     private Integer id;
 
     private String username;
@@ -23,7 +24,6 @@ public class UserModel {
     @Column(name="second_name")
     private String surname;
 
-    @Column(name="pwd")
     private String password;
 
     private String email;
