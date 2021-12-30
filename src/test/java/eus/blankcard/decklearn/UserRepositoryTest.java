@@ -21,27 +21,27 @@ public class UserRepositoryTest {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
-    @Test
-    public void loadUserLogin() {
-        UserModel expectedUser = new UserModel();
-        expectedUser.setPassword("a");
-        expectedUser.setUsername("a");
+    // @Test
+    // public void loadUserLogin() {
+    //     UserModel expectedUser = new UserModel();
+    //     expectedUser.setPassword("a");
+    //     expectedUser.setUsername("a");
 
-        UserModel actualUser = userRepository.loadUser("a", "a");
+    //     UserModel actualUser = userRepository.loadUser("a", "a");
 
-        assertEquals(expectedUser.getUsername(), actualUser.getUsername());
-    }
+    //     assertEquals(expectedUser.getUsername(), actualUser.getUsername());
+    // }
 
-    @Test
-    public void createUserTest () {
-        UserModel user = new UserModel();
-        user.setName("prueba");
-        user.setUsername("prueba");
-        user.setEmail("prueba@gmail.com");
-        user.setPassword(encoder.encode("prueba"));
+    // @Test
+    // public void createUserTest () {
+    //     UserModel user = new UserModel();
+    //     user.setName("prueba");
+    //     user.setUsername("prueba");
+    //     user.setEmail("prueba@gmail.com");
+    //     user.setPassword(encoder.encode("prueba"));
 
-        UserModel retUser = userRepository.save(user);
+    //     UserModel retUser = userRepository.save(user);
 
-        assertTrue(retUser.getPassword().equalsIgnoreCase(user.getPassword()));
-    }
+    //     assertTrue(retUser.getPassword().equalsIgnoreCase(user.getPassword()));
+    // }
 }
