@@ -10,6 +10,6 @@ class DecklearnApplicationTests {
 
 	@Test
 	void contextLoads() {
-		assertEquals(1, 1);
+		// assertEquals("a", "a");
 	}
 }

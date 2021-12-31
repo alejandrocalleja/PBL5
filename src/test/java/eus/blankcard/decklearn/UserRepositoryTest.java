@@ -20,6 +20,11 @@ public class UserRepositoryTest {
 
     @Autowired
     private BCryptPasswordEncoder encoder;
+    
+    @Test
+    public void placeholderTest() {
+        assertTrue(true);
+    }
 
     // @Test
     // public void loadUserLogin() {
