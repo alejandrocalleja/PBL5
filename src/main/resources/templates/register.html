@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link th:href=@{/styles/modules/css/register.css} rel="stylesheet" />
+    <link th:href=@{/styles/modules/css/main.css} rel="stylesheet" />
+</head>
+
+<body>
+    <main>
+        <div class="left-part">
+            <div class="left-part__inside">
+                <img th:src="@{images/svg/Cards_NEGATIVE.svg}" alt="Deck learn logo">
+                <form th:action="@{/register}" method="post" class="flexed-form">
+                    <div class="inputs">
+                        <input type="text" class="custom-input" placeholder="Name" name="name">
+                        <input type="text" class="custom-input" placeholder="Surname" name="surname">
+                        <input type="text" class="custom-input" placeholder="Email" name="email">
+                        <input type="text" class="custom-input" placeholder="Purpose" name="purpose">
+                        <input type="text" class="custom-input" placeholder="Country" name="country">
+                        <input type="text" class="custom-input" placeholder="Username" name="username">
+                        <input type="password" class="custom-input" placeholder="Password" name="password">
+                        <input type="password" class="custom-input" placeholder="Confirm Password">
+                        <div class="checkboxes">
+                            <div class="bordered-checkbox">
+                                <input type="checkbox"  id="check2">
+                                <label for="check2"></label>
+                            </div>
+                            <label for="">Show password</label>
+                        </div>
+                    </div>
+                    <input type="submit" class="custom-submit">
+                </form>
+            </div>
+        </div>
+        <div class="right-part">
+        </div>
+    </main>
+</body>
+
+</html>
