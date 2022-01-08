@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="assert/main/css/main.css">
-    <link rel="stylesheet" href="assert/login/css/login.css">
+    <link th:href=@{/styles/modules/css/login.css} rel="stylesheet"/>
 </head>
 
 <body>
@@ -15,22 +14,28 @@
         <div class="left-part">
         </div>
         <div class="right-part">
-            <img src="images/Cards_NEGATIVE.svg" alt="Deck learn logo">
-            <form action="" class="inputs">
-                <input type="text" class="custom-input" placeholder="Username">
-                <input type="password" class="custom-input" placeholder="Password">
-                <div class="checkboxes">
-                    <label for="">
-                        <input type="checkbox">Remember me
-                    </label>
-                    <label for="">
-                        <input type="checkbox">Show password
-                    </label>
-                </div>
-                <input type="submit" class="custom-submit" value="Login">
-            </form>
-            <a href="" class="custom-button">Sign in</a>
-            <a href="" class="forgot-password">Forgot your password?</a>
+            <div class="right-part__inside">
+                <img th:src="@{images/Cards_NEGATIVE.svg}" alt="Deck learn logo">
+                <form th:action="@{/login}" method="post" class="inputs">
+                    <input type="text" class="custom-input" placeholder="username" name="username">
+                    <input type="password" class="custom-input" placeholder="password" name="password">
+                    <div class="checkboxes">
+                        <div class="bordered-checkbox">
+                            <input type="checkbox" id="check1">
+                            <label for="check1"></label>
+                        </div>
+                        <label for="">Remember me</label>
+                        <div class="bordered-checkbox">
+                            <input type="checkbox"  id="check2">
+                            <label for="check2"></label>
+                        </div>
+                        <label for="">Show password</label>
+                    </div>
+                    <input type="submit" class="custom-submit" value="Login">
+                    <a th:href="@{/register}" class="custom-button">Sign in</a>
+                    <a href="/register" class="forgot-password">Forgot your password?</a>
+                </form>
+            </div>
         </div>
     </main>
 </body>
