@@ -17,29 +17,29 @@
         </header>
         <main class="nav-bar">
             <ul class="nav-bar__list">
-                <a href="">
+                <a th:href="@{/home}">
                     <img src="images/icons/Home_select.svg" alt="Home">
                     <li>Home</li>
                 </a>
 
-                <a href="">
+                <a th:href="@{/create/deck}">
                     <img src="images/icons/CreateDeck.svg" alt="Create Deck">
                     <li>Create deck</li>
                 </a>
 
-                <a href="">
+                <a th:href="@{/sessions}">
                     <img src="images/icons/StudySessions.svg" alt="Study Sessions">
                     <li>Study sessions</li>
                 </a>
-                <a href="">
+                <a th:href="@{/{user}(user=${#httpServletRequest.remoteUser})}">
                     <img src="images/icons/Profile.svg" alt="Profile">
                     <li>Profile</li>
                 </a>
-                <a href="">
+                <a th:href="@{/{user}/stats(user=${#httpServletRequest.remoteUser})}">
                     <img src="images/icons/Stats.svg" alt="User Stats">
                     <li>Stats</li>
                 </a>
-                <a href="">
+                <a th:href="@{/settings}">
                     <img src="images/icons/Settings.svg" alt="Settings">
                     <li>Settings</li>
                 </a>
@@ -53,7 +53,7 @@
                 title="Type in a name" class="search-bar">
             <div class="top-nav__profile">
                 <img src="images/profilePic.jpg" alt="">
-                <span>Izan24</span>
+                <span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span>
             </div>
         </nav>
 
