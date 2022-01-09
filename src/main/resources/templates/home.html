@@ -34,7 +34,7 @@
                                     <span th:text="${deck.text}"></span>
                                 </div>
                             </div>
-                            <a th:href="/deck/${deck.id}">View</a>
+                            <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
                         </div>
 
                     </div>
@@ -53,7 +53,7 @@
                                     <span th:text="${deck.text}"></span>
                                 </div>
                             </div>
-                            <a th:href="/deck/${deck.id}">View</a>
+                            <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
                         </div>
 
                     </div>

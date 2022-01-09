@@ -16,7 +16,7 @@
     <main class="center-screen">
 
         <div th:replace="fragments/top-nav :: top-nav"></div>
-        
+
         <section class="content">
 
             <h1 class="profile__top-title">Profile</h1>
@@ -43,70 +43,26 @@
             </div>
 
             <nav class="profile-nav">
-                <a class="selectable">Created decks</a>
-                <a class="selectable">Saved decks</a>
-                <a class="selectable">Study sessions</a>
+                <a class="selectable" th:href="@{/user.id}">Created decks</a>
+                <a class="selectable" th:href="@{/{id}/saved(id=${user.id})}">Saved decks</a>
+                <a class="selectable" th:href="@{/{id}/sessions(id=${user.id})}">Study sessions</a>
             </nav>
 
-            <div class="card-section">                
+            <div class="card-section">
 
                 <div class="card-section__list">
-                    <div class="card">
+
+                    <div class="card" th:each="deck: ${user_decks}">
                         <div class="card-content">
-                            <img class="" alt="Revolucion Francesa" src="images/revolucion.jpeg">
+                            <img class="" th:src="@{deck.path}"></img>
                             <div>
-                                <h3>Revolucion Francesa</h3>
-                                <span>La Revolución francesa fue un conflicto social y político, con diversos periodos de
-                                    violencia, que convulsionó Francia</span>
+                                <h3 th:inline="text">[[${deck.title}]]</h3>
+                                <span th:text="${deck.text}"></span>
                             </div>
                         </div>
-                        <a href="">View</a>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img class="" alt="Revolucion Francesa" src="images/revolucion.jpeg">
-                            <div>
-                                <h3>Revolucion Francesa</h3>
-                                <span>La Revolución francesa fue un conflicto social y político, con diversos periodos de
-                                    violencia, que convulsionó Francia</span>
-                            </div>
-                        </div>
-                        <a href="">View</a>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img class="" alt="Revolucion Francesa" src="images/revolucion.jpeg">
-                            <div>
-                                <h3>Revolucion Francesa</h3>
-                                <span>La Revolución francesa fue un conflicto social y político, con diversos periodos de
-                                    violencia, que convulsionó Francia</span>
-                            </div>
-                        </div>
-                        <a href="">View</a>
-                    </div>
-                    <div class="card">
-                        <div class="card-content">
-                            <img class="" alt="Revolucion Francesa" src="images/revolucion.jpeg">
-                            <div>
-                                <h3>Revolucion Francesa</h3>
-                                <span>La Revolución francesa fue un conflicto social y político, con diversos periodos de
-                                    violencia, que convulsionó Francia</span>
-                            </div>
-                        </div>
-                        <a href="">View</a>
+                        <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
                     </div>
 
-                    <div class="card">
-                        <div class="card-content">
-                            <img class="" alt="Revolucion Francesa" src="images/revolucion.jpeg">
-                            <div>
-                                <h3>Revolucion Francesa</h3>
-                                <span>La Revolución francesa fue un conflicto social y político, con diversos periodos de
-                                    violencia, que convulsionó Francia</span>
-                            </div>
-                        </div>
-                        <a href="">View</a>
-                    </div>
                 </div>
             </div>
         </section>
