@@ -11,51 +11,12 @@
 </head>
 
 <body>
-    <aside class="left-nav">
-        <header>
-            <img src="images/letterLogo.svg" alt="Logo">
-        </header>
-        <main class="nav-bar">
-            <ul class="nav-bar__list">
-                <a th:href="@{/home}">
-                    <img src="images/icons/Home_select.svg" alt="Home">
-                    <li>Home</li>
-                </a>
 
-                <a th:href="@{/create/deck}">
-                    <img src="images/icons/CreateDeck.svg" alt="Create Deck">
-                    <li>Create deck</li>
-                </a>
-
-                <a th:href="@{/sessions}">
-                    <img src="images/icons/StudySessions.svg" alt="Study Sessions">
-                    <li>Study sessions</li>
-                </a>
-                <a th:href="@{/{user}(user=${#httpServletRequest.remoteUser})}">
-                    <img src="images/icons/Profile.svg" alt="Profile">
-                    <li>Profile</li>
-                </a>
-                <a th:href="@{/{user}/stats(user=${#httpServletRequest.remoteUser})}">
-                    <img src="images/icons/Stats.svg" alt="User Stats">
-                    <li>Stats</li>
-                </a>
-                <a th:href="@{/settings}">
-                    <img src="images/icons/Settings.svg" alt="Settings">
-                    <li>Settings</li>
-                </a>
-            </ul>
-        </main>
-    </aside>
+    <div th:replace="fragments/left-nav :: left-nav"></div>
 
     <main class="center-screen">
-        <nav class="top-nav">
-            <input type="text" id="searchBar" onkeyup="myFunction()" placeholder="Search for names.."
-                title="Type in a name" class="search-bar">
-            <div class="top-nav__profile">
-                <img src="images/profilePic.jpg" alt="">
-                <span th:inline="text">[[${#httpServletRequest.remoteUser}]]</span>
-            </div>
-        </nav>
+
+        <div th:replace="fragments/top-nav :: top-nav"></div>
 
         <section class="content-container">
             <section class="content">
