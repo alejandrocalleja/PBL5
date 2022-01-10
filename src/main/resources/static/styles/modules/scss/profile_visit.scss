@@ -1,6 +1,6 @@
-@import '../../variables/variables';
-@import '../../variables/generic';
-@import '../../variables/scrollbar';
+@import 'variables';
+@import 'generic';
+@import 'scrollbar';
 
 .profile-nav__center{
     @include profile-nav;

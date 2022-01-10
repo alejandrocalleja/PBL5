@@ -1,7 +1,7 @@
-@import '../../variables/variables';
-@import '../../variables/scrollbar';
-@import '../../variables/generic';
-@import '../../variables/base';
+@import 'variables';
+@import 'scrollbar';
+@import 'generic';
+@import 'base';
 
 .top-nav {
     @include top-nav(flex-end);

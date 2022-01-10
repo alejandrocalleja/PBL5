@@ -1,9 +1,9 @@
-@import '../../variables/variables';
-@import '../../variables/generic';
-@import '../../variables/scrollbar';
-@import '../../variables/base';
-@import '../../variables/radio';
-@import '../../variables/checkbox';
+@import 'variables';
+@import 'generic';
+@import 'scrollbar';
+@import 'base';
+@import 'radio';
+@import 'checkbox';
 
 .content{
     @include content(100%);

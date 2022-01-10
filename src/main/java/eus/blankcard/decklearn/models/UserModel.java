@@ -34,6 +34,8 @@ public class UserModel {
 
     private String age;
 
+    private String img_path;
+
     public Integer getId() {
         return id;
     }
@@ -104,5 +106,13 @@ public class UserModel {
     
     public void setAge(String age) {
         this.age = age;
+    }
+
+    public String getImg_path() {
+        return img_path;
+    }
+
+    public void setImg_path(String img_path) {
+        this.img_path = img_path;
     }
 }

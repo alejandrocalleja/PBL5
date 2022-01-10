@@ -26,6 +26,7 @@ public class RegisterController {
     @PostMapping("/register")
     public String registerSubit(UserModel user) {
         user.setPassword(encoder.encode(user.getPassword()));
+        user.setImg_path("/images/user/default.png");
         userRepository.save(user);
         return "redirect:/login";
     }   
