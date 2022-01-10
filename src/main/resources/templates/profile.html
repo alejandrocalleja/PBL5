@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck Learn</title>
+    <link rel="stylesheet" th:href="@{/styles/modules/css/profile.css}">
+</head>
+
+<body>
+
+    <div th:replace="fragments/left-nav :: left-nav"></div>
+
+    <main class="center-screen">
+
+        <div th:replace="fragments/top-nav :: top-nav"></div>
+
+        <section class="content">
+
+            <h1 class="profile__top-title">Profile</h1>
+
+            <div class="profile-data">
+
+                <div class="profile-data__img-user">
+                    <img class="profile-data__image" src="images/izan.jpg" alt="">
+                    <div class="profile-data__user">
+                        <div class="user-name">
+                            <h2> Izan Arcos Martin</h2>
+                            <h3>Izan24</h3>
+                        </div>
+                        <div class="user-follower">
+                            <p> <span>498</span> Following</p>
+                            <p> <span>69</span> Followers</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-data__button">
+                    <a href="" class="button-editProfile">Edit profile</a>
+                </div>
+
+            </div>
+
+            <nav class="profile-nav">
+                <a class="selectable" th:href="@{/user.id}">Created decks</a>
+                <a class="selectable" th:href="@{/{id}/saved(id=${user.id})}">Saved decks</a>
+                <a class="selectable" th:href="@{/{id}/sessions(id=${user.id})}">Study sessions</a>
+            </nav>
+
+            <div class="card-section">
+
+                <div class="card-section__list">
+
+                    <div class="card" th:each="deck: ${user_decks}">
+                        <div class="card-content">
+                            <img class="" th:src="@{deck.path}"></img>
+                            <div>
+                                <h3 th:inline="text">[[${deck.title}]]</h3>
+                                <span th:text="${deck.text}"></span>
+                            </div>
+                        </div>
+                        <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+</body>
+
+</html>
