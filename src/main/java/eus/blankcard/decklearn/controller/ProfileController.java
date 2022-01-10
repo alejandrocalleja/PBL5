@@ -1,9 +1,10 @@
 package eus.blankcard.decklearn.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import eus.blankcard.decklearn.models.FollowRelation;
 import eus.blankcard.decklearn.models.UserModel;
+import eus.blankcard.decklearn.repository.follow.FollowRepository;
 import eus.blankcard.decklearn.repository.user.UserRepository;
 
 @Controller
@@ -21,20 +24,30 @@ public class ProfileController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    FollowRepository followRepository;
+
     @GetMapping("/{username}")
     public String getProfile(@PathVariable("username") String username, HttpServletRequest req,
             HttpServletResponse response) {
         UserModel user = null;
         user = userRepository.findByUsername(username);
-        System.out.println("GET USERNAME: " + username);
 
-        if (user != null) {
+        if (user != null) {            
             req.setAttribute("user", user);
-            req.setAttribute("followers", 0);
-            req.setAttribute("following", 0);
+            int followers = followRepository.countFollowers(user.getId());
+            int following = followRepository.countFollowing(user.getId());
+            System.out.println("user: " + user.getUsername() + " followers: " + followers + " following: " + following);
+            req.setAttribute("followers", followers);
+            req.setAttribute("following", following);
+            // req.setAttribute("followers", 0);
+            // req.setAttribute("following", 0);
+
+            List<FollowRelation> followRelation = followRepository.findAll();
+
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentPrincipalName = authentication.getName();
-            System.out.println("REGISTEREED USERNAME: " + currentPrincipalName);
+
             if(currentPrincipalName.equals(username)) {
                 return "profile";
             } else {
