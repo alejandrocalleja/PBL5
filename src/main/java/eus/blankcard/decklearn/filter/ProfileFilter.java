@@ -32,5 +32,4 @@ public class ProfileFilter implements Filter {
         // Usar un helper que te devuelva si hay solo un parametro en la /. En caso de que haya uno, buscas si está en la db como username, si no devuelves un 404. Si hay mas de uno, devuelves un 404.
         // Si no hay ninguno, devuelves un 404.
     }
-    
-
+}
