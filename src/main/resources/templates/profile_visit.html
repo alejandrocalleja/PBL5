@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:inline="text">[[${user.username}]] | DeckLearn</title>
+    <link rel="stylesheet" th:href="@{/styles/modules/css/profile_visit.css}">
     <link rel="stylesheet" th:href="@{/styles/modules/css/profile.css}">
-    <link rel="stylesheet" th:href="@{/styles/modules/css/base_imports.css}">
+    <script src="js/profile_visit.js"></script>
 </head>
 
 <body>
-
     <div th:replace="fragments/left-nav :: left-nav"></div>
 
     <main class="center-screen">
@@ -37,19 +37,20 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="profile-data__button">
-                    <a th:href="@{/{username}/edit(username=${user.username})}" class="button-editProfile">Edit profile</a>
+                    <form th:action="@{/{username}/follow(username=${user.username})}" method="post">
+                        <input type="submit" class="button-following button-follow" tabindex="0">
+                    </form>
                 </div>
 
             </div>
 
-            <nav class="profile-nav">
-                <a class="selectable" th:href="@{/{username}(username=${user.username})}">Created decks</a>
-                <a class="selectable" th:href="@{/{username}/saved(username=${user.username})}">Saved decks</a>
-                <a class="selectable" th:href="@{/{username}/sessions(username=${user.username})}">Study sessions</a>
+            <nav class="profile-nav__center">
+                <a class="selected" th:href="@{/{username}(username=${user.username})}">Created decks</a>
             </nav>
 
-            <div class="card-section">
+            <div class="card-section">                
 
                 <div class="card-section__list">
 
@@ -63,9 +64,11 @@
                         </div>
                         <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
                     </div>
+
                 </div>
             </div>
         </section>
+
     </main>
 </body>
 

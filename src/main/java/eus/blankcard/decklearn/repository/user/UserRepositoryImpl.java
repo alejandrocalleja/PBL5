@@ -3,12 +3,12 @@ package eus.blankcard.decklearn.repository.user;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.Query;
 
 import eus.blankcard.decklearn.models.UserModel;
 
@@ -26,6 +26,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     public UserModel loadUser(String username, String password) {
         UserModel user = null;
         Query query = entityManager.createNativeQuery("SELECT * FROM user WHERE username=? AND password=?", UserModel.class);
+
         query.setParameter(1, username);
         query.setParameter(2, password);
 
