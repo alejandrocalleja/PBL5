@@ -18,7 +18,7 @@ public class FollowRepositoryImpl implements FollowRepositoryCustom {
     public int countFollowers(Integer user_id) {
         int result = 0;
 
-        Query query = entityManager.createNativeQuery("SELECT COUNT(*) FROM followed WHERE followed_id=?", FollowRelation.class);
+        Query query = entityManager.createQuery("SELECT COUNT(*) FROM FollowRelation WHERE followed_id=?0");
         query.setParameter(1, user_id);
 
         try {
@@ -35,7 +35,7 @@ public class FollowRepositoryImpl implements FollowRepositoryCustom {
     public int countFollowing(Integer user_id) {
         int result = 0;
 
-        Query query = entityManager.createNativeQuery("SELECT COUNT(*) FROM followed WHERE follower_id=?", FollowRelation.class);
+        Query query = entityManager.createQuery("SELECT COUNT(*) FROM FollowRelation WHERE follower_id=?0");
         query.setParameter(1, user_id);
 
         try {

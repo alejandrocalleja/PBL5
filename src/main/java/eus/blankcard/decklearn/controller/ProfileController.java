@@ -1,7 +1,5 @@
 package eus.blankcard.decklearn.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import eus.blankcard.decklearn.models.FollowRelation;
 import eus.blankcard.decklearn.models.UserModel;
 import eus.blankcard.decklearn.repository.follow.FollowRepository;
 import eus.blankcard.decklearn.repository.user.UserRepository;
@@ -35,15 +32,12 @@ public class ProfileController {
 
         if (user != null) {            
             req.setAttribute("user", user);
+
             int followers = followRepository.countFollowers(user.getId());
             int following = followRepository.countFollowing(user.getId());
-            System.out.println("user: " + user.getUsername() + " followers: " + followers + " following: " + following);
+
             req.setAttribute("followers", followers);
             req.setAttribute("following", following);
-            // req.setAttribute("followers", 0);
-            // req.setAttribute("following", 0);
-
-            List<FollowRelation> followRelation = followRepository.findAll();
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentPrincipalName = authentication.getName();
@@ -56,6 +50,11 @@ public class ProfileController {
         } else {
             return "error";
         }
+    }
+
+    @GetMapping("/{username}/followers")
+    public String getFollowers(@PathVariable("username") String username) {
+        return "following";
     }
 
     @PostMapping("/{username}/follow")

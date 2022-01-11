@@ -26,6 +26,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     public UserModel loadUser(String username, String password) {
         UserModel user = null;
         Query query = entityManager.createNativeQuery("SELECT * FROM user WHERE username=? AND password=?", UserModel.class);
+
         query.setParameter(1, username);
         query.setParameter(2, password);
 

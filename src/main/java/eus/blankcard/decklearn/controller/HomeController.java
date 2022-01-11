@@ -8,6 +8,9 @@ public class HomeController {
     
     @GetMapping("/home")
     public String getHome() {
+
+        // Cargar los decks y ponerlos 
+
         return "home";
     }
 }
