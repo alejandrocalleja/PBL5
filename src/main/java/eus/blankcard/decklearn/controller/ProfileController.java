@@ -1,5 +1,8 @@
 package eus.blankcard.decklearn.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import eus.blankcard.decklearn.models.UserModel;
-import eus.blankcard.decklearn.repository.follow.FollowRepository;
 import eus.blankcard.decklearn.repository.user.UserRepository;
 
 @Controller
@@ -21,20 +23,17 @@ public class ProfileController {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    FollowRepository followRepository;
-
     @GetMapping("/{username}")
     public String getProfile(@PathVariable("username") String username, HttpServletRequest req,
             HttpServletResponse response) {
         UserModel user = null;
         user = userRepository.findByUsername(username);
 
-        if (user != null) {            
+        if (user != null) {
             req.setAttribute("user", user);
 
-            int followers = followRepository.countFollowers(user.getId());
-            int following = followRepository.countFollowing(user.getId());
+            int followers = userRepository.countFollowers(user.getId());
+            int following = userRepository.countFollowing(user.getId());
 
             req.setAttribute("followers", followers);
             req.setAttribute("following", following);
@@ -42,7 +41,7 @@ public class ProfileController {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentPrincipalName = authentication.getName();
 
-            if(currentPrincipalName.equals(username)) {
+            if (currentPrincipalName.equals(username)) {
                 return "profile";
             } else {
                 return "profile_visit";
@@ -53,12 +52,53 @@ public class ProfileController {
     }
 
     @GetMapping("/{username}/followers")
-    public String getFollowers(@PathVariable("username") String username) {
+    public String getFollowers(@PathVariable("username") String username, HttpServletRequest req, HttpServletResponse response) {
+        UserModel user = userRepository.findByUsername(username);
+
+        List<UserModel> followerList = userRepository.loadFollowers(user.getId());
+        List<Integer> followerNumList = new ArrayList<>();
+        List<Integer> followingNumList = new ArrayList<>();
+
+        followerList.forEach(follower -> {
+            int followers = userRepository.countFollowers(follower.getId());
+            int following = userRepository.countFollowing(follower.getId());
+
+            followerNumList.add(followers);
+            followingNumList.add(following);
+        });
+
+        req.setAttribute("followers", followerList);
+        req.setAttribute("followerNumList", followerNumList);
+        req.setAttribute("followingNumList", followingNumList);
+        return "following";
+    }
+
+    @GetMapping("/{username}/following")
+    public String getFollowing(@PathVariable("username") String username, HttpServletRequest req, HttpServletResponse response) {
+        UserModel user = userRepository.findByUsername(username);
+
+        List<UserModel> followerList = userRepository.loadFollowers(user.getId());
+        List<Integer> followerNumList = new ArrayList<>();
+        List<Integer> followingNumList = new ArrayList<>();
+
+        followerList.forEach(follower -> {
+            int followers = userRepository.countFollowers(follower.getId());
+            int following = userRepository.countFollowing(follower.getId());
+
+            followerNumList.add(followers);
+            followingNumList.add(following);
+        });
+
+        req.setAttribute("followers", followerList);
+        req.setAttribute("followerNumList", followerNumList);
+        req.setAttribute("followingNumList", followingNumList);
+
         return "following";
     }
 
     @PostMapping("/{username}/follow")
     public String follow() {
+        // Check if the username is not the logged user, then check if it's already following, if not, follow, if following, delete the entry
         return "profile";
     }
 }

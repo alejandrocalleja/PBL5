@@ -11,84 +11,33 @@
 </head>
 
 <body>
-    <aside class="left-nav">
-        <header>
-            <a href="">
-                <img src="images/letterLogo.svg" alt="Logo">
-            </a> 
-        </header>
-        <div class="nav-bar">
-            <ul class="nav-bar__list">
-                <li>
-                    <a href="">
-                        <img src="images/icons/Home.svg" alt="Home">
-                        <span>Home</span>
-                    </a>
-                </li>
 
-                <li>
-                    <a href="">
-                        <img src="images/icons/CreateDeck.svg" alt="Create Deck">
-                        <span>Create deck</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="">
-                        <img src="images/icons/StudySessions_select.svg" alt="Study Sessions">
-                        <span>Study sessions</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="">
-                        <img src="images/icons/Profile.svg" alt="Profile">
-                        <span>Profile</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="">
-                        <img src="images/icons/Stats.svg" alt="User Stats">
-                        <span>Stats</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="">
-                        <img src="images/icons/Settings.svg" alt="Settings">
-                        <span>Settings</span>
-                    </a>
-                </li>
-
-            </ul>
-        </div>
-    </aside>
+    <div th:replace="fragments/left-nav :: left-nav"></div>
 
     <main class="center-screen">
-        <nav class="top-nav">
-            <div class="top-nav__profile">
-                <img src="images/profilePic.jpg" alt="">
-                <a tabindex="0">Izan24</a>
-            </div>
-        </nav>
+
+        <div th:replace="fragments/top-nav :: top-nav"></div>
 
         <div class="content-container">
             <section class="content">
                 <h2>Following</h2>
                 <div class="container__following">
 
-                    <div class="following__card">
-                        <a class="following__content" href="https://calendar.google.com/calendar/u/1/r/week">
-                            <img class="card__img" src="images/izan.jpg" alt="">
+                    <div class="following__card" th:each="follower: ${followers}">
+                        <a class="following__content" th:href="@{/{username}(username=${follower.username})}">
+                            <img class="card__img" th:src="@{/{username}(username=${follower.img_path})}" alt="">
                             <div class="card__data">
                                 <div class="data__user">
-                                    <h2>Izan Arcos Martin</h2>
-                                    <h3>Izan24</h3>
+                                    <h2 th:inline="text">[[${user.name}]]</h2>
+                                    <h3 th:inline="text">[[${user.username}]]</h3>
                                 </div>
                                 <div class="data__follow">
-                                    <p><span>485</span> Following</p>
-                                    <p><span>69</span> Followers</p>
+                                    <a th:href="@{/{username}/following(username=${follower.username})}">
+                                        <p> <span th:inline="text">[[${followerNumList[follower.index]}]]</span> Following</p>
+                                    </a>
+                                    <a th:href="@{/{username}/followers(username=${follower.username})}">
+                                        <p> <span th:inline="text">[[${followedNumList[follower.index]}]]</span> Followers</p>
+                                    </a>
                                 </div>
                             </div>
                         </a>
@@ -96,109 +45,7 @@
                             <a href="" class="custom-button selectable">Following</a>
                         </div>
                     </div>
-                    <div class="following__card">
-                        <a class="following__content" href="https://calendar.google.com/calendar/u/1/r/week">
-                            <img class="card__img" src="images/izan.jpg" alt="">
-                            <div class="card__data">
-                                <div class="data__user">
-                                    <h2>Izan Arcos Martin</h2>
-                                    <h3>Izan24</h3>
-                                </div>
-                                <div class="data__follow">
-                                    <p><span>485</span> Following</p>
-                                    <p><span>69</span> Followers</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="card__input">
-                            <a href="" class="custom-button selectable">Following</a>
-                        </div>
-                    </div><div class="following__card">
-                        <a class="following__content" href="https://calendar.google.com/calendar/u/1/r/week">
-                            <img class="card__img" src="images/izan.jpg" alt="">
-                            <div class="card__data">
-                                <div class="data__user">
-                                    <h2>Izan Arcos Martin</h2>
-                                    <h3>Izan24</h3>
-                                </div>
-                                <div class="data__follow">
-                                    <p><span>485</span> Following</p>
-                                    <p><span>69</span> Followers</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="card__input">
-                            <a href="" class="custom-button selectable">Following</a>
-                        </div>
-                    </div><div class="following__card">
-                        <a class="following__content" href="https://calendar.google.com/calendar/u/1/r/week">
-                            <img class="card__img" src="images/izan.jpg" alt="">
-                            <div class="card__data">
-                                <div class="data__user">
-                                    <h2>Izan Arcos Martin</h2>
-                                    <h3>Izan24</h3>
-                                </div>
-                                <div class="data__follow">
-                                    <p><span>485</span> Following</p>
-                                    <p><span>69</span> Followers</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="card__input">
-                            <a href="" class="custom-button selectable">Following</a>
-                        </div>
-                    </div><div class="following__card">
-                        <a class="following__content" href="https://calendar.google.com/calendar/u/1/r/week">
-                            <img class="card__img" src="images/izan.jpg" alt="">
-                            <div class="card__data">
-                                <div class="data__user">
-                                    <h2>Izan Arcos Martin</h2>
-                                    <h3>Izan24</h3>
-                                </div>
-                                <div class="data__follow">
-                                    <p><span>485</span> Following</p>
-                                    <p><span>69</span> Followers</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="card__input">
-                            <a href="" class="custom-button selectable">Following</a>
-                        </div>
-                    </div><div class="following__card">
-                        <a class="following__content" href="https://calendar.google.com/calendar/u/1/r/week">
-                            <img class="card__img" src="images/izan.jpg" alt="">
-                            <div class="card__data">
-                                <div class="data__user">
-                                    <h2>Izan Arcos Martin</h2>
-                                    <h3>Izan24</h3>
-                                </div>
-                                <div class="data__follow">
-                                    <p><span>485</span> Following</p>
-                                    <p><span>69</span> Followers</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="card__input">
-                            <a href="" class="custom-button selectable">Following</a>
-                        </div>
-                    </div><div class="following__card">
-                        <a class="following__content" href="https://calendar.google.com/calendar/u/1/r/week">
-                            <img class="card__img" src="images/izan.jpg" alt="">
-                            <div class="card__data">
-                                <div class="data__user">
-                                    <h2>Izan Arcos Martin</h2>
-                                    <h3>Izan24</h3>
-                                </div>
-                                <div class="data__follow">
-                                    <p><span>485</span> Following</p>
-                                    <p><span>69</span> Followers</p>
-                                </div>
-                            </div>
-                        </a>
-                        <div class="card__input">
-                            <a href="" class="custom-button selectable">Following</a>
-                        </div>
-                    </div>
+
                 </div>
             </section>
         </div>
