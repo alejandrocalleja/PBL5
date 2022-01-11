@@ -91,24 +91,26 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     public List<UserModel> loadFollowers(Integer user_id) {
         List<UserModel> userList = new ArrayList<>();
 
-        TypedQuery<UserModel> query = entityManager.createQuery("SELECT COUNT(*) FROM FollowRelation WHERE follower_id=?1", UserModel.class);
+        TypedQuery<UserModel> query = entityManager.createQuery("SELECT u.user_id, u.username, u.first_name, u.img_path from UserModel u JOIN FollowedRelation f " +
+                                                                "ON u.user_id = f.follower_id " + 
+                                                                "WHERE f.followed_id=?1", UserModel.class);
         query.setParameter(1, user_id);
-
+        
         try {
             userList = query.getResultList();
         } catch (Exception e) {
             System.out.println("Failed to load following from user " + user_id);
             e.printStackTrace();
         }
-
+        
         return userList;    
     }
-
+    
     @Override
     public List<UserModel> loadFollowing(Integer user_id) {
         List<UserModel> userList = new ArrayList<>();
-
-        TypedQuery<UserModel> query = entityManager.createQuery("SELECT COUNT(*) FROM FollowRelation WHERE follower_id=?1", UserModel.class);
+        
+        TypedQuery<UserModel> query = entityManager.createQuery("SELECT u.user_id, u.username, u.first_name, u.img_path from user u JOIN followed f on u.user_id = f.followed_id WHERE f.follower_id=?1", UserModel.class);
         query.setParameter(1, user_id);
 
         try {

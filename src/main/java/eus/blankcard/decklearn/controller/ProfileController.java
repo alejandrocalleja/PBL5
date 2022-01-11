@@ -78,20 +78,20 @@ public class ProfileController {
         UserModel user = userRepository.findByUsername(username);
 
         List<UserModel> followerList = userRepository.loadFollowers(user.getId());
-        List<Integer> followerNumList = new ArrayList<>();
-        List<Integer> followingNumList = new ArrayList<>();
+        // List<Integer> followerNumList = new ArrayList<>();
+        // List<Integer> followingNumList = new ArrayList<>();
 
-        followerList.forEach(follower -> {
-            int followers = userRepository.countFollowers(follower.getId());
-            int following = userRepository.countFollowing(follower.getId());
+        // followerList.forEach(follower -> {
+        //     int followers = userRepository.countFollowers(follower.getId());
+        //     int following = userRepository.countFollowing(follower.getId());
 
-            followerNumList.add(followers);
-            followingNumList.add(following);
-        });
+        //     followerNumList.add(followers);
+        //     followingNumList.add(following);
+        // });
 
         req.setAttribute("followers", followerList);
-        req.setAttribute("followerNumList", followerNumList);
-        req.setAttribute("followingNumList", followingNumList);
+        // req.setAttribute("followerNumList", followerNumList);
+        // req.setAttribute("followingNumList", followingNumList);
 
         return "following";
     }

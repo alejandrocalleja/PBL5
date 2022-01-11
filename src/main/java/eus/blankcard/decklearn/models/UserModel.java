@@ -1,10 +1,16 @@
 package eus.blankcard.decklearn.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -35,6 +41,20 @@ public class UserModel {
     private String age;
 
     private String img_path;
+
+    // @ManyToMany(targetEntity=OrderItem.class, fetch=FetchType.LAZY)
+    // @Fetch(FetchMode.SUBSELECT)
+    // @JoinTable(name = "order_order_item", joinColumns = { @JoinColumn(name = "cod_order") }, 
+    // inverseJoinColumns = { @JoinColumn(name = "cod_item") })
+    //     public Set<OrderItem> setOrderItem = new HashSet<OrderItem>();
+
+    // @ManyToMany(cascade = { CascadeType.ALL })
+    // @JoinTable(
+    //     name = "followed", 
+    //     joinColumns = { JoinColumns(name = "follower_id") }, 
+    //     inverseJoinColumns = { @JoinColumn(name = "project_id") }
+    // )
+    // Set<UserModel> followers = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -116,6 +136,37 @@ public class UserModel {
         this.img_path = img_path;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((username == null) ? 0 : username.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UserModel other = (UserModel) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (username == null) {
+            if (other.username != null)
+                return false;
+        } else if (!username.equals(other.username))
+            return false;
+        return true;
+    }
+
     // public int getFollowers() {
     //     return followers;
     // }
@@ -131,4 +182,7 @@ public class UserModel {
     // public void setFollowing(int following) {
     //     this.following = following;
     // }
+
+
+    
 }
