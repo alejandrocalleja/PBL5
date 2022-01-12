@@ -1,16 +1,12 @@
 package eus.blankcard.decklearn.models;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.sql.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -38,7 +34,7 @@ public class UserModel {
 
     private String country;
 
-    private String age;
+    private Date birth_date;
 
     private String img_path;
 
@@ -119,13 +115,13 @@ public class UserModel {
     public void setCountry(String country) {
         this.country = country;
     }
-    
-    public String getAge() {
-        return age;
+
+    public Date getBirth_date() {
+        return birth_date;
     }
-    
-    public void setAge(String age) {
-        this.age = age;
+
+    public void setBirth_date(Date birth_date) {
+        this.birth_date = birth_date;
     }
 
     public String getImg_path() {
@@ -182,7 +178,4 @@ public class UserModel {
     // public void setFollowing(int following) {
     //     this.following = following;
     // }
-
-
-    
 }
