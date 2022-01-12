@@ -51,8 +51,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        String[] staticResources  =  {
+          "/styles/**",
+          "/images/**",
+          "/font/**",
+          "/js/**",
+          "/register",
+        };
+
         http.authorizeRequests()
-                .antMatchers("/styles/**", "/images/**", "/font/**", "/js/**", "/register").permitAll()
+                .antMatchers(staticResources).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login").successForwardUrl("/home")

@@ -1,5 +1,7 @@
 package eus.blankcard.decklearn.models;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,11 +30,13 @@ public class UserModel {
 
     private String email;
 
-    private String postal_code;
+    @Column(name="postal_code")
+    private String postalCode;
 
     private String country;
 
-    private String age;
+    @Column(name="birth_date")
+    private Date birthDate;
 
     private String img_path;
 
@@ -84,28 +88,20 @@ public class UserModel {
         this.email = email;
     }
     
-    public String getPostal_code() {
-        return postal_code;
+    public String getPostalCode() {
+      return postalCode;
     }
-    
-    public void setPostal_code(String postal_code) {
-        this.postal_code = postal_code;
+
+    public void setPostalCode(String postalCode) {
+      this.postalCode = postalCode;
     }
-    
+
     public String getCountry() {
         return country;
     }
     
     public void setCountry(String country) {
         this.country = country;
-    }
-    
-    public String getAge() {
-        return age;
-    }
-    
-    public void setAge(String age) {
-        this.age = age;
     }
 
     public String getImg_path() {
@@ -114,5 +110,13 @@ public class UserModel {
 
     public void setImg_path(String img_path) {
         this.img_path = img_path;
+    }
+
+    public Date getBirthDate() {
+      return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+      this.birthDate = birthDate;
     }
 }
