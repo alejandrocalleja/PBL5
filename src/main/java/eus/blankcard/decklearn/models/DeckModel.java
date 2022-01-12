@@ -1,12 +1,18 @@
 package eus.blankcard.decklearn.models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +27,16 @@ public class DeckModel {
     @ManyToOne
     @JoinColumn(name="creator_id")
     private UserModel creator;
+
+    @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
+    List<CardModel> cards;
+
+    @ManyToMany
+    @JoinTable( name = "type_relation",
+                joinColumns = { @JoinColumn( name = "deck_id") },
+                inverseJoinColumns = {@JoinColumn( name = "deck_type_id")}
+                )
+    private List<DeckTypeModel> types;
 
     private String title;
 
@@ -66,5 +82,21 @@ public class DeckModel {
 
     public void setImg_path(String img_path) {
         this.img_path = img_path;
-    }   
+    }
+
+    public List<CardModel> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<CardModel> cards) {
+        this.cards = cards;
+    }
+
+    public List<DeckTypeModel> getTypes() {
+        return types;
+    }
+
+    public void setTypes(List<DeckTypeModel> types) {
+        this.types = types;
+    }
 }
