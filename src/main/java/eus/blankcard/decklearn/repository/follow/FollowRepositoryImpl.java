@@ -6,8 +6,6 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import eus.blankcard.decklearn.models.FollowRelation;
-
 @Repository
 public class FollowRepositoryImpl implements FollowRepositoryCustom {
 
