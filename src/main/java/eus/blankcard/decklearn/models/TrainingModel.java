@@ -13,11 +13,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table( name = "training")
 public class TrainingModel {
     
     @Id
-    @Column( name = "trainig_id" )
+    @Column( name = "training_id" )
     private Integer id;
 
     @ManyToOne
