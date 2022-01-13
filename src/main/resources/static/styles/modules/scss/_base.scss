@@ -118,11 +118,14 @@ body {
     body{
         grid-template-columns: min-content 6fr;
         grid-template-areas: none;
+        overflow-y: hidden;
     }
 
     .left-nav {
         padding: 1rem;
         grid-area: unset;
+        overflow-y: auto;
+        overflow-x: hidden;
 
         > header > a > img {
             display: inline;
@@ -131,6 +134,7 @@ body {
 
     .center-screen {   
         grid-area: unset;
+        overflow-y: auto;
     }
 
     .nav-bar__list{
