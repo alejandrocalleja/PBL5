@@ -23,39 +23,39 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    // @Override
-    // public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    //     UserModel user = userRepository.findByUsername(username);
-
-    //     if (user == null) {
-    //         throw new UsernameNotFoundException("User " + username + " not found.");
-    //     }
-
-    //     List<GrantedAuthority> roles = new ArrayList<>();
-    //     roles.add(new SimpleGrantedAuthority("USER"));
-    //     UserDetails userDet = new User(user.getUsername(), user.getPassword(), roles);
-
-    //     return userDet;
-    // }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-      UserModel user = userRepository.findByUsername(username);
-      UserBuilder builder = null;
+        UserModel user = userRepository.findByUsername(username);
 
-      if (user != null) {
-        builder = org.springframework.security.core.userdetails.User.withUsername(username);
-        builder.username(user.getUsername());
-        builder.password(user.getPassword());
-        
+        if (user == null) {
+            throw new UsernameNotFoundException("User " + username + " not found.");
+        }
+
         List<GrantedAuthority> roles = new ArrayList<>();
         roles.add(new SimpleGrantedAuthority("USER"));
-        builder.roles((String[]) roles.toArray());
+        UserDetails userDet = new User(user.getUsername(), user.getPassword(), roles);
 
-      } else {
-        throw new UsernameNotFoundException("User not found.");
-      }
-
-      return builder.build();
+        return userDet;
     }
+
+    // @Override
+    // public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    //   UserModel user = userRepository.findByUsername(username);
+    //   UserBuilder builder = null;
+
+    //   if (user != null) {
+    //     builder = org.springframework.security.core.userdetails.User.withUsername(username);
+    //     builder.username(user.getUsername());
+    //     builder.password(user.getPassword());
+        
+    //     List<GrantedAuthority> roles = new ArrayList<>();
+    //     roles.add(new SimpleGrantedAuthority("USER"));
+    //     builder.roles((String[]) roles.toArray());
+
+    //   } else {
+    //     throw new UsernameNotFoundException("User not found.");
+    //   }
+
+    //   return builder.build();
+    // }
 }
