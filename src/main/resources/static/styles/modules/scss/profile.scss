@@ -41,11 +41,16 @@
     justify-content: space-between;
     gap: 1.5rem;
 
-    p{
-        span{
-            font-weight: bold;
+    a {
+        text-decoration: none;
+        color: $following-follower-color;
+        p{
+            span{
+                font-weight: bold;
+            }
         }
     }
+
 }
 
 .profile-nav{

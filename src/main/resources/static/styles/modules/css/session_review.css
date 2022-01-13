@@ -124,14 +124,18 @@ body {
 @media (min-width: 550px) {
   body {
     grid-template-columns: min-content 6fr;
-    grid-template-areas: none; }
+    grid-template-areas: none;
+    overflow-y: hidden; }
   .left-nav {
     padding: 1rem;
-    grid-area: unset; }
+    grid-area: unset;
+    overflow-y: auto;
+    overflow-x: hidden; }
     .left-nav > header > a > img {
       display: inline; }
   .center-screen {
-    grid-area: unset; }
+    grid-area: unset;
+    overflow-y: auto; }
   .nav-bar__list {
     align-items: center;
     flex-direction: column; }
