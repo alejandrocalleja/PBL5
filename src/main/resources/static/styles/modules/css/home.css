@@ -3,10 +3,19 @@
   src: local("Sans Forgetica Regular"), url("../../../font/SansForgetica-Regular.woff") format("woff"); }
 
 .card-section > h2 {
+  margin: 0;
   font-size: 1.5rem;
-  font-weight: 500;
-  border-bottom: 1px solid #BAB8B8; }
+  font-weight: normal;
+  border-bottom: 1px solid #959595; }
 
 @media (min-width: 762px) {
+  .card-section {
+    padding: 3rem, 2rem, 2rem, 3rem; } }
+
+@media (min-width: 1024px) {
+  .card-section {
+    padding: 3rem, 2rem, 2rem, 3rem; } }
+
+@media (min-width: 1300px) {
   .card-section {
     padding: 3rem, 2rem, 2rem, 3rem; } }

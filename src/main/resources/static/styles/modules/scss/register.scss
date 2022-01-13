@@ -1,7 +1,4 @@
-@import 'variables';
-@import 'generic';
-@import 'scrollbar';
-@import 'checkbox';
+@import '../../variables/variables';
 
 body {
     margin: 0;
@@ -32,7 +29,7 @@ main {
     &__inside{
         height: 100%;
         max-height: 100%;
-        width: 100%;
+        width: fit-content;
         
         display: flex;
         margin: auto;
@@ -42,7 +39,7 @@ main {
     
         > img {
             position: static;
-            width: 55%;
+            width: 45%;
             padding: 1rem;
         }
     }
@@ -62,11 +59,10 @@ main {
 }
 
 .custom-input {
-    @include custom-input;
-}
-
-::placeholder{
-    color: $placeholder-color;
+    border: 0;
+    border-bottom: 1px solid $input-underline;
+    outline: 0;
+    font-size: 1.3rem;
 }
 
 .checkboxes {
@@ -79,7 +75,6 @@ main {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    width: 100%;
 }
 
 .bordered-checkbox {
@@ -87,14 +82,63 @@ main {
 }
 
 .custom-submit {
-    @include custom-submit;
+    background-color: $custom-button-bg;
+    border: none;
+    border-radius: $button-radius;
+    color: $custom-button-color;
+    border: 2px solid $custom-button-sec-border;
+    padding: .05rem 3.5rem 0.5rem 3.5rem;
+    font-size: $button-font-size;
+    font-weight: 100;
     width: fit-content;
+    cursor: pointer;
+}
+
+.custom-button {
+    text-decoration: none;
+    text-align: center;
+    background-color: $custom-button-sec-bg;
+    border: 2px solid $custom-button-sec-border;
+    border-radius: $button-radius;
+    font-size: $button-font-size;
+    font-weight: 100;
+    padding: .5rem;
+    color: $custom-button-sec-color;
 }
 
 .forgot-password {
     text-align: center;
     text-decoration: none;
     color: $button-green;
+}
+
+input[type="checkbox"]{
+    display: none;
+
+    + label {
+        position: relative;
+        display: inline-block;
+        width: 1.2rem;
+        height: 1.2rem;
+        border: 2px solid $checkbox-border-color;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+
+    &:checked{
+        + label {
+            background-color: $checkbox-border-color;
+            color: $checkbox-inside-color;
+            
+
+            &:after{
+                position: absolute;
+                top: -0.4rem;
+                content: '\2714';
+                font-size: 1.2rem;
+            }
+        }
+    }
 }
 
 @media (min-width: screen-size(medium)){
@@ -106,38 +150,21 @@ main {
     .inputs {
         grid-template-columns: 1fr 1fr;
     }
-
-    .flexed-form {
-        gap: 10rem;
-        height: 90%;
-        justify-content: flex-end;
-    }
 }
 
-@media (min-width: screen-size(large)){
-    .inputs{
-        width: 90%;
-        row-gap: 2rem;
-    }
-
-    .custom-submit{
-        padding: 0.15rem 5rem 0.6rem 5rem;
-    }
-}
-
-@media (min-height: screen-size-register-vertical()) and (min-width: screen-size(medium)){
-    body{
-        height: 100vh;
-    }
-
+@media (min-height: 600px){
     .left-part {
         &__inside{
             > img {
                 position: absolute;
                 top: 0;
                 left: 0;
-                width: 20%;
+                width: 25%;
             }
         }
+    }
+
+    body{
+        height: 100vh;
     }
 }

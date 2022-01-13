@@ -1,17 +1,10 @@
 package eus.blankcard.decklearn.models;
 
-import java.sql.Date;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -39,19 +32,7 @@ public class UserModel {
 
     private String country;
 
-    private Date birth_date;
-
-    private String img_path;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable( name = "followed",
-                joinColumns = { @JoinColumn( name = "followed_id") },
-                inverseJoinColumns = {@JoinColumn( name = "follower_id")}
-                )
-    private List<UserModel> followers;
-
-    @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
-    private List<UserModel> followed;
+    private String age;
 
     public Integer getId() {
         return id;
@@ -116,83 +97,12 @@ public class UserModel {
     public void setCountry(String country) {
         this.country = country;
     }
-
-    public Date getBirth_date() {
-        return birth_date;
+    
+    public String getAge() {
+        return age;
     }
-
-    public void setBirth_date(Date birth_date) {
-        this.birth_date = birth_date;
+    
+    public void setAge(String age) {
+        this.age = age;
     }
-
-    public String getImg_path() {
-        return img_path;
-    }
-
-    public void setImg_path(String img_path) {
-        this.img_path = img_path;
-    }    
-
-    public List<UserModel> getFollowers() {
-        return followers;
-    }
-
-    public void setFollowers(List<UserModel> followers) {
-        this.followers = followers;
-    }
-
-    public List<UserModel> getFollowed() {
-        return followed;
-    }
-
-    public void setFollowed(List<UserModel> followed) {
-        this.followed = followed;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((username == null) ? 0 : username.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        UserModel other = (UserModel) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (username == null) {
-            if (other.username != null)
-                return false;
-        } else if (!username.equals(other.username))
-            return false;
-        return true;
-    }
-
-    // public int getFollowers() {
-    //     return followers;
-    // }
-
-    // public void setFollowers(int followers) {
-    //     this.followers = followers;
-    // }
-
-    // public int getFollowing() {
-    //     return following;
-    // }
-
-    // public void setFollowing(int following) {
-    //     this.following = following;
-    // }
 }

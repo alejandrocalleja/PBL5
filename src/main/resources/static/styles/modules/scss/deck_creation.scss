@@ -1,22 +1,20 @@
-@import 'variables';
-@import 'scrollbar';
-@import 'generic';
-@import 'base';
-
-.top-nav {
-    @include top-nav(flex-end);
-}
+@import '../../variables/variables';
 
 .deck-creation-section {
     > h2 {
-        @include h2-title;
+        display: flex;
+        text-align: center;
+        margin: 0;
+        // margin-bottom: 1rem;
+    
+        font-size: $title-font-size;
+        font-weight: normal;
+        border-bottom: 1px solid $border-bottom-color;
     }
 
     &__list {
         display: grid;
         gap: 2rem;
-        padding-left: 1.5rem;
-        padding-top: 1.5rem;
     }
 }
 
@@ -34,6 +32,7 @@
     justify-content: space-between;
     align-items: flex-start;
     gap: 1rem;
+    padding-top: 1rem;
 
     &__data {
         outline: none;
@@ -41,39 +40,15 @@
         border-bottom: 1px solid $border-bottom-color;
         margin-left: 1.5rem;
         padding-bottom: 0.3rem;
-        padding-top: 0.5rem;
 
         width: calc(100% - 1.5rem);
         resize: none;
 
         font-size: $data-font-size;
-        line-height: 26px;
-
-        &__of-hidden{
-            overflow-y: hidden;
-        }
-
-        &__of-auto{
-            overflow-y: auto;
-        }
-    }
-
-    #question-answer{
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        padding: 1rem 0 1rem 0;
     }
 
     > label {
         margin-left: 1rem;
-    }
-
-    #buttons {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 100%;
     }
 }
 
@@ -83,6 +58,7 @@
     justify-content: space-between;
     align-items: flex-start;
     gap: 1rem;
+    padding-top: 1rem;
 }
 
 .creation-button {
@@ -94,16 +70,11 @@
 
     font-size: $data-font-size;
     border: 0;
+    border-bottom: 1px solid $card-section-button-color;
     border-radius: $button-radius;
     
-    background-color: $creation-button-bg-color;
-    color: $creation-button-color;
-    cursor: pointer;
-
-    &:hover{
-        background-color: $darkened-for-white-buttons-color;
-        transition: 0.2s;
-    }
+    background-color: $card-section-button-color;
+    color: $custom-button-color;
 
     > img {
         width: 1.7rem;
@@ -125,29 +96,25 @@
     border: 0;
     height: fit-content;
     font-size: $data-font-size;
-    padding: 0.5rem 1rem 0.5rem 1rem;
-    cursor: pointer;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 
     color: $custom-button-font-color;
     background-color: $card-section-button-color;
 
     white-space: nowrap;
-
-    &:hover{
-        background-color: $darkened-decklearn-color;
-        transition: 0.2s;
-    }
 }
 
 .deck-categories {
     padding-top: 3rem;
-    padding-left: 1.5rem;
 
     &__list {
         display: flex;
         flex-wrap: wrap;
         grid-template-columns: repeat(4, 1fr);
-        padding-top: 1.5rem;
+        padding-top: 1rem;
         gap: 1rem;
 
         > button {
@@ -161,15 +128,9 @@
             font-size: $categories-font-size;
 
             > img {
-                width: 0.7rem;
+                width: 1rem;
                 margin-right: 0.2rem;
                 margin-left: 0.2rem;
-                cursor: pointer;
-            }
-
-            &:hover{
-                background-color: $darkened-tags-color;
-                transition: 0.2s;
             }
         }
     }
@@ -181,7 +142,18 @@
     padding-top: 3rem;
 
     &__button {
-        @include thick-button;
+        display: flex;
+        justify-content: center;
+    
+        width: 40%;
+        padding: 0.5rem;
+
+        border-radius: $button-radius;
+        border: 0;
+        font-size: $button-font-size;
+
+        color: $custom-button-font-color;
+        background-color: $card-section-button-color;
     }
 }
 

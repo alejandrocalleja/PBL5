@@ -11,12 +11,51 @@
 </head>
 
 <body>
+    <aside class="left-nav">
+        <header>
+            <img src="images/letterLogo.svg" alt="Logo">
+        </header>
+        <main class="nav-bar">
+            <ul class="nav-bar__list">
+                <a href="">
+                    <img src="images/icons/Home_select.svg" alt="Home">
+                    <li>Home</li>
+                </a>
 
-    <div th:replace="fragments/left-nav :: left-nav"></div>
+                <a href="">
+                    <img src="images/icons/CreateDeck.svg" alt="Create Deck">
+                    <li>Create deck</li>
+                </a>
+
+                <a href="">
+                    <img src="images/icons/StudySessions.svg" alt="Study Sessions">
+                    <li>Study sessions</li>
+                </a>
+                <a href="">
+                    <img src="images/icons/Profile.svg" alt="Profile">
+                    <li>Profile</li>
+                </a>
+                <a href="">
+                    <img src="images/icons/Stats.svg" alt="User Stats">
+                    <li>Stats</li>
+                </a>
+                <a href="">
+                    <img src="images/icons/Settings.svg" alt="Settings">
+                    <li>Settings</li>
+                </a>
+            </ul>
+        </main>
+    </aside>
 
     <main class="center-screen">
-
-        <div th:replace="fragments/top-nav :: top-nav"></div>
+        <nav class="top-nav">
+            <input type="text" id="searchBar" onkeyup="myFunction()" placeholder="Search for names.."
+                title="Type in a name" class="search-bar">
+            <div class="top-nav__profile">
+                <img src="images/profilePic.jpg" alt="">
+                <span>Izan24</span>
+            </div>
+        </nav>
 
         <section class="content-container">
             <section class="content">
@@ -34,7 +73,7 @@
                                     <span th:text="${deck.text}"></span>
                                 </div>
                             </div>
-                            <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
+                            <a th:href="/deck/${deck.id}">View</a>
                         </div>
 
                     </div>
@@ -53,7 +92,7 @@
                                     <span th:text="${deck.text}"></span>
                                 </div>
                             </div>
-                            <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
+                            <a th:href="/deck/${deck.id}">View</a>
                         </div>
 
                     </div>

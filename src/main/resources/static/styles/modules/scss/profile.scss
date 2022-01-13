@@ -1,11 +1,8 @@
-@import 'variables';
-@import 'generic';
-@import 'scrollbar';
-@import 'base';
-@import 'card';
+@import '../../variables/variables';
 
-.top-nav {
-    @include top-nav(flex-end);
+*{
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .profile__top-title{
@@ -14,24 +11,48 @@
 }
 
 .profile-data{
-    @include profile-data;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    text-align: center;
+
+    &__img-user {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-bottom: 1rem;
+    }
+
+    &__image {
+        padding: 1rem;
+        object-fit: cover;
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+    }
+
+    &__button {
+        padding-bottom: 2rem;
+    }
 }
 
 .button-editProfile {
-    @include default-button;
+    text-decoration: none;
+    background-color: $custom-button-bg;
+    border-radius: $button-radius;
+    color: $custom-button-color;
+    padding: 0.3rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    font-size: $button-font-size;
+    cursor: pointer;
 }
 
 .user-name {
-    h2{
-        font-weight: 400;
-        font-size: 1.75rem;
-        text-align: left;
-    }
     h3{
-        font-weight: 100;
-        font-size: 1rem;
-        color: $h3-color;
-        padding: 0.3rem 0 0.3rem 0;
+        font-weight: normal;
+        color: $input-underline;
     }
 }
 
@@ -39,30 +60,54 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    gap: 1.5rem;
 
-    a {
-        text-decoration: none;
-        color: $following-follower-color;
-        p{
-            span{
-                font-weight: bold;
-            }
+    p{
+        span{
+            font-weight: bold;
         }
     }
-
 }
 
 .profile-nav{
-    @include profile-nav;
+    border-bottom: $input-underline 1px solid;
+    display: flex;
     justify-content: space-between;
+
+    p{
+        height: 100%;
+    }
 }
 
 .selected{
-    border-bottom: $decklearn-green solid 2px;
+    border-bottom: $decklearn-green solid 3px;
 }
 
 @media (min-width: screen-size(medium)){
-       @include profile-data-media;
-       
+    .profile-data{
+        flex-direction: row;
+        align-items: flex-end;
+
+        &__img-user {
+            flex-direction: row;
+        }
+
+        &__button {
+            display: flex;
+            padding-bottom: 1rem;
+        }
+    }
+
+    .user-name {
+        h3{
+            text-align: left;
+        }
+    }
+}
+
+@media (min-width: screen-size(large)){
+    
+}   
+
+@media (min-width: screen-size(extra-large)){
+    
 }
