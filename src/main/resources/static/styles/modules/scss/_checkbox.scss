@@ -1,0 +1,28 @@
+input[type="checkbox"]{
+    display: none;
+
+    + label {
+        position: relative;
+        display: inline-block;
+        width: 1.2rem;
+        height: 1.2rem;
+        border: 2px solid $checkbox-border-color;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+
+    &:checked{
+        + label {
+            background-color: $checkbox-border-color;
+            color: $checkbox-inside-color;
+            
+
+            &:after{
+                position: absolute;
+                top: -0.4rem;
+                content: '\2714';
+                font-size: 1.2rem;
+            }
+        }
+    }
+}

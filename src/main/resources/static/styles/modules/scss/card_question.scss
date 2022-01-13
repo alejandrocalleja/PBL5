@@ -1,0 +1,13 @@
+@import 'card_answer_question';
+
+.card-content, .card-content__img, .card-content__img__noQ{
+    a {
+        border-radius: 0 0 5rem 5rem;
+        background-color: $card-section-button-color;
+
+        &:hover{
+            background-color: $darkened-decklearn-color;
+            transition: 0.2s;
+        }
+    }
+}

@@ -1,4 +1,7 @@
-@import '../../variables/variables';
+@import 'variables';
+@import 'generic';
+@import 'scrollbar';
+@import 'checkbox';
 
 body {
     margin: 0;
@@ -18,9 +21,7 @@ main {
 }
 
 .left-part {
-    background-color: $decklearn-green;
-    height: 100%;
-    max-height: 100%;
+    @include colored-part;
 }
 
 .right-part {
@@ -53,39 +54,40 @@ main {
     display: grid;
     grid-template-rows: auto auto auto auto auto 1fr;
     padding-top: 2rem;
-    column-gap: 1rem;
-    row-gap: 1.5rem;
-}
+    row-gap: 1.75rem;
+    width: 100%;
 
-.custom-input {
-    border: 0;
-    border-bottom: 1px solid $input-underline;
-    outline: 0;
-    font-size: 1.3rem;
-}
-
-.checkboxes {
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.bordered-checkbox {
-    padding: 0 0.2rem 0 0;
-    > label{
-        margin: 0 0 0 0.8rem;
+    > .user-fields {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
     }
 }
 
+.custom-input {
+    @include custom-input;
+}
+
+::placeholder{
+    color: $placeholder-color;
+}
+
+
+.checkboxes {
+    display: flex;
+    justify-content: space-between;
+
+    > div {
+        display: flex;
+    }
+}
+
+.bordered-checkbox {
+    padding: 0 0.25rem 0 0;
+}
+
 .custom-submit {
-    background-color: $custom-button-bg;
-    border: none;
-    border-radius: $button-radius;
-    color: $custom-button-color;
-    border: 2px solid $custom-button-sec-border;
-    padding: .5rem;
-    font-size: $button-font-size;
-    font-weight: 100;
-    cursor: pointer;
+    @include custom-submit;
 }
 
 .custom-button {
@@ -96,42 +98,24 @@ main {
     border-radius: $button-radius;
     font-size: $button-font-size;
     font-weight: 100;
-    padding: .5rem;
+    padding: 0.05rem 3.5rem 0.5rem 3.5rem;
     color: $custom-button-sec-color;
+    cursor: pointer;
+
+    &:hover{
+        background-color: $darkened-for-white-buttons-color;
+        transition: 0.2s;
+    }
 }
 
 .forgot-password {
     text-align: center;
     text-decoration: none;
     color: $button-green;
-}
 
-input[type="checkbox"]{
-    display: none;
-
-    + label {
-        position: relative;
-        display: inline-block;
-        width: 1.2rem;
-        height: 1.2rem;
-        border: 2px solid $checkbox-border-color;
-        border-radius: 2px;
-        cursor: pointer;
-      }
-
-    &:checked{
-        + label {
-            background-color: $checkbox-border-color;
-            color: $checkbox-inside-color;
-            
-
-            &:after{
-                position: absolute;
-                top: -0.4rem;
-                content: '\2714';
-                font-size: 1.2rem;
-            }
-        }
+    &:hover{
+        text-decoration: underline;
+        transition: 0.2s;
     }
 }
 
@@ -142,7 +126,7 @@ input[type="checkbox"]{
     }
 }
 
-@media (min-height: 600px){
+@media (min-height: screen-size-login-vertical()){
     body{
         height: 100vh;
     }

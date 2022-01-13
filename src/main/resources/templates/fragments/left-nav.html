@@ -1,0 +1,52 @@
+<aside class="left-nav" th:fragment="left-nav">
+    <header>
+        <a th:href="@{/home}">
+            <img th:src="@{images/svg/letterLogo.svg}" alt="Logo">
+        </a>
+    </header>
+    <div class="nav-bar">
+        <ul class="nav-bar__list">
+            <li>
+                <a th:href="@{/home}">
+                    <img th:src="@{images/icons/Home_select.svg}" alt="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/create/deck}">
+                    <img th:src="@{images/icons/CreateDeck.svg}" alt="Create Deck">
+                    <span>Create deck</span>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/sessions}">
+                    <img th:src="@{images/icons/StudySessions.svg}" alt="Study Sessions">
+                    <span>Study sessions</span>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/{user}(user=${#httpServletRequest.remoteUser})}">
+                    <img th:src="@{images/icons/Profile.svg}" alt="Profile">
+                    <span>Profile</span>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/{user}/stats(user=${#httpServletRequest.remoteUser})}">
+                    <img th:src="@{images/icons/Stats.svg}" alt="User Stats">
+                    <span>Stats</span>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="@{/settings}">
+                    <img th:src="@{images/icons/Settings.svg}" alt="Settings">
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>

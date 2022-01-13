@@ -117,6 +117,9 @@ main {
   font-size: 1.3rem;
   font-weight: 100;
   cursor: pointer; }
+  .custom-submit:hover {
+    background-color: #007e68;
+    transition: 0.2s; }
 
 .custom-button {
   text-decoration: none;
@@ -129,11 +132,17 @@ main {
   padding: 0.05rem 3.5rem 0.5rem 3.5rem;
   color: #969090;
   cursor: pointer; }
+  .custom-button:hover {
+    background-color: #DBDFDF;
+    transition: 0.2s; }
 
 .forgot-password {
   text-align: center;
   text-decoration: none;
   color: #01CDA9; }
+  .forgot-password:hover {
+    text-decoration: underline;
+    transition: 0.2s; }
 
 @media (min-width: 450px) {
   main {

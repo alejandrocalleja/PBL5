@@ -1,0 +1,35 @@
+@import 'variables';
+@import 'generic';
+@import 'scrollbar';
+
+.profile-nav__center{
+    @include profile-nav;
+    justify-content: center;
+}
+
+.profile-data{
+    @include profile-data;
+}
+
+.button-follow{
+    @include default-button;
+    width: 15rem;
+}
+
+.button-following{
+    background-color: $custom-button-color !important;
+    color: $custom-button-text-color !important;
+    border: solid 2px $custom-button-border !important;
+}
+
+.button-unfollow{
+    background-color: $custom-button-unfollow !important;
+    color: $custom-button-unfollow-text !important;
+    border: solid 2px $custom-button-unfollow-text !important;
+}
+
+
+
+@media (min-width: screen-size(medium)){
+    @include profile-data-media;
+}

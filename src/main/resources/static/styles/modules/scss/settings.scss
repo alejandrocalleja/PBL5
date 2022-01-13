@@ -1,0 +1,230 @@
+@import 'variables';
+@import 'generic';
+@import 'scrollbar';
+@import 'base';
+@import 'radio';
+@import 'checkbox';
+
+.content{
+    @include content(100%);
+}
+
+.top-nav {
+    @include top-nav(flex-end);
+}
+
+.settings-content-section{
+    > div {
+        padding-top: 4rem;
+    }
+}
+
+.settings-selector{
+    border: $input-underline 1px solid;
+    border-radius: $settings-selector-radius;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+
+    &__logout
+    {
+        > nav {
+            justify-content: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    &__screens__list{
+        a{
+            &:hover{
+                background-color: $darkened-for-white-buttons-color;
+                border-radius: $settings-button-radius;
+                transition: 0.2s;
+            }
+        }
+    }
+}
+
+a{
+    text-decoration: none;
+    color: $settings-selector-text-color;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+
+    &:hover{
+        transition: 0.2s;
+    }
+}
+
+.selected{
+    border-left: $decklearn-green solid 2px;
+}
+
+#logout{
+    color: $logout-color;
+    justify-content: center;
+    display: flex;
+    gap: 0.5rem;
+
+    > p{
+        font-weight: 500;
+        font-size: 1.1rem;
+    }
+
+    &:hover{
+        background-color: $darkened-for-white-buttons-color;
+        border-radius: $button-radius;
+        transition: 0.2s;
+    }
+}
+
+.settings__top-title{
+    border-bottom: $input-underline 1px solid;
+    padding: 0.1rem;
+    font-size: $title-font-size;
+}
+
+.profile-photo{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+
+    &__image {
+        padding: 1rem;
+        object-fit: cover;
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+    }
+
+    >div{
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+
+        > p {
+            font-size: 1.2rem;
+            font-weight: 500;
+            width: 100%;
+            text-align: left;
+        }
+    }
+
+    &__button{
+        @include default-button;
+    }
+}
+
+.custom-input {
+    border: 0;
+    border-bottom: 1px solid $input-underline;
+    outline: 0;
+    font-size: 1.3rem;
+    width: 100%;
+}
+
+.custom-submit {
+    @include default-button;
+    margin-top: 2rem;
+    width: fit-content;
+    grid-column: 2;
+}
+
+.altered-custom-submit{
+    @extend .custom-submit;
+    grid-column-start: span 2;
+}
+
+.grided-form{
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: auto 1fr;
+    justify-items: right;
+    align-items: end;
+
+    > label {
+        text-align: left;
+        justify-self: left;
+        font-weight: 500;
+        font-size: 1.2rem;
+    }
+}
+
+.altered-grided-form{
+    @extend .grided-form;
+    justify-items: left;
+}
+
+.settings-central{
+    padding-top: 1rem;
+    padding-left: 1rem;
+}
+
+label{
+    text-align: end;
+}
+
+@media (min-width: screen-size(medium)){
+    .settings-central{
+        display: grid;
+        grid-template-columns: 5fr 3fr;
+        gap: 1.5rem;
+        padding: 1rem 0 0 3rem;
+    }
+
+    .profile-photo {
+        grid-column: 2;
+        grid-row: 1;
+
+        > div {
+            justify-content: center;
+        }
+    }
+
+    .user-data-form{
+        grid-column: 1;
+        grid-row: 1;
+    }
+}
+
+@media (min-width: screen-size(large)){
+    .settings-content-section {
+        height: 100%;
+
+        > div {
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+        height: 100%;
+        }
+    }
+
+    .settings-selector{
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start;
+        height: 70%;
+        padding: 1rem 0 0.75rem 0;
+    }
+
+    .profile-photo {
+        align-items: start;
+
+        > div {
+            justify-content: start;
+            padding-top: 1rem;
+        }
+    }
+    
+    .grided-form{
+        gap: 3rem;
+    }
+}
