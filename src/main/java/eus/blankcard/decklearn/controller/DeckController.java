@@ -31,7 +31,15 @@ public class DeckController {
         req.setAttribute("creator", creator.getUsername());
         req.setAttribute("studies", 2);
 
-        return "deck_view";
+        return "/deck/deck_view";
+    }
+
+
+    @GetMapping("/deck/{deckId}/stats")
+    public String getDeckStats(@PathVariable("deckId") Integer deckId, HttpServletRequest req,
+    HttpServletResponse response) {
+        
+        return "/deck/deck_stats";
     }
     
 }

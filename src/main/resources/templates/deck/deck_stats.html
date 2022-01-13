@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck Learn - Deck Stats</title>
+    <link rel="stylesheet" href="assets/modules/css/home.css">
+    <link rel="stylesheet" href="assets/deck_stats/css/deck_stats.css">
+    <script src="assets/user_stats/scss/user_stats.js"></script>
+</head>
+
+<body>
+    <aside class="left-nav">
+        <header>
+            <a href="">
+                <img src="images/letterLogo.svg" alt="Logo">
+            </a> 
+        </header>
+        <div class="nav-bar">
+            <ul class="nav-bar__list">
+                <li>
+                    <a href="">
+                        <img src="images/icons/Home.svg" alt="Home">
+                        <span>Home</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        <img src="images/icons/CreateDeck.svg" alt="Create Deck">
+                        <span>Create deck</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        <img src="images/icons/StudySessions_select.svg" alt="Study Sessions">
+                        <span>Study sessions</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        <img src="images/icons/Profile.svg" alt="Profile">
+                        <span>Profile</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        <img src="images/icons/Stats.svg" alt="User Stats">
+                        <span>Stats</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="">
+                        <img src="images/icons/Settings.svg" alt="Settings">
+                        <span>Settings</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </aside>
+
+    <main class="center-screen">
+        <nav class="top-nav">
+            <div class="top-nav__profile">
+                <img src="images/profilePic.jpg" alt="">
+                <a tabindex="0">Izan24</a>
+            </div>
+        </nav>
+
+        <div class="content-container">
+            <div class="content">
+                <section class="stats-section">
+                    <h2>Deck Stats</h2>
+                    <div class="titled-stats-section__list">
+                        <h2>French Revolution</h2>
+                        <div class="stats-section__list">
+                            <div class="stats-card__list">
+                                <div class="stats-card">
+                                    <h3>Studies this month</h3>
+                                    <div class="stats-card__content">
+                                        <p>48</p>
+                                    </div>
+                                    <p class="stats-card__decoration"> </p>
+                                </div>
+    
+                                <div class="stats-card">
+                                    <h3>Total Studies</h3>
+                                    <div class="stats-card__content">
+                                        <p>256</p>
+                                    </div>
+                                    <p class="stats-card__decoration"> </p>
+                                </div>
+    
+                                <div class="stats-card">
+                                    <h3>Average completion time</h3>
+                                    <div class="stats-card__content">
+                                        <p>2 min</p>
+                                    </div>
+                                    <p class="stats-card__decoration"> </p>
+                                </div>
+    
+                                <div class="stats-card">
+                                    <h3>Total </h3>
+                                    <div class="stats-card__content">
+                                        <p>48</p>
+                                        <img src="images/book.svg" alt="">
+                                    </div>
+                                    <p class="stats-card__decoration"> </p>
+                                </div>
+                            </div>
+    
+                            <div class="stats-graphic">
+                                <h3 class="stats-graphic__title">Average pass ratio</h3>
+                                <div id="graph1" class="donut-chart chart1">
+                                    <div id="graph_part1" class="slice one"></div>
+                                    <div id="graph_part2" class="slice two"></div>
+                                    <div class="chart-center">
+                                        <span id="texto" data-after="45%"></span>
+                                    </div>
+                                </div>
+                                <a id="prueba" tabindex="0">Return to profile</a>
+                            </div>
+                        </div>
+                    </div> 
+                </section>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
