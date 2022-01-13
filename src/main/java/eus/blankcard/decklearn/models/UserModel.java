@@ -1,12 +1,17 @@
 package eus.blankcard.decklearn.models;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -38,19 +43,15 @@ public class UserModel {
 
     private String img_path;
 
-    // @ManyToMany(targetEntity=OrderItem.class, fetch=FetchType.LAZY)
-    // @Fetch(FetchMode.SUBSELECT)
-    // @JoinTable(name = "order_order_item", joinColumns = { @JoinColumn(name = "cod_order") }, 
-    // inverseJoinColumns = { @JoinColumn(name = "cod_item") })
-    //     public Set<OrderItem> setOrderItem = new HashSet<OrderItem>();
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable( name = "followed",
+                joinColumns = { @JoinColumn( name = "followed_id") },
+                inverseJoinColumns = {@JoinColumn( name = "follower_id")}
+                )
+    private List<UserModel> followers;
 
-    // @ManyToMany(cascade = { CascadeType.ALL })
-    // @JoinTable(
-    //     name = "followed", 
-    //     joinColumns = { JoinColumns(name = "follower_id") }, 
-    //     inverseJoinColumns = { @JoinColumn(name = "project_id") }
-    // )
-    // Set<UserModel> followers = new HashSet<>();
+    @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
+    private List<UserModel> followed;
 
     public Integer getId() {
         return id;
@@ -130,6 +131,22 @@ public class UserModel {
 
     public void setImg_path(String img_path) {
         this.img_path = img_path;
+    }    
+
+    public List<UserModel> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<UserModel> followers) {
+        this.followers = followers;
+    }
+
+    public List<UserModel> getFollowed() {
+        return followed;
+    }
+
+    public void setFollowed(List<UserModel> followed) {
+        this.followed = followed;
     }
 
     @Override

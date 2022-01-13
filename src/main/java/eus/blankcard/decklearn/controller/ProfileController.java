@@ -32,11 +32,13 @@ public class ProfileController {
         if (user != null) {
             req.setAttribute("user", user);
 
-            int followers = userRepository.countFollowers(user.getId());
-            int following = userRepository.countFollowing(user.getId());
+            // int followers = userRepository.countFollowers(user.getId());
+            // int following = userRepository.countFollowing(user.getId());
 
-            req.setAttribute("followers", followers);
-            req.setAttribute("following", following);
+            System.out.println(user.getFollowers().get(0).getFollowers().get(3).getFollowers().size());
+
+            req.setAttribute("followers", user.getFollowers().size());
+            req.setAttribute("following", user.getFollowed().size());
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentPrincipalName = authentication.getName();
