@@ -46,7 +46,7 @@
                                 </div>
 
                                 <div class="info__button">
-                                    <a th:href="@{/deck/{id}/study(id=${deck.deck_id})}">Study</a>
+                                    <a th:href="@{/deck/{id}/study(id=${deck.id})}">Study</a>
                                 </div>
 
                                 <span class="info__studiesNum" th:inline="text">[[${studies}]]</span>
@@ -57,10 +57,10 @@
                     </div>
 
                     <div class="deck-view__buttons">
-                        <a th:href="@{/deck/{id}/stats(id=${deck.deck_id})}" class="">View stats</a>
-                        <a th:href="@{/deck/{id}/save(id=${deck.deck_id})}" class="">Save</a>
-                        <a th:href="@{/deck/{id}/edit(id=${deck.deck_id})}" class="">Edit</a>
-                        <a th:href="@{/deck/{id}/remove(id=${deck.deck_id})}" class="">Remove</a>
+                        <a th:href="@{/deck/{id}/stats(id=${deck.id})}" class="">View stats</a>
+                        <a th:href="@{/deck/{id}/save(id=${deck.id})}" class="">Save</a>
+                        <a th:href="@{/deck/{id}/edit(id=${deck.id})}" class="">Edit</a>
+                        <a th:href="@{/deck/{id}/remove(id=${deck.id})}" class="">Remove</a>
                     </div>
                 </div>
             </section>
