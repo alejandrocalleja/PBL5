@@ -11,10 +11,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-// @ExtendWith(SpringExtension.class)
-// @SpringBootTest
-
-// @WebMvcTest(ProfileController.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ProfileControllerTest {
