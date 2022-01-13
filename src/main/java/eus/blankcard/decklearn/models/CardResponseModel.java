@@ -22,4 +22,31 @@ public class CardResponseModel {
     @ManyToOne
     @JoinColumn(name="card_id")
     private CardModel card;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public ResultsModel getResults() {
+        return results;
+    }
+
+    public void setResults(ResultsModel results) {
+        this.results = results;
+    }
+
+    public CardModel getCard() {
+        return card;
+    }
+
+    public void setCard(CardModel card) {
+        this.card = card;
+    }
+
+
+    
 }

@@ -71,5 +71,11 @@ public class CardModel {
         this.img_path = img_path;
     }
 
-    
+    public List<CardResponseModel> getCardResponses() {
+        return cardResponses;
+    }
+
+    public void setCardResponses(List<CardResponseModel> cardResponses) {
+        this.cardResponses = cardResponses;
+    }
 }

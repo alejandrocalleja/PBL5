@@ -109,5 +109,5 @@ public class DeckModel {
 
     public void setTrainings(List<TrainingModel> trainings) {
         this.trainings = trainings;
-    }
+    }   
 }

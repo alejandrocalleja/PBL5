@@ -36,4 +36,14 @@ public class DeckTypeModel {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public List<DeckModel> getDecks() {
+        return decks;
+    }
+
+    public void setDecks(List<DeckModel> decks) {
+        this.decks = decks;
+    }
+
+    
 }

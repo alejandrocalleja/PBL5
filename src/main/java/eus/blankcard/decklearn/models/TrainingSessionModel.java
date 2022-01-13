@@ -25,4 +25,30 @@ public class TrainingSessionModel {
 
     @OneToMany(mappedBy = "trainingSession", cascade = CascadeType.ALL)
     List<ResultsModel> results;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public TrainingModel getTraining() {
+        return training;
+    }
+
+    public void setTraining(TrainingModel training) {
+        this.training = training;
+    }
+
+    public List<ResultsModel> getResults() {
+        return results;
+    }
+
+    public void setResults(List<ResultsModel> results) {
+        this.results = results;
+    }
+
+    
 }

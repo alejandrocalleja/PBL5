@@ -25,4 +25,31 @@ public class ResultsModel {
 
     @OneToMany(mappedBy = "results", cascade = CascadeType.ALL)
     List<CardResponseModel> cardResponses;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public TrainingSessionModel getTrainingSession() {
+        return trainingSession;
+    }
+
+    public void setTrainingSession(TrainingSessionModel trainingSession) {
+        this.trainingSession = trainingSession;
+    }
+
+    public List<CardResponseModel> getCardResponses() {
+        return cardResponses;
+    }
+
+    public void setCardResponses(List<CardResponseModel> cardResponses) {
+        this.cardResponses = cardResponses;
+    }
+
+
+    
 }
