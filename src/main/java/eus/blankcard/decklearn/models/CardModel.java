@@ -1,9 +1,13 @@
 package eus.blankcard.decklearn.models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +26,10 @@ public class CardModel {
     private String answer;
 
     private String img_path;
+
+    
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
+    List<CardResponseModel> cardResponses;
 
     public Integer getCard_id() {
         return card_id;

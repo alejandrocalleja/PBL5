@@ -1,5 +1,7 @@
 package eus.blankcard.decklearn.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import eus.blankcard.decklearn.models.CardModel;
 import eus.blankcard.decklearn.models.DeckModel;
 import eus.blankcard.decklearn.models.UserModel;
 import eus.blankcard.decklearn.repository.deck.DeckRepository;
@@ -38,6 +41,12 @@ public class DeckController {
     @GetMapping("/deck/{deckId}/stats")
     public String getDeckStats(@PathVariable("deckId") Integer deckId, HttpServletRequest req,
     HttpServletResponse response) {
+        DeckModel deck = deckRepository.getById(deckId);
+        List<CardModel> cards = deck.getCards();
+
+        cards.forEach(card -> {
+            
+        });
         
         return "/deck/deck_stats";
     }

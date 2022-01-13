@@ -44,6 +44,9 @@ public class UserModel {
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
     List<DeckModel> decks;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<TrainingModel> trainings;
+
     public Integer getId() {
         return id;
     }
@@ -122,5 +125,21 @@ public class UserModel {
 
     public void setImg_path(String img_path) {
         this.img_path = img_path;
+    }
+
+    public List<DeckModel> getDecks() {
+        return decks;
+    }
+
+    public void setDecks(List<DeckModel> decks) {
+        this.decks = decks;
+    }
+
+    public List<TrainingModel> getTrainings() {
+        return trainings;
+    }
+
+    public void setTrainings(List<TrainingModel> trainings) {
+        this.trainings = trainings;
     }
 }

@@ -31,6 +31,9 @@ public class DeckModel {
     @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
     List<CardModel> cards;
 
+    @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
+    List<TrainingModel> trainings;
+
     @ManyToMany
     @JoinTable( name = "type_relation",
                 joinColumns = { @JoinColumn( name = "deck_id") },
@@ -98,5 +101,13 @@ public class DeckModel {
 
     public void setTypes(List<DeckTypeModel> types) {
         this.types = types;
+    }
+
+    public List<TrainingModel> getTrainings() {
+        return trainings;
+    }
+
+    public void setTrainings(List<TrainingModel> trainings) {
+        this.trainings = trainings;
     }
 }

@@ -12,17 +12,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table( name = "results" )
-public class ResultsModel {
+@Table( name = "training_session")
+public class TrainingSessionModel {
     
     @Id
-    @Column( name = "results_id")
+    @Column( name = "training_session_id")
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name="training_session_id")
-    private TrainingSessionModel trainingSession;
+    @JoinColumn(name="training_id")
+    private TrainingModel training;
 
-    @OneToMany(mappedBy = "results", cascade = CascadeType.ALL)
-    List<CardResponseModel> cardResponses;
+    @OneToMany(mappedBy = "trainingSession", cascade = CascadeType.ALL)
+    List<ResultsModel> results;
 }
