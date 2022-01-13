@@ -59,6 +59,6 @@ public class ProfileController {
 
     @PostMapping("/{username}/follow")
     public String follow() {
-        return "profile";
+        return "redirect:/profile";
     }
 }
