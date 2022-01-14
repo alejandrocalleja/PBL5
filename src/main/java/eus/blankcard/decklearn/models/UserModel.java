@@ -37,11 +37,14 @@ public class UserModel {
 
     private String email;
 
-    private String postal_code;
+
+    @Column(name="postal_code")
+    private String postalCode;
 
     private String country;
 
-    private Date birth_date;
+    @Column(name="birth_date")
+    private Date birthDate;
 
     private String img_path;
 
@@ -117,14 +120,16 @@ public class UserModel {
         this.email = email;
     }
     
-    public String getPostal_code() {
-        return postal_code;
+
+    public String getPostalCode() {
+      return postalCode;
     }
     
-    public void setPostal_code(String postal_code) {
-        this.postal_code = postal_code;
+
+    public void setPostalCode(String postalCode) {
+      this.postalCode = postalCode;
     }
-    
+   
     public String getCountry() {
         return country;
     }
@@ -133,13 +138,6 @@ public class UserModel {
         this.country = country;
     }
 
-    public Date getBirth_date() {
-        return birth_date;
-    }
-
-    public void setBirth_date(Date birth_date) {
-        this.birth_date = birth_date;
-    }
 
     public String getImg_path() {
         return img_path;
@@ -151,6 +149,14 @@ public class UserModel {
 
     public List<UserModel> getFollowers() {
         return followers;
+    }
+
+    public Date getBirthDate() {
+      return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+      this.birthDate = birthDate;
     }
 
     public List<DeckModel> getDecks() {
