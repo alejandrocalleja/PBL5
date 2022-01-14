@@ -48,7 +48,7 @@ public class UserModel {
     List<DeckModel> decks;
 
     @ManyToMany
-    @JoinTable( name = "type_relation",
+    @JoinTable( name = "saved_deck",
                 joinColumns = { @JoinColumn( name = "user_id") },
                 inverseJoinColumns = {@JoinColumn( name = "deck_id")}
                 )
