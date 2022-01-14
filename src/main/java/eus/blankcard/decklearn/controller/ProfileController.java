@@ -23,13 +23,13 @@ public class ProfileController {
     @Autowired
     UserRepository userRepository;
 
-
     @GetMapping("/{username}")
     public String getProfile(@PathVariable("username") String username, HttpServletRequest req,
             HttpServletResponse response) {
         UserModel user = null;
-        user = userRepository.findByUsername(username);
 
+        user = userRepository.findByUsername(username);
+        if (user != null) {
             req.setAttribute("user", user);
             req.setAttribute("followers", user.getFollowers().size());
             req.setAttribute("following", user.getFollowed().size());
@@ -37,11 +37,12 @@ public class ProfileController {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentPrincipalName = authentication.getName();
 
-            if(currentPrincipalName.equals(username)) {
+            if (currentPrincipalName.equals(username)) {
                 return "profile";
             } else {
                 return "profile_visit";
             }
+
         } else {
             response.setStatus(404);
             return "error";
@@ -49,7 +50,8 @@ public class ProfileController {
     }
 
     @GetMapping("/{username}/followers")
-    public String getFollowers(@PathVariable("username") String username, HttpServletRequest req, HttpServletResponse response) {
+    public String getFollowers(@PathVariable("username") String username, HttpServletRequest req,
+            HttpServletResponse response) {
         UserModel user = userRepository.findByUsername(username);
 
         List<UserModel> followerList = userRepository.loadFollowers(user.getId());
@@ -71,29 +73,19 @@ public class ProfileController {
     }
 
     @GetMapping("/{username}/following")
-    public String getFollowing(@PathVariable("username") String username, HttpServletRequest req, HttpServletResponse response) {
+    public String getFollowing(@PathVariable("username") String username, HttpServletRequest req,
+            HttpServletResponse response) {
         UserModel user = userRepository.findByUsername(username);
 
         List<UserModel> followerList = userRepository.loadFollowers(user.getId());
-        // List<Integer> followerNumList = new ArrayList<>();
-        // List<Integer> followingNumList = new ArrayList<>();
-
-        // followerList.forEach(follower -> {
-        //     int followers = userRepository.countFollowers(follower.getId());
-        //     int following = userRepository.countFollowing(follower.getId());
-
-        //     followerNumList.add(followers);
-        //     followingNumList.add(following);
-        // });
 
         req.setAttribute("followers", followerList);
-        // req.setAttribute("followerNumList", followerNumList);
-        // req.setAttribute("followingNumList", followingNumList);
 
         return "following";
     }
 
     @PostMapping("/{username}/follow")
     public String follow() {
-        return "redirect:/profile";    }
+        return "redirect:/profile";
+    }
 }

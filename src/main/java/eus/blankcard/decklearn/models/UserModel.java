@@ -59,7 +59,6 @@ public class UserModel {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<TrainingModel> trainings;
 
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable( name = "followed",
                 joinColumns = { @JoinColumn( name = "followed_id") },
@@ -213,19 +212,11 @@ public class UserModel {
         return true;
     }
 
-    // public int getFollowers() {
-    //     return followers;
-    // }
+    public List<DeckModel> getSavedDecks() {
+        return savedDecks;
+    }
 
-    // public void setFollowers(int followers) {
-    //     this.followers = followers;
-    // }
-
-    // public int getFollowing() {
-    //     return following;
-    // }
-
-    // public void setFollowing(int following) {
-    //     this.following = following;
-    // }
+    public void setSavedDecks(List<DeckModel> savedDecks) {
+        this.savedDecks = savedDecks;
+    }
 }

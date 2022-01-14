@@ -31,14 +31,14 @@
                                     <h2 th:inline="text">[[${user.name}]]</h2>
                                     <h3 th:inline="text">[[${user.username}]]</h3>
                                 </div>
-                                <!-- <div class="data__follow">
+                                <div class="data__follow">
                                     <a th:href="@{/{username}/following(username=${follower.username})}">
-                                        <p> <span th:inline="text">[[${followerNumList[follower.index]}]]</span> Following</p>
+                                        <p> <span th:inline="text">[[${user.followed.size}]]</span> Following</p>
                                     </a>
                                     <a th:href="@{/{username}/followers(username=${follower.username})}">
-                                        <p> <span th:inline="text">[[${followedNumList[follower.index]}]]</span> Followers</p>
+                                        <p> <span th:inline="text">[[${user.followers.size}]]</span> Followers</p>
                                     </a>
-                                </div> -->
+                                </div>
                             </div>
                         </a>
                         <div class="card__input">
