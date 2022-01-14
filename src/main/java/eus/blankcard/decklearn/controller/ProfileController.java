@@ -1,8 +1,5 @@
 package eus.blankcard.decklearn.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,6 +28,7 @@ public class ProfileController {
         user = userRepository.findByUsername(username);
         if (user != null) {
             req.setAttribute("user", user);
+
             req.setAttribute("followers", user.getFollowers().size());
             req.setAttribute("following", user.getFollowed().size());
 
@@ -54,21 +52,8 @@ public class ProfileController {
             HttpServletResponse response) {
         UserModel user = userRepository.findByUsername(username);
 
-        List<UserModel> followerList = userRepository.loadFollowers(user.getId());
-        List<Integer> followerNumList = new ArrayList<>();
-        List<Integer> followingNumList = new ArrayList<>();
+        req.setAttribute("followers", user.getFollowers());
 
-        followerList.forEach(follower -> {
-            int followers = userRepository.countFollowers(follower.getId());
-            int following = userRepository.countFollowing(follower.getId());
-
-            followerNumList.add(followers);
-            followingNumList.add(following);
-        });
-
-        req.setAttribute("followers", followerList);
-        req.setAttribute("followerNumList", followerNumList);
-        req.setAttribute("followingNumList", followingNumList);
         return "following";
     }
 
@@ -77,10 +62,8 @@ public class ProfileController {
             HttpServletResponse response) {
         UserModel user = userRepository.findByUsername(username);
 
-        List<UserModel> followerList = userRepository.loadFollowers(user.getId());
-
-        req.setAttribute("followers", followerList);
-
+        req.setAttribute("followers", user.getFollowed());
+        
         return "following";
     }
 

@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deck Learn</title>
-    <link rel="stylesheet" href="assets/modules/css/following.css">
-    <script src="js/following.js"></script>
+    <link rel="stylesheet" th:href="@{/styles/modules/css/following.css}">
+    <!-- <script src="js/following.js"></script> -->
 </head>
 
 <body>
@@ -25,18 +25,19 @@
 
                     <div class="following__card" th:each="follower: ${followers}">
                         <a class="following__content" th:href="@{/{username}(username=${follower.username})}">
+                            <!-- <img class="card__img" th:src="@{/images/user/default.png}" alt=""> -->
                             <img class="card__img" th:src="@{/{username}(username=${follower.img_path})}" alt="">
                             <div class="card__data">
                                 <div class="data__user">
-                                    <h2 th:inline="text">[[${user.name}]]</h2>
-                                    <h3 th:inline="text">[[${user.username}]]</h3>
+                                    <h2 th:inline="text">[[${follower.name}]]</h2>
+                                    <h3 th:inline="text">[[${follower.username}]]</h3>
                                 </div>
                                 <div class="data__follow">
                                     <a th:href="@{/{username}/following(username=${follower.username})}">
-                                        <p> <span th:inline="text">[[${user.followed.size}]]</span> Following</p>
+                                        <p> <span th:inline="text">[[${follower.followed.size}]]</span> Following</p>
                                     </a>
                                     <a th:href="@{/{username}/followers(username=${follower.username})}">
-                                        <p> <span th:inline="text">[[${user.followers.size}]]</span> Followers</p>
+                                        <p> <span th:inline="text">[[${follower.followers.size}]]</span> Followers</p>
                                     </a>
                                 </div>
                             </div>
