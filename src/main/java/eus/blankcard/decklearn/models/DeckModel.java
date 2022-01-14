@@ -41,6 +41,9 @@ public class DeckModel {
                 )
     private List<DeckTypeModel> types;
 
+    @ManyToMany(mappedBy = "savedDecks")
+    private List<UserModel> savers;
+
     private String title;
 
     private String description;

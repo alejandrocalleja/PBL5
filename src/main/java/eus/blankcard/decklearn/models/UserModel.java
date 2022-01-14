@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -44,8 +47,16 @@ public class UserModel {
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
     List<DeckModel> decks;
 
+    @ManyToMany
+    @JoinTable( name = "type_relation",
+                joinColumns = { @JoinColumn( name = "user_id") },
+                inverseJoinColumns = {@JoinColumn( name = "deck_id")}
+                )
+    private List<DeckModel> savedDecks;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<TrainingModel> trainings;
+
 
     public Integer getId() {
         return id;
