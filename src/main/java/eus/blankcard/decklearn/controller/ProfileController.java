@@ -31,6 +31,7 @@ public class ProfileController {
 
             req.setAttribute("followers", user.getFollowers().size());
             req.setAttribute("following", user.getFollowed().size());
+            req.setAttribute("userDecks", user.getDecks());
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentPrincipalName = authentication.getName();
