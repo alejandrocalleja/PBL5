@@ -49,7 +49,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         try {
             entityManager.persist(user);
         } catch (EntityExistsException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         }
     }
 
@@ -63,8 +63,8 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         try {
             result = ((Number) query.getSingleResult()).intValue();
         } catch (Exception e) {
-            System.out.println("Failed to load followers from user " + user_id);
-            e.printStackTrace();
+            // System.out.println("Failed to load followers from user " + user_id);
+            // e.printStackTrace();
         }
 
         return result;
@@ -80,8 +80,8 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         try {
             result = ((Number) query.getSingleResult()).intValue();
         } catch (Exception e) {
-            System.out.println("Failed to load following from user " + user_id);
-            e.printStackTrace();
+            // System.out.println("Failed to load following from user " + user_id);
+            // e.printStackTrace();
         }
 
         return result;
@@ -99,8 +99,8 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         try {
             userList = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Failed to load following from user " + user_id);
-            e.printStackTrace();
+            // System.out.println("Failed to load following from user " + user_id);
+            // e.printStackTrace();
         }
         
         return userList;    
@@ -116,8 +116,8 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         try {
             userList = query.getResultList();
         } catch (Exception e) {
-            System.out.println("Failed to load following from user " + user_id);
-            e.printStackTrace();
+            // System.out.println("Failed to load following from user " + user_id);
+            // e.printStackTrace();
         }
 
         return userList;

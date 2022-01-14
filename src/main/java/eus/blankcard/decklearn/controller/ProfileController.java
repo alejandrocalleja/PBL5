@@ -1,8 +1,5 @@
 package eus.blankcard.decklearn.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -44,6 +41,7 @@ public class ProfileController {
                 return "profile_visit";
             }
         } else {
+            response.setStatus(404);
             return "error";
         }
     }
