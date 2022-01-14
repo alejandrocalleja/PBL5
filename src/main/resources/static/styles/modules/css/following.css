@@ -234,12 +234,17 @@ body {
   padding: 0.3rem 0 0.3rem 0; }
 
 .data__follow {
-  display: flex;
   width: 100%;
-  justify-content: space-between;
-  gap: 1.5rem; }
-  .data__follow p span {
-    font-weight: bold; }
+  display: flex;
+  justify-content: space-between; }
+  .data__follow a {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    color: black;
+    text-decoration: none; }
+    .data__follow a p span {
+      font-weight: bold; }
 
 .content > h2 {
   display: flex;

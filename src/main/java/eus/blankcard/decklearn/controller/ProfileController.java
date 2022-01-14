@@ -32,11 +32,6 @@ public class ProfileController {
         if (user != null) {
             req.setAttribute("user", user);
 
-            // int followers = userRepository.countFollowers(user.getId());
-            // int following = userRepository.countFollowing(user.getId());
-
-            System.out.println(user.getFollowers().get(0).getFollowers().get(3).getFollowers().size());
-
             req.setAttribute("followers", user.getFollowers().size());
             req.setAttribute("following", user.getFollowed().size());
 
@@ -57,21 +52,8 @@ public class ProfileController {
     public String getFollowers(@PathVariable("username") String username, HttpServletRequest req, HttpServletResponse response) {
         UserModel user = userRepository.findByUsername(username);
 
-        List<UserModel> followerList = userRepository.loadFollowers(user.getId());
-        List<Integer> followerNumList = new ArrayList<>();
-        List<Integer> followingNumList = new ArrayList<>();
+        req.setAttribute("followers", user.getFollowers());
 
-        followerList.forEach(follower -> {
-            int followers = userRepository.countFollowers(follower.getId());
-            int following = userRepository.countFollowing(follower.getId());
-
-            followerNumList.add(followers);
-            followingNumList.add(following);
-        });
-
-        req.setAttribute("followers", followerList);
-        req.setAttribute("followerNumList", followerNumList);
-        req.setAttribute("followingNumList", followingNumList);
         return "following";
     }
 
@@ -79,22 +61,8 @@ public class ProfileController {
     public String getFollowing(@PathVariable("username") String username, HttpServletRequest req, HttpServletResponse response) {
         UserModel user = userRepository.findByUsername(username);
 
-        List<UserModel> followerList = userRepository.loadFollowers(user.getId());
-        // List<Integer> followerNumList = new ArrayList<>();
-        // List<Integer> followingNumList = new ArrayList<>();
-
-        // followerList.forEach(follower -> {
-        //     int followers = userRepository.countFollowers(follower.getId());
-        //     int following = userRepository.countFollowing(follower.getId());
-
-        //     followerNumList.add(followers);
-        //     followingNumList.add(following);
-        // });
-
-        req.setAttribute("followers", followerList);
-        // req.setAttribute("followerNumList", followerNumList);
-        // req.setAttribute("followingNumList", followingNumList);
-
+        req.setAttribute("followers", user.getFollowed());
+        
         return "following";
     }
 
