@@ -33,7 +33,7 @@ public class FollowRelation implements Serializable {
         return followed_id;
     }
 
-    public void setFollowed_id(int followed_id) {
+    public void setFollowed_id(Integer followed_id) {
         this.followed_id = followed_id;
     }
 
@@ -41,7 +41,7 @@ public class FollowRelation implements Serializable {
         return follower_id;
     }
 
-    public void setFollower_id(int follower_id) {
+    public void setFollower_id(Integer follower_id) {
         this.follower_id = follower_id;
     }
 

@@ -3,7 +3,7 @@ package eus.blankcard.decklearn.models;
 import java.sql.Date;
 import java.util.List;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -43,6 +44,21 @@ public class UserModel {
     private Date birth_date;
 
     private String img_path;
+
+
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
+    List<DeckModel> decks;
+
+    @ManyToMany
+    @JoinTable( name = "saved_deck",
+                joinColumns = { @JoinColumn( name = "user_id") },
+                inverseJoinColumns = {@JoinColumn( name = "deck_id")}
+                )
+    private List<DeckModel> savedDecks;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<TrainingModel> trainings;
+
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable( name = "followed",
@@ -136,6 +152,22 @@ public class UserModel {
 
     public List<UserModel> getFollowers() {
         return followers;
+    }
+
+    public List<DeckModel> getDecks() {
+        return decks;
+    }
+
+    public void setDecks(List<DeckModel> decks) {
+        this.decks = decks;
+    }
+
+    public List<TrainingModel> getTrainings() {
+        return trainings;
+    }
+
+    public void setTrainings(List<TrainingModel> trainings) {
+        this.trainings = trainings;
     }
 
     public void setFollowers(List<UserModel> followers) {

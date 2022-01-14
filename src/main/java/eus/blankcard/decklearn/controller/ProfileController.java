@@ -23,27 +23,21 @@ public class ProfileController {
     @Autowired
     UserRepository userRepository;
 
+
     @GetMapping("/{username}")
     public String getProfile(@PathVariable("username") String username, HttpServletRequest req,
             HttpServletResponse response) {
         UserModel user = null;
         user = userRepository.findByUsername(username);
 
-        if (user != null) {
             req.setAttribute("user", user);
-
-            // int followers = userRepository.countFollowers(user.getId());
-            // int following = userRepository.countFollowing(user.getId());
-
-            // System.out.println(user.getFollowers().get(0).getFollowers().get(3).getFollowers().size());
-
             req.setAttribute("followers", user.getFollowers().size());
             req.setAttribute("following", user.getFollowed().size());
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentPrincipalName = authentication.getName();
 
-            if (currentPrincipalName.equals(username)) {
+            if(currentPrincipalName.equals(username)) {
                 return "profile";
             } else {
                 return "profile_visit";
@@ -101,7 +95,5 @@ public class ProfileController {
 
     @PostMapping("/{username}/follow")
     public String follow() {
-        // Check if the username is not the logged user, then check if it's already following, if not, follow, if following, delete the entry
-        return "profile";
-    }
+        return "redirect:/profile";    }
 }
