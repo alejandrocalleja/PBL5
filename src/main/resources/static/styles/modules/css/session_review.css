@@ -228,6 +228,7 @@ body {
   .stats-graphic__title {
     text-align: center; }
   .stats-graphic a {
+    text-align: center;
     align-items: center;
     border-radius: 0.9rem;
     border: 0;
