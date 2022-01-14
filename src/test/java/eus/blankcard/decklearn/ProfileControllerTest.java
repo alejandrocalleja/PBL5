@@ -34,6 +34,15 @@ public class ProfileControllerTest {
 
   @Test
   @WithMockUser(username = "testUser", roles = "USER")
+  public void shouldReturnOwnUserProfile() throws Exception {
+    String url = "/testUser";
+
+    mockMvc.perform(MockMvcRequestBuilders.get(url))
+        .andExpect(MockMvcResultMatchers.status().isOk());
+  }
+
+  @Test
+  @WithMockUser(username = "testUser", roles = "USER")
   public void shouldReturnUserProfileNotFound() throws Exception {
     String url = "/notFoundUser";
 

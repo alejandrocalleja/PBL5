@@ -24,8 +24,8 @@ public class ProfileController {
     public String getProfile(@PathVariable("username") String username, HttpServletRequest req,
             HttpServletResponse response) {
         UserModel user = null;
-        user = userRepository.findByUsername(username);
 
+        user = userRepository.findByUsername(username);
         if (user != null) {
             req.setAttribute("user", user);
 
@@ -40,6 +40,7 @@ public class ProfileController {
             } else {
                 return "profile_visit";
             }
+
         } else {
             response.setStatus(404);
             return "error";
@@ -47,7 +48,8 @@ public class ProfileController {
     }
 
     @GetMapping("/{username}/followers")
-    public String getFollowers(@PathVariable("username") String username, HttpServletRequest req, HttpServletResponse response) {
+    public String getFollowers(@PathVariable("username") String username, HttpServletRequest req,
+            HttpServletResponse response) {
         UserModel user = userRepository.findByUsername(username);
 
         req.setAttribute("followers", user.getFollowers());
@@ -56,7 +58,8 @@ public class ProfileController {
     }
 
     @GetMapping("/{username}/following")
-    public String getFollowing(@PathVariable("username") String username, HttpServletRequest req, HttpServletResponse response) {
+    public String getFollowing(@PathVariable("username") String username, HttpServletRequest req,
+            HttpServletResponse response) {
         UserModel user = userRepository.findByUsername(username);
 
         req.setAttribute("followers", user.getFollowed());
@@ -66,7 +69,6 @@ public class ProfileController {
 
     @PostMapping("/{username}/follow")
     public String follow() {
-        // Check if the username is not the logged user, then check if it's already following, if not, follow, if following, delete the entry
-        return "profile";
+        return "redirect:/profile";
     }
 }
