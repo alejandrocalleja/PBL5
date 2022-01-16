@@ -1,5 +1,7 @@
 package eus.blankcard.decklearn.controller;
 
+import java.time.LocalDate;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,8 +26,19 @@ public class StatsController {
         String currentPrincipalName = authentication.getName();
         UserModel user = userRepository.findByUsername(currentPrincipalName);
 
+        int totalStudies = 0;
+        user.getTrainings().forEach(t -> totalStudies += t.getTrainingSessions().size());
+
+        LocalDate now = LocalDate.now();
+
+        int monthStudies = 0;
+        user.getTrainings()
+                .forEach(t -> t.getTrainingSessions().stream()
+                        .filter(ts -> ts.getTrainingSessionDate().toLocalDate().getMonthValue() == now.getMonthValue())
+                        .forEach(filteredTraining -> monthStudies++));
+
         req.setAttribute("user", user);
-        req.setAttribute("totalStudies", 0);
+        req.setAttribute("totalStudies", totalStudies);
         req.setAttribute("studiesMonth", 0);
         req.setAttribute("avgTime", 0);
         req.setAttribute("total", 0);
