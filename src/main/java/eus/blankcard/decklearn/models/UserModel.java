@@ -1,7 +1,7 @@
 package eus.blankcard.decklearn.models;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -50,27 +50,27 @@ public class UserModel {
 
 
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
-    List<DeckModel> decks;
+    Set<DeckModel> decks;
 
     @ManyToMany
     @JoinTable( name = "saved_deck",
                 joinColumns = { @JoinColumn( name = "user_id") },
                 inverseJoinColumns = {@JoinColumn( name = "deck_id")}
                 )
-    private List<DeckModel> savedDecks;
+    private Set<DeckModel> savedDecks;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    List<TrainingModel> trainings;
+    Set<TrainingModel> trainings;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable( name = "followed",
                 joinColumns = { @JoinColumn( name = "followed_id") },
                 inverseJoinColumns = {@JoinColumn( name = "follower_id")}
                 )
-    private List<UserModel> followers;
+    private Set<UserModel> followers;
 
     @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
-    private List<UserModel> followed;
+    private Set<UserModel> followed;
 
     public Integer getId() {
         return id;
@@ -147,7 +147,7 @@ public class UserModel {
         this.img_path = img_path;
     }    
 
-    public List<UserModel> getFollowers() {
+    public Set<UserModel> getFollowers() {
         return followers;
     }
 
@@ -159,31 +159,31 @@ public class UserModel {
       this.birthDate = birthDate;
     }
 
-    public List<DeckModel> getDecks() {
+    public Set<DeckModel> getDecks() {
         return decks;
     }
 
-    public void setDecks(List<DeckModel> decks) {
+    public void setDecks(Set<DeckModel> decks) {
         this.decks = decks;
     }
 
-    public List<TrainingModel> getTrainings() {
+    public Set<TrainingModel> getTrainings() {
         return trainings;
     }
 
-    public void setTrainings(List<TrainingModel> trainings) {
+    public void setTrainings(Set<TrainingModel> trainings) {
         this.trainings = trainings;
     }
 
-    public void setFollowers(List<UserModel> followers) {
+    public void setFollowers(Set<UserModel> followers) {
         this.followers = followers;
     }
 
-    public List<UserModel> getFollowed() {
+    public Set<UserModel> getFollowed() {
         return followed;
     }
 
-    public void setFollowed(List<UserModel> followed) {
+    public void setFollowed(Set<UserModel> followed) {
         this.followed = followed;
     }
 
@@ -218,11 +218,27 @@ public class UserModel {
         return true;
     }
 
-    public List<DeckModel> getSavedDecks() {
+    public Set<DeckModel> getSavedDecks() {
         return savedDecks;
     }
 
-    public void setSavedDecks(List<DeckModel> savedDecks) {
+    public void setSavedDecks(Set<DeckModel> savedDecks) {
         this.savedDecks = savedDecks;
+    }
+
+    public void addFollower(UserModel user) {
+        followers.add(user);
+    }
+
+    public void addFollowed(UserModel user) {
+        followed.add(user);
+    }
+
+    public void removeFollowed(UserModel user) {
+        followed.remove(user);
+    }
+
+    public void removeFollower(UserModel user) {
+        followers.remove(user);
     }
 }

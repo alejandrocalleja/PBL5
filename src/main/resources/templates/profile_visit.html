@@ -44,7 +44,7 @@
 
                 <div class="profile-data__button">
                     <form th:action="@{/{username}/follow(username=${user.username})}" method="post">
-                        <input type="submit" class="button-following button-follow" tabindex="0">
+                        <input type="submit" class="button-following button-follow" tabindex="0" name="follow" placeholder="follow">
                     </form>
                 </div>
 
@@ -58,12 +58,12 @@
 
                 <div class="card-section__list">
 
-                    <div class="card" th:each="deck: ${user_decks}">
+                    <div class="card" th:each="deck: ${userDecks}">
                         <div class="card-content">
-                            <img class="" th:src="@{deck.path}"></img>
+                            <img class="" th:src="@{deck.img_path}"></img>
                             <div>
                                 <h3 th:inline="text">[[${deck.title}]]</h3>
-                                <span th:text="${deck.text}"></span>
+                                <span th:inline="text">[[${deck.description}]]</span>
                             </div>
                         </div>
                         <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
