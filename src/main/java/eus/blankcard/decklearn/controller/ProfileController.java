@@ -31,6 +31,7 @@ public class ProfileController {
 
             req.setAttribute("followers", user.getFollowers().size());
             req.setAttribute("following", user.getFollowed().size());
+            req.setAttribute("decks", true);
             req.setAttribute("userDecks", user.getDecks());
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -64,12 +65,56 @@ public class ProfileController {
         UserModel user = userRepository.findByUsername(username);
 
         req.setAttribute("followers", user.getFollowed());
-        
+
         return "following";
     }
 
     @PostMapping("/{username}/follow")
     public String follow() {
         return "redirect:/profile";
+    }
+
+    @GetMapping("/{username}/saved")
+    public String getSaved(@PathVariable("username") String username, HttpServletRequest req,
+            HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        if (username.equals(currentPrincipalName)) {
+            UserModel user = null;
+            user = userRepository.findByUsername(username);
+
+            req.setAttribute("user", user);
+
+            req.setAttribute("followers", user.getFollowers().size());
+            req.setAttribute("following", user.getFollowed().size());
+            req.setAttribute("saved", true);
+            req.setAttribute("userDecks", user.getSavedDecks());
+            return "profile";
+        } else {
+            return "error";
+        }
+    }
+
+    @GetMapping("/{username}/sessions")
+    public String getSessions(@PathVariable("username") String username, HttpServletRequest req,
+            HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        if (username.equals(currentPrincipalName)) {
+            UserModel user = null;
+            user = userRepository.findByUsername(username);
+
+            req.setAttribute("user", user);
+
+            req.setAttribute("followers", user.getFollowers().size());
+            req.setAttribute("following", user.getFollowed().size());
+            req.setAttribute("sessions", true);
+            // req.setAttribute("userDecks", user.getTrainings());
+            return "profile";
+        } else {
+            return "error";
+        }
     }
 }

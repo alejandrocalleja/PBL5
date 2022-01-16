@@ -48,9 +48,9 @@
             </div>
 
             <nav class="profile-nav">
-                <a class="selectable" th:href="@{/{username}(username=${user.username})}">Created decks</a>
-                <a class="selectable" th:href="@{/{username}/saved(username=${user.username})}">Saved decks</a>
-                <a class="selectable" th:href="@{/{username}/sessions(username=${user.username})}">Study sessions</a>
+                <a th:href="@{/{username}(username=${user.username})}" th:class="${decks} ? 'selected' : 'selectable'">Created decks</a>
+                <a th:href="@{/{username}/saved(username=${user.username})}" th:class="${saved} ? 'selected' : 'selectable'">Saved decks</a>
+                <a th:href="@{/{username}/sessions(username=${user.username})}" th:class="${sessions} ? 'selected' : 'selectable'">Study sessions</a>
             </nav>
 
             <div class="card-section">
