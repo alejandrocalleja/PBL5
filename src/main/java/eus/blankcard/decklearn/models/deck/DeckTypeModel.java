@@ -1,4 +1,4 @@
-package eus.blankcard.decklearn.models;
+package eus.blankcard.decklearn.models.deck;
 
 import java.util.List;
 

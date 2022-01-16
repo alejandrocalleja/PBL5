@@ -2,7 +2,7 @@ package eus.blankcard.decklearn.repository.user;
 
 import java.util.List;
 
-import eus.blankcard.decklearn.models.UserModel;
+import eus.blankcard.decklearn.models.user.UserModel;
 
 public interface UserRepositoryCustom {
     UserModel loadUser(String username, String password);

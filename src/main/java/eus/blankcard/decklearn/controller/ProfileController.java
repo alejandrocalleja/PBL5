@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import eus.blankcard.decklearn.models.UserModel;
+import eus.blankcard.decklearn.models.user.UserModel;
 import eus.blankcard.decklearn.repository.user.UserRepository;
 
 @Controller
@@ -38,9 +38,9 @@ public class ProfileController {
             String currentPrincipalName = authentication.getName();
 
             if (currentPrincipalName.equals(username)) {
-                return "profile";
+                return "user/profile";
             } else {
-                return "profile_visit";
+                return "user/profile_visit";
             }
 
         } else {
@@ -56,7 +56,7 @@ public class ProfileController {
 
         req.setAttribute("followers", user.getFollowers());
 
-        return "following";
+        return "user/following";
     }
 
     @GetMapping("/{username}/following")
@@ -66,7 +66,7 @@ public class ProfileController {
 
         req.setAttribute("followers", user.getFollowed());
 
-        return "following";
+        return "user/following";
     }
 
     @GetMapping("/{username}/saved")
@@ -85,7 +85,7 @@ public class ProfileController {
             req.setAttribute("following", user.getFollowed().size());
             req.setAttribute("saved", true);
             req.setAttribute("userDecks", user.getSavedDecks());
-            return "profile";
+            return "user/profile";
         } else {
             return "error";
         }
@@ -107,7 +107,7 @@ public class ProfileController {
             req.setAttribute("following", user.getFollowed().size());
             req.setAttribute("sessions", true);
             // req.setAttribute("userDecks", user.getTrainings());
-            return "profile";
+            return "user/profile";
         } else {
             return "error";
         }

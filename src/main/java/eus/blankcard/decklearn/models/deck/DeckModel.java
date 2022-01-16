@@ -1,4 +1,4 @@
-package eus.blankcard.decklearn.models;
+package eus.blankcard.decklearn.models.deck;
 
 import java.util.List;
 
@@ -14,6 +14,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import eus.blankcard.decklearn.models.TrainingModel;
+import eus.blankcard.decklearn.models.card.CardModel;
+import eus.blankcard.decklearn.models.user.UserModel;
 
 @Entity
 @Table(name="deck")

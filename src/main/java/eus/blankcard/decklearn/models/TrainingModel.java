@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import eus.blankcard.decklearn.models.deck.DeckModel;
+import eus.blankcard.decklearn.models.user.UserModel;
+
 @Entity
 @Table( name = "training")
 public class TrainingModel {

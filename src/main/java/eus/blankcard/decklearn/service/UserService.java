@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import eus.blankcard.decklearn.models.UserModel;
+import eus.blankcard.decklearn.models.user.UserModel;
 import eus.blankcard.decklearn.repository.user.UserRepository;
 
 

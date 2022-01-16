@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import eus.blankcard.decklearn.models.card.CardResponseModel;
+
 @Entity
 @Table( name = "results" )
 public class ResultsModel {

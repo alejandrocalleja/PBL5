@@ -13,21 +13,24 @@ import eus.blankcard.decklearn.models.user.UserModel;
 import eus.blankcard.decklearn.repository.user.UserRepository;
 
 @Controller
-public class HomeController {
-    
+public class StatsController {
+
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/home")
-    public String getHome(HttpServletRequest req, HttpServletResponse response) {
-
+    @GetMapping("/stats")
+    public String getStats(HttpServletRequest req, HttpServletResponse response) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+        String currentPrincipalName = authentication.getName();
+        UserModel user = userRepository.findByUsername(currentPrincipalName);
 
-        UserModel user = userRepository.findByUsername(username);
-        // req.setAttribute("study_sessions", user.getDecks());
-        // req.setAttribute("explore_deck", user.getDecks());
+        req.setAttribute("user", user);
+        req.setAttribute("totalStudies", 0);
+        req.setAttribute("studiesMonth", 0);
+        req.setAttribute("avgTime", 0);
+        req.setAttribute("total", 0);
+        req.setAttribute("passRatio", 0);
 
-        return "home";
+        return "user/user_stats";
     }
 }

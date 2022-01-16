@@ -13,9 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import eus.blankcard.decklearn.models.DeckModel;
 import eus.blankcard.decklearn.models.TrainingModel;
-import eus.blankcard.decklearn.models.UserModel;
+import eus.blankcard.decklearn.models.deck.DeckModel;
+import eus.blankcard.decklearn.models.user.UserModel;
 import eus.blankcard.decklearn.repository.deck.DeckRepository;
 
 @Controller
