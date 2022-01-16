@@ -69,11 +69,6 @@ public class ProfileController {
         return "following";
     }
 
-    @PostMapping("/{username}/follow")
-    public String follow() {
-        return "redirect:/profile";
-    }
-
     @GetMapping("/{username}/saved")
     public String getSaved(@PathVariable("username") String username, HttpServletRequest req,
             HttpServletResponse response) {
@@ -116,5 +111,31 @@ public class ProfileController {
         } else {
             return "error";
         }
+    }
+
+    @PostMapping("/{username}/follow")
+    public String follow(@PathVariable("username") String username, HttpServletRequest req, HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        UserModel loggedUser = userRepository.findByUsername(currentPrincipalName);
+        UserModel targetUser = userRepository.findByUsername(username);
+
+        
+        if(userRepository.checkFollowed(loggedUser, targetUser) == true) {
+            loggedUser.removeFollowed(targetUser);
+            targetUser.removeFollower(loggedUser);
+
+            userRepository.save(loggedUser);
+            userRepository.save(targetUser);
+        } else {
+            loggedUser.addFollowed(targetUser);
+            targetUser.addFollower(loggedUser);
+
+            userRepository.save(loggedUser);
+            userRepository.save(targetUser);
+        }
+
+        return "redirect:/" + username;
     }
 }
