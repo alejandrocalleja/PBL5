@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck Learn - Studying: French Revolution</title>
+    <link rel="stylesheet" href="assets/card_question/css/card_question.css">
+</head>
+
+<body>
+    <div th:replace="fragments/left-nav :: left-nav"></div>
+
+    <main class="center-screen">
+        <div th:replace="fragments/top-nav :: top-nav"></div>
+
+        <div class="content-container">
+            <section class="content">
+                <h2>Studying: French Revolution</h2>
+
+                <div class="card-view">
+                    <div class="card-content">
+                        <p class="card-content__question" th:inline="text">[[${card.question}]]</p>
+                        <a th:href="@{/study/{deckId}/{card.id}(deckId=${deck.id})}">View answer</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+
+</html>
