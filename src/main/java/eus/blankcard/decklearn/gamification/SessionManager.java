@@ -1,28 +1,27 @@
 package eus.blankcard.decklearn.gamification;
 
+import java.util.Map;
+
+import org.springframework.stereotype.Component;
+
+import eus.blankcard.decklearn.models.TrainingSessionModel;
+
+@Component
 public class SessionManager {
-    private int trainingSessionId;
-    private Buffer buffer;
 
-    public SessionManager(int trainingSessionId) {
-        this.trainingSessionId = trainingSessionId;
+    private Map<String, SessionCardManager> sessionRelation;
 
-        buffer = new Buffer();
+
+    public SessionManager() {
+
     }
 
-    public int getTrainingSessionId() {
-        return trainingSessionId;
+    public void createSessionManager(String username, SessionCardManager session) {
+        sessionRelation.put(username, session);
     }
 
-    public void setTrainingSessionId(int trainingSessionId) {
-        this.trainingSessionId = trainingSessionId;
-    }
-
-    public Buffer getBuffer() {
-        return buffer;
-    }
-
-    public void setBuffer(Buffer buffer) {
-        this.buffer = buffer;
+    public void addSession(String username, TrainingSessionModel trainingSession) {
+        SessionCardManager sessionManager = new SessionCardManager(trainingSession);
+        sessionRelation.put(username, sessionManager);
     }
 }

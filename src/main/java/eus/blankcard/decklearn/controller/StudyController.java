@@ -4,12 +4,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import eus.blankcard.decklearn.gamification.SessionManager;
+import eus.blankcard.decklearn.gamification.SessionCardManager;
 import eus.blankcard.decklearn.models.CardModel;
 import eus.blankcard.decklearn.models.TrainingSessionModel;
 import eus.blankcard.decklearn.repository.CardRepository;
@@ -23,6 +26,9 @@ public class StudyController {
 
     @Autowired
     CardRepository cardRepository;
+
+    @Autowired
+    SessionManager sessionManager;
     
     @GetMapping("/study/{deckId}")
     private String getStudyView() {
@@ -32,7 +38,10 @@ public class StudyController {
         TrainingSessionModel trainingSession = new TrainingSessionModel();
         trainingSession = trainingSessionRepository.save(trainingSession);
 
-        SessionManager sessionManager = new SessionManager(trainingSession.getId());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        sessionManager.addSession(currentPrincipalName, trainingSession);
 
         return "";
     }
