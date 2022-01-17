@@ -4,7 +4,7 @@
 @import 'scrollbar';
 
 .top-nav {
-    @include top-nav(flex-end);
+    @include top-nav(space-between);
 }
 
 .content {

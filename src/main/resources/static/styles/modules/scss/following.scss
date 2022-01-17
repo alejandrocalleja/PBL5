@@ -25,7 +25,6 @@
         text-decoration: none;
         color: $following-follower-color;
         display: flex;
-        //height: 100%;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
@@ -72,14 +71,19 @@
     }
     
     &__follow{
+        width: 100%;        
         display: flex;
-        width: 100%;
         justify-content: space-between;
-        gap: 1.5rem;
-    
-        p{
-            span{
-                font-weight: bold;
+        a {
+            display: flex;
+            justify-content: space-between;
+            gap: 1.5rem;
+            color: $text-color;
+            text-decoration: none;
+            p{
+                span{
+                    font-weight: bold;
+                }
             }
         }
     }

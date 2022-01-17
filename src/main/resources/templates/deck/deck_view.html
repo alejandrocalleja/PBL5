@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:inline="text">[[${deck.title}]] | DeckLearn</title>
+    <link rel="stylesheet" th:href="@{/styles/modules/css/deck_view.css}">
+</head>
+
+<body>
+
+    <div th:replace="fragments/left-nav :: left-nav"></div>
+
+    <main class="center-screen">
+
+        <div th:replace="fragments/top-nav :: top-nav"></div>
+
+        <div class="content-container">
+            <section class="content">
+                <h2>Deck View</h2>
+
+                <div class="deck-view">
+                    <div class="deck-view__content">
+                        <div class="deck-view__content__info">
+                            <h3 th:inline="text">[[${deck.title}]]</h3>
+                            <div class="info">
+                                <p th:inline="text">[[${deck.description}]]</p>
+
+                                <div class="info__details">
+                                    <div>
+                                        <span class="info__details__title">Card number:</span>
+                                        <span class="info__details__response" th:inline="text">[[${cardNumber}]]</span>
+                                    </div>
+
+                                    <div>
+                                        <span class="info__details__title">Creator:</span>
+                                        <a th:href="@{/{username}(username=${creator})}" class="info__details__response">[[${creator}]]</a>
+                                    </div>
+
+                                    <div>
+                                        <span class="info__details__title">Type:</span>
+                                        <span class="info__details__response">Hystory, France, Revolution</span>
+                                    </div>
+                                </div>
+
+                                <div class="info__button">
+                                    <a th:href="@{/deck/{id}/study(id=${deck.id})}">Study</a>
+                                </div>
+
+                                <span class="info__studiesNum" th:inline="text">[[${studies}]] studies</span>
+                            </div>
+                        </div>
+
+                        <img th:src="@{deck.img_path}" alt="">
+                    </div>
+
+                    <div class="deck-view__buttons">
+                        <a th:href="@{/deck/{id}/stats(id=${deck.id})}" class="">View stats</a>
+                        <a th:href="@{/deck/{id}/save(id=${deck.id})}" class="">Save</a>
+                        <a th:href="@{/deck/{id}/edit(id=${deck.id})}" class="">Edit</a>
+                        <a th:href="@{/deck/{id}/remove(id=${deck.id})}" class="">Remove</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+
+</html>
