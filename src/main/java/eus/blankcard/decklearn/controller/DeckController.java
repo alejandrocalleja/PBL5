@@ -50,6 +50,8 @@ public class DeckController {
         List<TrainingModel> monthTraining = deck.getTrainings().stream()
                 .filter(t -> t.getTraining_date().toLocalDate().getMonthValue() == now.getMonthValue())
                 .collect(Collectors.toCollection(ArrayList::new));
+        
+        
 
         req.setAttribute("monthStudies", monthTraining.size());
         req.setAttribute("totalStudies", deck.getTrainings().size());
