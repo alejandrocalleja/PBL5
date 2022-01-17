@@ -1,7 +1,7 @@
 package eus.blankcard.decklearn.models;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,201 +20,226 @@ import javax.persistence.Table;
 @Table(name = "user")
 public class UserModel {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "user_id")
-  private Integer id;
 
-  private String username;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="user_id")
+    private Integer id;
 
-  @Column(name = "first_name")
-  private String name;
+    private String username;
 
-  @Column(name = "second_name")
-  private String surname;
+    @Column(name="first_name")
+    private String name;
 
-  private String password;
+    @Column(name="second_name")
+    private String surname;
 
-  private String email;
+    private String password;
 
-  @Column(name = "postal_code")
-  private String postalCode;
+    private String email;
 
-  private String country;
 
-  @Column(name = "birth_date")
-  private Date birthDate;
+    @Column(name="postal_code")
+    private String postalCode;
 
-  private String img_path;
+    private String country;
 
-  @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
-  List<DeckModel> decks;
+    @Column(name="birth_date")
+    private Date birthDate;
 
-  @ManyToMany
-  @JoinTable(name = "saved_deck", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
-      @JoinColumn(name = "deck_id") })
-  private List<DeckModel> savedDecks;
+    private String img_path;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-  List<TrainingModel> trainings;
 
-  @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "followed", joinColumns = { @JoinColumn(name = "followed_id") }, inverseJoinColumns = {
-      @JoinColumn(name = "follower_id") })
-  private List<UserModel> followers;
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
+    Set<DeckModel> decks;
 
-  @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
-  private List<UserModel> followed;
+    @ManyToMany
+    @JoinTable( name = "saved_deck",
+                joinColumns = { @JoinColumn( name = "user_id") },
+                inverseJoinColumns = {@JoinColumn( name = "deck_id")}
+                )
+    private Set<DeckModel> savedDecks;
 
-  public Integer getId() {
-    return id;
-  }
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    Set<TrainingModel> trainings;
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable( name = "followed",
+                joinColumns = { @JoinColumn( name = "followed_id") },
+                inverseJoinColumns = {@JoinColumn( name = "follower_id")}
+                )
+    private Set<UserModel> followers;
 
-  public String getUsername() {
-    return username;
-  }
+    @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
+    private Set<UserModel> followed;
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+    public Integer getId() {
+        return id;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
+    public String getUsername() {
+        return username;
+    }
+    
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getSurname() {
+        return surname;
+    }
+    
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public String getPostalCode() {
+      return postalCode;
+    }
+    
 
-  public String getSurname() {
-    return surname;
-  }
+    public void setPostalCode(String postalCode) {
+      this.postalCode = postalCode;
+    }
+   
+    public String getCountry() {
+        return country;
+    }
+    
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-  public void setSurname(String surname) {
-    this.surname = surname;
-  }
 
-  public String getPassword() {
-    return password;
-  }
+    public String getImg_path() {
+        return img_path;
+    }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public void setImg_path(String img_path) {
+        this.img_path = img_path;
+    }    
 
-  public String getEmail() {
-    return email;
-  }
+    public Set<UserModel> getFollowers() {
+        return followers;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public Date getBirthDate() {
+      return birthDate;
+    }
 
-  public String getPostalCode() {
-    return postalCode;
-  }
+    public void setBirthDate(Date birthDate) {
+      this.birthDate = birthDate;
+    }
 
-  public void setPostalCode(String postalCode) {
-    this.postalCode = postalCode;
-  }
+    public Set<DeckModel> getDecks() {
+        return decks;
+    }
 
-  public String getCountry() {
-    return country;
-  }
+    public void setDecks(Set<DeckModel> decks) {
+        this.decks = decks;
+    }
 
-  public void setCountry(String country) {
-    this.country = country;
-  }
+    public Set<TrainingModel> getTrainings() {
+        return trainings;
+    }
 
-  public String getImg_path() {
-    return img_path;
-  }
+    public void setTrainings(Set<TrainingModel> trainings) {
+        this.trainings = trainings;
+    }
 
-  public void setImg_path(String img_path) {
-    this.img_path = img_path;
-  }
+    public void setFollowers(Set<UserModel> followers) {
+        this.followers = followers;
+    }
 
-  public List<UserModel> getFollowers() {
-    return followers;
-  }
+    public Set<UserModel> getFollowed() {
+        return followed;
+    }
 
-  public Date getBirthDate() {
-    return birthDate;
-  }
+    public void setFollowed(Set<UserModel> followed) {
+        this.followed = followed;
+    }
 
-  public void setBirthDate(Date birthDate) {
-    this.birthDate = birthDate;
-  }
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((username == null) ? 0 : username.hashCode());
+        return result;
+    }
 
-  public List<DeckModel> getDecks() {
-    return decks;
-  }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UserModel other = (UserModel) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        if (username == null) {
+            if (other.username != null)
+                return false;
+        } else if (!username.equals(other.username))
+            return false;
+        return true;
+    }
 
-  public void setDecks(List<DeckModel> decks) {
-    this.decks = decks;
-  }
+    public Set<DeckModel> getSavedDecks() {
+        return savedDecks;
+    }
 
-  public List<TrainingModel> getTrainings() {
-    return trainings;
-  }
+    public void setSavedDecks(Set<DeckModel> savedDecks) {
+        this.savedDecks = savedDecks;
+    }
 
-  public void setTrainings(List<TrainingModel> trainings) {
-    this.trainings = trainings;
-  }
-  
-  public void setFollowers(List<UserModel> followers) {
-    this.followers = followers;
-  }
-  
-  public List<UserModel> getFollowed() {
-    return followed;
-  }
-  
-  public void setFollowed(List<UserModel> followed) {
-    this.followed = followed;
-  }
-  
-  public List<DeckModel> getSavedDecks() {
-    return savedDecks;
-  }
+    public void addFollower(UserModel user) {
+        followers.add(user);
+    }
 
-  public void setSavedDecks(List<DeckModel> savedDecks) {
-    this.savedDecks = savedDecks;
-  }
-  
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
-    result = prime * result + ((username == null) ? 0 : username.hashCode());
-    return result;
-  }
+    public void addFollowed(UserModel user) {
+        followed.add(user);
+    }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    UserModel other = (UserModel) obj;
-    if (id == null) {
-      if (other.id != null)
-        return false;
-    } else if (!id.equals(other.id))
-      return false;
-    if (username == null) {
-      if (other.username != null)
-        return false;
-    } else if (!username.equals(other.username))
-      return false;
-    return true;
-  }
+    public void removeFollowed(UserModel user) {
+        followed.remove(user);
+    }
 
+    public void removeFollower(UserModel user) {
+        followers.remove(user);
+    }
 }

@@ -11,4 +11,8 @@ public interface UserRepositoryCustom {
     int countFollowing(Integer user_id);
     List<UserModel> loadFollowers(Integer user_id);
     List<UserModel> loadFollowing(Integer user_id);
+
+    boolean checkFollowed(UserModel user, UserModel targetUser);
+    void follow(UserModel user, UserModel targetUser);
+    void unfollow(UserModel user, UserModel targetUser);
 }
