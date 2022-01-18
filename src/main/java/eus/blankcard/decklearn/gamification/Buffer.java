@@ -14,7 +14,7 @@ public class Buffer {
 	Lock mutex;
 	Condition bufferFull, bufferEmpty;
 	int inpos, outpos, bufferAmount;
-	private final static int BUFFER_SIZE = 30;
+	private final static int BUFFER_SIZE = 1;
 
 	public Buffer() {
 

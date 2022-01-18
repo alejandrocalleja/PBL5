@@ -13,15 +13,37 @@ public class SessionManager {
 
 
     public SessionManager() {
-
     }
 
     public void createSessionManager(String username, SessionCardManager session) {
         sessionRelation.put(username, session);
     }
 
-    public void addSession(String username, TrainingSessionModel trainingSession) {
+    public SessionCardManager addSession(String username, TrainingSessionModel trainingSession) {
         SessionCardManager sessionManager = new SessionCardManager(trainingSession);
         sessionRelation.put(username, sessionManager);
+
+        return sessionManager;
+    }
+
+    public void removeSession(String username) {
+        try {
+            sessionRelation.remove(username);
+        } catch (Exception e) {
+            System.out.println("Not able to remove session from " + username);
+            System.out.println("No such a relation exists.");
+        }
+    }
+
+    public SessionCardManager getSession(String username) {
+        SessionCardManager sessionCardManager = null;
+
+        try {
+            sessionCardManager = sessionRelation.get(username);
+        } catch (Exception e) {
+            System.out.println("Not able to get the session from " + username);
+        }
+
+        return sessionCardManager;
     }
 }
