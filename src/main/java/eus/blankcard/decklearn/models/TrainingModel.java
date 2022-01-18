@@ -1,11 +1,14 @@
 package eus.blankcard.decklearn.models;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,6 +20,7 @@ import javax.persistence.Table;
 public class TrainingModel {
     
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column( name = "training_id" )
     private Integer id;
 
@@ -29,8 +33,9 @@ public class TrainingModel {
     private DeckModel deck;
 
     @OneToMany(mappedBy = "training", cascade = CascadeType.ALL)
-    List<TrainingSessionModel> trainingSessions;
+    List<TrainingSessionModel> trainingSessions = new ArrayList<>();
 
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Date training_date;
 
     public Integer getId() {
@@ -71,5 +76,9 @@ public class TrainingModel {
 
     public void setTrainingSessions(List<TrainingSessionModel> trainingSessions) {
         this.trainingSessions = trainingSessions;
+    }
+
+    public void addTrainingSession(TrainingSessionModel trainingSession) {
+        trainingSessions.add(trainingSession);
     }
 }

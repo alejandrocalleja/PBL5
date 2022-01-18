@@ -46,7 +46,10 @@
                                 </div>
 
                                 <div class="info__button">
-                                    <a th:href="@{/deck/{id}/study(id=${deck.id})}">Study</a>
+                                    <form th:action="@{/study/{id}(id=${deck.id})}" method="post">
+                                        <input type="submit" name="study">
+                                    </form>
+                                    <!-- <a th:href="@{/deck/{id}/study(id=${deck.id})}">Study</a> -->
                                 </div>
 
                                 <span class="info__studiesNum" th:inline="text">[[${studies}]] studies</span>

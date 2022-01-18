@@ -48,7 +48,6 @@ public class UserModel {
 
     private String img_path;
 
-
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
     List<DeckModel> decks;
 

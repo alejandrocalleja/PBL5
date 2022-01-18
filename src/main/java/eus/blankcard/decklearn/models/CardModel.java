@@ -3,6 +3,7 @@ package eus.blankcard.decklearn.models;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,7 +16,8 @@ import javax.persistence.Table;
 public class CardModel {
 
     @Id
-    private Integer card_id;
+    @Column( name = "card_id")
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name="deck_id")
@@ -31,12 +33,12 @@ public class CardModel {
     @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
     List<CardResponseModel> cardResponses;
 
-    public Integer getCard_id() {
-        return card_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCard_id(Integer card_id) {
-        this.card_id = card_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public DeckModel getDeck() {

@@ -20,6 +20,7 @@ public class SessionManager {
     }
 
     public SessionCardManager addSession(String username, TrainingSessionModel trainingSession) {
+        System.out.println("Adding the session" + trainingSession.getId() + "of " + username + " to the session manager");
         SessionCardManager sessionManager = new SessionCardManager(trainingSession);
         sessionRelation.put(username, sessionManager);
 
