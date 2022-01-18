@@ -48,7 +48,7 @@ public class DeckController {
 
         LocalDate now = LocalDate.now();
         List<TrainingModel> monthTraining = deck.getTrainings().stream()
-                .filter(t -> t.getTraining_date().toLocalDate().getMonthValue() == now.getMonthValue())
+                .filter(t -> t.getTrainingDate().toLocalDateTime().getMonthValue() == now.getMonthValue())
                 .collect(Collectors.toCollection(ArrayList::new));
 
         req.setAttribute("monthStudies", monthTraining.size());
@@ -57,6 +57,6 @@ public class DeckController {
         req.setAttribute("totalSaves", deck.getSavers().size());
         req.setAttribute("averagePass", 100);
 
-        return "deck/deck_stats";
+        return "/deck/deck_stats";
     }
 }

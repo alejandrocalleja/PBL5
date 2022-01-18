@@ -1,6 +1,6 @@
 package eus.blankcard.decklearn.models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,8 +35,8 @@ public class TrainingModel {
     @OneToMany(mappedBy = "training", cascade = CascadeType.ALL)
     List<TrainingSessionModel> trainingSessions = new ArrayList<>();
 
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Date training_date;
+    @Column( name = "training_date")
+    private Timestamp trainingDate;
 
     public Integer getId() {
         return id;
@@ -62,14 +62,6 @@ public class TrainingModel {
         this.deck = deck;
     }
 
-    public Date getTraining_date() {
-        return training_date;
-    }
-
-    public void setTraining_date(Date training_date) {
-        this.training_date = training_date;
-    }
-
     public List<TrainingSessionModel> getTrainingSessions() {
         return trainingSessions;
     }
@@ -80,5 +72,13 @@ public class TrainingModel {
 
     public void addTrainingSession(TrainingSessionModel trainingSession) {
         trainingSessions.add(trainingSession);
+    }
+
+    public Timestamp getTrainingDate() {
+        return trainingDate;
+    }
+
+    public void setTrainingDate(Timestamp trainingDate) {
+        this.trainingDate = trainingDate;
     }
 }

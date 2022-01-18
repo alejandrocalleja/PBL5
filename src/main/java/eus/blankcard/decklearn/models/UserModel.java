@@ -37,7 +37,6 @@ public class UserModel {
 
     private String email;
 
-
     @Column(name="postal_code")
     private String postalCode;
 

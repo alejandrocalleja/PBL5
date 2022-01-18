@@ -1,5 +1,9 @@
 package eus.blankcard.decklearn.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,9 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import eus.blankcard.decklearn.gamification.SessionCardManager;
 import eus.blankcard.decklearn.gamification.SessionManager;
 import eus.blankcard.decklearn.models.CardModel;
-import eus.blankcard.decklearn.models.CardResponseModel;
 import eus.blankcard.decklearn.models.DeckModel;
-import eus.blankcard.decklearn.models.ResultsModel;
 import eus.blankcard.decklearn.models.TrainingModel;
 import eus.blankcard.decklearn.models.TrainingSessionModel;
 import eus.blankcard.decklearn.models.UserModel;
@@ -65,6 +67,7 @@ public class StudyController {
             training = new TrainingModel();
             training.setUser(user);
             training.setDeck(deck);
+            training.setTrainingDate(java.sql.Timestamp.valueOf(LocalDateTime.now()));
             training = trainingRepository.save(training);
             System.out.println("Creating one with id " + training.getId());
         }
@@ -73,12 +76,14 @@ public class StudyController {
         TrainingSessionModel trainingSession = new TrainingSessionModel();
         trainingSession.setTraining(training);
         trainingSession.setId(training.getTrainingSessions().size() + 1);
+        trainingSession.setDate(java.sql.Timestamp.valueOf(LocalDateTime.now()));
         trainingSessionRepository.save(trainingSession);
         System.out.println("Creating a new training session with id " + trainingSession.getId());
 
         // Save the training/training session relation
-        training.addTrainingSession(trainingSession);
-        trainingRepository.save(training);
+        // training.addTrainingSession(trainingSession);
+        // trainingRepository.save(training);
+        // System.out.println("Training saved");
 
         // Add the current session to the sessionManager
         sessionManager.addSession(loggedUser, trainingSession);
@@ -97,12 +102,14 @@ public class StudyController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String loggedUser = authentication.getName();
         DeckModel deck = deckRepository.getById(deckId);
+        System.out.println("HAS CARGADO EL MAZO BROOO");
+        System.out.println("deck: " + deck.getCards().get(0).getQuestion());
 
         SessionCardManager sessionCardManager = sessionManager.getSession(loggedUser);
         System.out.println("Loading the sessionManager from getStudyView()");
 
-        CardModel card = sessionCardManager.getNextCard();
-        req.setAttribute("card", card);
+        // CardModel card = sessionCardManager.getNextCard();
+        req.setAttribute("card", deck.getCards().get(0));
         req.setAttribute("deck", deck);
 
         return "/study/card_question";
@@ -113,13 +120,13 @@ public class StudyController {
             HttpServletRequest req,
             HttpServletResponse response) {
         // Returneas la vista con la respuesta de esa carta
-        CardModel card = cardRepository.getById(cardId);
-        req.setAttribute("card", card);
-
+        // CardModel card = cardRepository.getById(cardId);
+        
         DeckModel deck = deckRepository.getById(deckId);
         req.setAttribute("deck", deck);
+        req.setAttribute("card", deck.getCards().get(0));
 
-        return "/study/card_response";
+        return "/study/card_answer";
     }
 
     @PostMapping("/study/{deckId}/{cardId}")

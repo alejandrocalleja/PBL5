@@ -114,6 +114,10 @@ public class DeckModel {
         this.trainings = trainings;
     }
 
+    public void addTraining(TrainingModel training) {
+        this.trainings.add(training);
+    }
+
     public List<UserModel> getSavers() {
         return savers;
     }

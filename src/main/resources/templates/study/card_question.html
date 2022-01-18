@@ -22,7 +22,7 @@
                 <div class="card-view">
                     <div class="card-content">
                         <p class="card-content__question" th:inline="text">[[${card.question}]]</p>
-                        <a th:href="@{/study/{deckId}/{card.id}(deckId=${deck.id})}">View answer</a>
+                        <a th:href="@{/study/{deckId}/{cardId}(deckId=${deck.id}, cardId=${card.id})}">View answer</a>
                     </div>
                 </div>
             </section>

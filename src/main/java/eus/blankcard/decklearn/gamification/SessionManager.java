@@ -1,5 +1,6 @@
 package eus.blankcard.decklearn.gamification;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ public class SessionManager {
 
 
     public SessionManager() {
+        sessionRelation = new HashMap<>();
     }
 
     public void createSessionManager(String username, SessionCardManager session) {
