@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deck Learn - Studying: French Revolution</title>
-    <link rel="stylesheet" href="assets/card_question/css/card_question.css">
+    <title th:inline="text">Studying: [[${deck.title}]] | Deck Learn</title>
+    <link rel="stylesheet" th:href="@{/styles/modules/css/card_question.css}">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
 
         <div class="content-container">
             <section class="content">
-                <h2>Studying: French Revolution</h2>
+                <h2 th:inline="text">Studying: [[${deck.title}]]</h2>
 
                 <div class="card-view">
                     <div class="card-content">

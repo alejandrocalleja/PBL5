@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deck Learn - Studying: French Revolution</title>
-    <link rel="stylesheet" href="assets/card_answer/css/card_answer.css">
+    <title th:inline="text">Studying: [[${deck.title}]] | Deck Learn</title>
+    <link rel="stylesheet" th:href="@{/styles/modules/css/card_answer.css}">
 </head>
 
 <body>
@@ -25,6 +25,9 @@
                         <p class="card-content__answer" th:inline="text">[[${card.answer}]]</p>
                         <div class="card-content__buttons">
                             <!-- Estos tienen que ser inputs -->
+                            <form th:action="@{/study/{deckId}/{cardId}(deckId=${deck.id}, cardId=${card.id})}">
+
+                            </form>
                             <a th:href="" class="card-content__buttons-pass">Pass</a>
                             <a th:href="" class="card-content__buttons-fail">Fail</a>
                         </div>

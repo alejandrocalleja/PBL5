@@ -15,10 +15,12 @@ import eus.blankcard.decklearn.gamification.SessionCardManager;
 import eus.blankcard.decklearn.gamification.SessionManager;
 import eus.blankcard.decklearn.models.CardModel;
 import eus.blankcard.decklearn.models.CardResponseModel;
+import eus.blankcard.decklearn.models.DeckModel;
 import eus.blankcard.decklearn.models.ResultsModel;
 import eus.blankcard.decklearn.models.TrainingSessionModel;
 import eus.blankcard.decklearn.repository.CardRepository;
 import eus.blankcard.decklearn.repository.TrainingSessionRepository;
+import eus.blankcard.decklearn.repository.deck.DeckRepository;
 
 @Controller
 public class StudyController {
@@ -28,6 +30,9 @@ public class StudyController {
 
     @Autowired
     CardRepository cardRepository;
+
+    @Autowired
+    DeckRepository deckRepository;
 
     @Autowired
     SessionManager sessionManager;
@@ -48,8 +53,12 @@ public class StudyController {
             sessionCardManager = sessionManager.addSession(currentPrincipalName, trainingSession);
         }
 
+
         CardModel card = sessionCardManager.getNextCard();
         req.setAttribute("card", card);
+
+        DeckModel deck = deckRepository.getById(deckId);
+        req.setAttribute("deck", deck);
         
         return "/study/card_question";
     }
@@ -60,6 +69,9 @@ public class StudyController {
         // Returneas la vista con la respuesta de esa carta
         CardModel card = cardRepository.getById(cardId);
         req.setAttribute("card", card);
+
+        DeckModel deck = deckRepository.getById(deckId);
+        req.setAttribute("deck", deck);
 
         return "";
     }
@@ -84,6 +96,12 @@ public class StudyController {
 
         SessionCardManager sessionCardManager = sessionManager.getSession(currentPrincipalName);
         sessionCardManager.saveCardResponse(cardResponse);
+
+        if() {
+
+        } else {
+            
+        }
 
         // Returnear un redirect a study si todavia quedan cartas, si no tienes que hacer un redirect a trainingStats
         return "redirect:/study/" + deckId;
