@@ -25,6 +25,10 @@ public class ResultsModel {
     @JoinColumn(name="training_session_id")
     private TrainingSessionModel trainingSession;
 
+    @ManyToOne
+    @JoinColumn(name="training_id")
+    private TrainingModel training;
+
     @OneToMany(mappedBy = "result", cascade = CascadeType.ALL)
     private List<CardResponseModel> cardResponses;
 
@@ -83,5 +87,13 @@ public class ResultsModel {
 
     public void setAvgTime(Time avgTime) {
         this.avgTime = avgTime;
+    }
+
+    public TrainingModel getTraining() {
+        return training;
+    }
+
+    public void setTraining(TrainingModel training) {
+        this.training = training;
     }
 }

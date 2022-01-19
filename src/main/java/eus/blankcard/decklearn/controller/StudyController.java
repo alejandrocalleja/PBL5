@@ -1,6 +1,7 @@
 package eus.blankcard.decklearn.controller;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,14 +16,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import eus.blankcard.decklearn.gamification.SessionCardManager;
 import eus.blankcard.decklearn.gamification.SessionManager;
+import eus.blankcard.decklearn.models.CardModel;
 import eus.blankcard.decklearn.models.DeckModel;
 import eus.blankcard.decklearn.models.TrainingModel;
 import eus.blankcard.decklearn.models.TrainingSessionModel;
 import eus.blankcard.decklearn.models.UserModel;
 import eus.blankcard.decklearn.repository.CardRepository;
 import eus.blankcard.decklearn.repository.TrainingRepository;
-import eus.blankcard.decklearn.repository.TrainingSessionRepository;
 import eus.blankcard.decklearn.repository.deck.DeckRepository;
+import eus.blankcard.decklearn.repository.trainingSession.TrainingSessionRepository;
 import eus.blankcard.decklearn.repository.user.UserRepository;
 
 @Controller
@@ -72,15 +74,18 @@ public class StudyController {
         // Create a new Training Session and save it on the database
         TrainingSessionModel trainingSession = new TrainingSessionModel();
         trainingSession.setTraining(training);
-        trainingSession.setId(training.getTrainingSessions().size() + 1);
+
+        TrainingSessionModel lastIdModel = trainingSessionRepository.findLastSession(training.getId());
+        if (lastIdModel != null) {
+            System.out.println("Loaded ID = " + lastIdModel.getId());
+            trainingSession.setId(lastIdModel.getId() + 1);
+        } else {
+            trainingSession.setId(1);
+        }
+
         trainingSession.setDate(java.sql.Timestamp.valueOf(LocalDateTime.now()));
         trainingSessionRepository.save(trainingSession);
         System.out.println("Creating a new training session with id " + trainingSession.getId());
-
-        // Save the training/training session relation
-        // training.addTrainingSession(trainingSession);
-        // trainingRepository.save(training);
-        // System.out.println("Training saved");
 
         // Add the current session to the sessionManager
         sessionManager.addSession(loggedUser, trainingSession);
@@ -93,7 +98,8 @@ public class StudyController {
             HttpServletResponse response) {
         // Aqui vas a venir muchas veces
         // Uno de los hilos va a empezar a elegir la siguiente carta mientras que el
-        // otro va a estar durmiendo esperando a que le avise oq ue haya content en el buffer
+        // otro va a estar durmiendo esperando a que le avise oq ue haya content en el
+        // buffer
         // Una vez encontrada la carta se devuelve una vista con la pregunta.
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -105,11 +111,15 @@ public class StudyController {
         SessionCardManager sessionCardManager = sessionManager.getSession(loggedUser);
         System.out.println("Loading the sessionManager from getStudyView()");
 
-        // CardModel card = sessionCardManager.getNextCard();
-        req.setAttribute("card", deck.getCards().get(0));
+        // Get the card Id and load all the params from DB bc if there is a second time the card is empty
+        CardModel card = sessionCardManager.getNextCard();
+        Optional<CardModel> optional = cardRepository.findById(card.getId());
+        card = optional.get();
+
+        req.setAttribute("card", card);
         req.setAttribute("deck", deck);
 
-        return "/study/card_question";
+        return "study/card_question";
     }
 
     @GetMapping("/study/{deckId}/{cardId}")
@@ -118,7 +128,7 @@ public class StudyController {
             HttpServletResponse response) {
         // Returneas la vista con la respuesta de esa carta
         // CardModel card = cardRepository.getById(cardId);
-        
+
         DeckModel deck = deckRepository.getById(deckId);
         req.setAttribute("deck", deck);
         req.setAttribute("card", deck.getCards().get(0));
@@ -127,33 +137,38 @@ public class StudyController {
     }
 
     @PostMapping("/study/{deckId}/{cardId}")
-    private String saveResponse(@PathVariable("deckId") Integer deckId, @PathVariable("cardId") Integer cardId , HttpServletRequest req, 
-    HttpServletResponse response) {
-        // Notificas al hilo de la respuesta para que empieze a seleccionar la siguente carta
-        // Aquí pillas el name del boton que te ha mandado el post. Una vez sabes si ha sido respuesta buena o mala tienes que guardarlo en response.
-        // Return la vista con la siguiente carta. Si por alguna razón era la última carta y la ha respondido bien puedes pasar a la vista de stats
+    private String saveResponse(@PathVariable("deckId") Integer deckId, @PathVariable("cardId") Integer cardId,
+            HttpServletRequest req,
+            HttpServletResponse response) {
+        // Notificas al hilo de la respuesta para que empieze a seleccionar la siguente
+        // carta
+        // Aquí pillas el name del boton que te ha mandado el post. Una vez sabes si ha
+        // sido respuesta buena o mala tienes que guardarlo en response.
+        // Return la vista con la siguiente carta. Si por alguna razón era la última
+        // carta y la ha respondido bien puedes pasar a la vista de stats
 
-        // Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        // String currentPrincipalName = authentication.getName();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String loggedUser = authentication.getName();
 
-        // // int response = req.getAttribute("response");
-        // ResultsModel results = new ResultsModel();
-        // results.setTrainingSession(trainingSession);
+        String cardResult = (String) req.getParameter("response");
+        System.out.println("Result: " + cardResult);
 
-        // CardResponseModel cardResponseModel = new CardResponseModel();
-        // cardResponseModel.setCard(card);
-        // cardResponseModel.setResults(results);
+        boolean correct = cardResult.equals("pass");
+        CardModel card = cardRepository.getById(cardId);
 
-        // SessionCardManager sessionCardManager = sessionManager.getSession(currentPrincipalName);
-        // sessionCardManager.saveCardResponse(cardResponse);
+        SessionCardManager sessionCardManager = sessionManager.getSession(loggedUser);
+        sessionCardManager.saveCardResponse(card, correct);
 
-        // if() {
+        if (sessionCardManager.cardsRemaining()) {
+            System.out.println("Cards reamining -> loop study again");
+            return "redirect:/study/" + deckId;
+        } else {
+            System.out.println("No crds reamining -> save results and go");
+            sessionCardManager.saveSessionResults();
+            return "redirect:/home";
+        }
 
-        // } else {
-            
-        // }
-
-        // Returnear un redirect a study si todavia quedan cartas, si no tienes que hacer un redirect a trainingStats
-        return "redirect:/study/" + deckId;
+        // Returnear un redirect a study si todavia quedan cartas, si no tienes que
+        // hacer un redirect a trainingStats
     }
 }

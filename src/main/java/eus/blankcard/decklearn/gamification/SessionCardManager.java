@@ -3,13 +3,17 @@ package eus.blankcard.decklearn.gamification;
 import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import eus.blankcard.decklearn.models.CardModel;
 import eus.blankcard.decklearn.models.CardResponseModel;
@@ -18,8 +22,10 @@ import eus.blankcard.decklearn.models.TrainingSessionModel;
 import eus.blankcard.decklearn.repository.CardRepository;
 import eus.blankcard.decklearn.repository.CardResponseRepository;
 import eus.blankcard.decklearn.repository.ResultsRepository;
-import eus.blankcard.decklearn.repository.TrainingSessionRepository;
+import eus.blankcard.decklearn.repository.trainingSession.TrainingSessionRepository;
 
+@Component
+@Scope("prototype")
 public class SessionCardManager implements Runnable {
     private TrainingSessionModel trainingSession;
     private Buffer buffer;
@@ -39,7 +45,11 @@ public class SessionCardManager implements Runnable {
     @Autowired
     ResultsRepository resultsRepository;
 
-    public SessionCardManager(TrainingSessionModel trainingSession) {
+    public SessionCardManager() {
+        System.out.println("CREATING ONE SESSION CARD MANAGER");
+    }
+
+    public void initSessionCardManager(TrainingSessionModel trainingSession) {
         this.trainingSession = trainingSession;
 
         System.out.println("Creating a new SessionCardManager for trainingSession " + trainingSession.getId());
@@ -56,16 +66,26 @@ public class SessionCardManager implements Runnable {
     }
 
     private void loadCards() {
-        // this.cards = trainingSession.getTraining().getDeck().getCards();
-        this.cards = loadRequiredCards();
+        TrainingSessionModel prevTraining = trainingSessionRepository.findLastSession(trainingSession.getTraining().getId());
+        LocalDateTime prevDate = prevTraining.getDate().toLocalDateTime();
+        Long daysBetween = Duration.between(prevDate, LocalDateTime.now()).toDays();
+        
+        // If it's the second study today, load all the cards and ignore the previous
+        System.out.println("Days between prev and current training session: " + daysBetween);
+        if(daysBetween < 1) {
+            System.out.println("Loading all the cards of deck");
+            this.cards = trainingSession.getTraining().getDeck().getCards();
+        } else {
+            System.out.println("Loading required cards of the deck");
+            this.cards = loadRequiredCards();
+        }
         System.out.println(cards.size() + " cards loaded for the session.");
     }
 
     private List<CardModel> loadRequiredCards() {
 
         // Load the previous
-        TrainingSessionModel prevTraining = trainingSessionRepository
-                .findByTrainingIdAndDateWithLimit(trainingSession.getTraining().getId(), 1);
+        TrainingSessionModel prevTraining = trainingSessionRepository.findLastSession(trainingSession.getTraining().getId());
 
         if (prevTraining != null) {
             System.out.println("Previous training found. Loading required cards.");
@@ -94,11 +114,12 @@ public class SessionCardManager implements Runnable {
         return null;
     }
 
-    private void saveSessionResults() {
+    public void saveSessionResults() {
         AtomicInteger idGenerator = new AtomicInteger(1);
         resultResponseMap.forEach((k, v) -> {
             ResultsModel result = new ResultsModel();
             result.setTrainingSession(trainingSession);
+            result.setTraining(trainingSession.getTraining());
             result.setId(idGenerator.getAndIncrement());
             resultsRepository.save(result);
 
@@ -106,13 +127,14 @@ public class SessionCardManager implements Runnable {
                 response.setResult(result);
                 cardResponseRepository.save(response);
             });
+
             result.setCardResponses(v);
+
             // Mirar el anterior que caja es. Si no existe anterior a la caja 1, si existe y
             // es a la primera bien
             // Anterior caja + 1 y si está mal directamente a la 1.
             if (v.size() > 1) {
                 result.setBoxNumber(1);
-
             } else {
 
                 // Calcularlo
@@ -162,9 +184,11 @@ public class SessionCardManager implements Runnable {
         cardResponse.setCorrect(correct);
         cardResponse.setResponseDate(java.sql.Date.valueOf(LocalDate.now()));
 
+        // Si está mal la vuelves a meter para que la pregunte otra vez
         if (!correct) {
-            // Si está mal la vuelves a meter para que la pregunte otra vez
+            System.out.println("Card not correct. Adding it again");
             cards.add(card);
+            System.out.println("Cards remaining after adding: " + cards.size());
         }
         resultResponseMap.get(card.getId()).add(cardResponse);
     }
@@ -173,12 +197,18 @@ public class SessionCardManager implements Runnable {
         CardModel card = null;
 
         // AQUI SE CAMBIA ESTO POR LA GAMIFICATION
-        if (index > cards.size()) {
-            card = cards.get(index);
+        if (cards.size() > 0) {
+            card = cards.get(0);
             cards.remove(card);
         }
+        System.out.println("Next card is card " + card.getId());
+        System.out.println("Remaining cards: " + cards.size());
 
         return card;
+    }
+
+    public boolean cardsRemaining() {
+        return cards.size() > 0;
     }
 
     @Override
