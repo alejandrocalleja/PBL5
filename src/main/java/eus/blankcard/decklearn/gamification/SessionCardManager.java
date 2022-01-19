@@ -46,8 +46,8 @@ public class SessionCardManager implements Runnable {
 
         buffer = new Buffer();
         index = 0;
-        initMap();
         loadCards();
+        initMap();
     }
 
     private void initMap() {
