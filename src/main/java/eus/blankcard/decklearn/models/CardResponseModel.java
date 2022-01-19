@@ -1,5 +1,7 @@
 package eus.blankcard.decklearn.models;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -24,6 +26,9 @@ public class CardResponseModel {
     private CardModel card;
 
     boolean correct;
+
+    @Column( name = "response_date")
+    Date responseDate;
 
     public Integer getId() {
         return id;
@@ -55,5 +60,13 @@ public class CardResponseModel {
 
     public void setCorrect(boolean correct) {
         this.correct = correct;
-    }    
+    }
+
+    public Date getResponseDate() {
+        return responseDate;
+    }
+
+    public void setResponseDate(Date responseDate) {
+        this.responseDate = responseDate;
+    }
 }

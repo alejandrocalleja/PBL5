@@ -1,7 +1,5 @@
 package eus.blankcard.decklearn.controller;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import eus.blankcard.decklearn.gamification.SessionCardManager;
 import eus.blankcard.decklearn.gamification.SessionManager;
-import eus.blankcard.decklearn.models.CardModel;
 import eus.blankcard.decklearn.models.DeckModel;
 import eus.blankcard.decklearn.models.TrainingModel;
 import eus.blankcard.decklearn.models.TrainingSessionModel;
