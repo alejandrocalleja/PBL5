@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:inline="text"> [[${user.username}]] Security Settings | Deck Learn </title>
+  <link rel="stylesheet" th:href="@{/styles/modules/css/settings.css}">
+
+</head>
+
+<body>
+  <div th:replace="fragments/left-nav :: left-nav"></div>
+
+  <main class="center-screen">
+    <div th:replace="fragments/top-nav :: top-nav"></div>
+
+    <div class="content-container">
+      <div class="content">
+        <section class="settings-content-section">
+          <h1 class="settings__top-title">Settings</h1>
+          <div>
+            <div class="settings-selector">
+              <div class="settings-selector__screens">
+                <nav class="settings-selector__screens__list">
+                  <a href="">
+                    <p>Profile</p>
+                  </a>
+                  <a href="" class="selected">
+                    <p>Security</p>
+                  </a>
+                  <a href="">
+                    <p>Language</p>
+                  </a>
+                </nav>
+              </div>
+              <div class="settings-selector__logout">
+                <nav>
+                  <a href="" id="logout">
+                    <img src="images/icons/Log_out.svg" alt="">
+                    <p>Log out</p>
+                  </a>
+                </nav>
+              </div>
+            </div>
+            <div class="settings-central">
+              <div class="user-data-form">
+                <form action="" class="grided-form">
+                  <label for="email">Email: </label>
+                  <input type="text" class="custom-input" placeholder="Email" id="email">
+                  <label for="passwd">Password: </label>
+                  <input type="password" class="custom-input" placeholder="Password" id="passwd">
+                  <label for="cmpasswd">Confirm Password: </label>
+                  <input type="password" class="custom-input" placeholder="Confirm" id="cmpasswd">
+                  <input type="submit" class="custom-submit" value="Save settings">
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

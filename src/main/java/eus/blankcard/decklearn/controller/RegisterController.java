@@ -11,23 +11,23 @@ import eus.blankcard.decklearn.repository.user.UserRepository;
 
 @Controller
 public class RegisterController {
-    
-    @Autowired
-    private UserRepository userRepository;
-    
-    @Autowired
-    private BCryptPasswordEncoder encoder;
 
-    @GetMapping("/register")
-    public String registerForm() {
-        return "register";
-    }
+  @Autowired
+  private UserRepository userRepository;
 
-    @PostMapping("/register")
-    public String registerSubmit(UserModel user) {
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setImg_path("/images/user/default.png");
-        userRepository.save(user);
-        return "redirect:/login";
-    }   
+  @Autowired
+  private BCryptPasswordEncoder encoder;
+
+  @GetMapping("/register")
+  public String registerForm() {
+    return "register";
+  }
+
+  @PostMapping("/register")
+  public String registerSubmit(UserModel user) {
+    user.setPassword(encoder.encode(user.getPassword()));
+    user.setImgPath("/images/user/default.png");
+    userRepository.save(user);
+    return "redirect:/login";
+  }
 }
