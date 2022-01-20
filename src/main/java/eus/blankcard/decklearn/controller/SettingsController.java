@@ -46,20 +46,17 @@ public class SettingsController {
 
   @GetMapping({ "/settings/profile", "/settings" })
   public String getProfile(HttpServletRequest req, HttpServletResponse response) {
-    String returnPage = defaultGet(req, response, "profile_settings");
-    return returnPage;
+    return defaultGet(req, response, "profile_settings");
   }
 
   @GetMapping("/settings/security")
   public String getSecurity(HttpServletRequest req, HttpServletResponse response) {
-    String returnPage = defaultGet(req, response, "security_settings");
-    return returnPage;
+    return defaultGet(req, response, "security_settings");
   }
 
   @GetMapping("/settings/language")
   public String getLanguage(HttpServletRequest req, HttpServletResponse response) {
-    String returnPage = defaultGet(req, response, "language_settings");
-    return returnPage;
+    return defaultGet(req, response, "language_settings");
   }
 
   @PostMapping("/settings/profile")
