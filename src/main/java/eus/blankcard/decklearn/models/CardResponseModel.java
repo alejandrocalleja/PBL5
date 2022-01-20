@@ -1,9 +1,12 @@
 package eus.blankcard.decklearn.models;
 
 import java.sql.Date;
+import java.sql.Time;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,6 +17,7 @@ import javax.persistence.Table;
 public class CardResponseModel {
     
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column( name = "card_responses_id ")
     private Integer id;
 
@@ -29,6 +33,9 @@ public class CardResponseModel {
     
     @Column( name = "response_date")
     Date responseDate;
+
+    @Column( name = "response_time")
+    Time responseTime;
 
     public Integer getId() {
         return id;
@@ -68,5 +75,13 @@ public class CardResponseModel {
 
     public void setResponseDate(Date responseDate) {
         this.responseDate = responseDate;
+    }
+
+    public Time getResponseTime() {
+        return responseTime;
+    }
+
+    public void setResponseTime(Time responseTime) {
+        this.responseTime = responseTime;
     }
 }

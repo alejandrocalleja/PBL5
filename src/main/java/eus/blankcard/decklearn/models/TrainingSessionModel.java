@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,6 +23,7 @@ public class TrainingSessionModel {
     @Column( name = "training_session_id")
     private Integer id;
     
+    @ManyToOne
     @JoinColumn(name = "training_id")
     private TrainingModel training;
 

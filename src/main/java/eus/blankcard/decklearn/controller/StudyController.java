@@ -73,15 +73,9 @@ public class StudyController {
         
         // Create a new Training Session and save it on the database
         TrainingSessionModel trainingSession = new TrainingSessionModel();
-        System.out.println("Training ID: " + trainingSession.getTraining().getId());
-
         trainingSession.setTraining(training);
         trainingSession.setDate(java.sql.Timestamp.valueOf(LocalDateTime.now()));
         trainingSession = trainingSessionRepository.save(trainingSession);
-        
-        // training.addTrainingSession(trainingSession);
-        // trainingRepository.save(training);
-        // trainingSessionRepository.save(trainingSession);
 
         System.out.println("Created a new training session with id " + trainingSession.getId());
 
@@ -92,19 +86,13 @@ public class StudyController {
     }
 
     @GetMapping("/study/{deckId}")
-    private String getStudyView(@PathVariable("deckId") Integer deckId, HttpServletRequest req,
-            HttpServletResponse response) {
-        // Aqui vas a venir muchas veces
-        // Uno de los hilos va a empezar a elegir la siguiente carta mientras que el
-        // otro va a estar durmiendo esperando a que le avise oq ue haya content en el
-        // buffer
-        // Una vez encontrada la carta se devuelve una vista con la pregunta.
+    private String getStudyView(@PathVariable("deckId") Integer deckId, HttpServletRequest req, HttpServletResponse response) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String loggedUser = authentication.getName();
         DeckModel deck = deckRepository.getById(deckId);
-        System.out.println("HAS CARGADO EL MAZO BROOO");
-        System.out.println("deck: " + deck.getCards().get(0).getQuestion());
+        System.out.println("Deck loaded in getStudyView()");
+        System.out.println("Deck: " + deck.getId());
 
         SessionCardManager sessionCardManager = sessionManager.getSession(loggedUser);
         System.out.println("Loading the sessionManager from getStudyView()");
@@ -121,29 +109,18 @@ public class StudyController {
     }
 
     @GetMapping("/study/{deckId}/{cardId}")
-    private String getResponseView(@PathVariable("deckId") Integer deckId, @PathVariable("cardId") Integer cardId,
-            HttpServletRequest req,
-            HttpServletResponse response) {
-        // Returneas la vista con la respuesta de esa carta
-        // CardModel card = cardRepository.getById(cardId);
-
+    private String getResponseView(@PathVariable("deckId") Integer deckId, @PathVariable("cardId") Integer cardId, HttpServletRequest req, HttpServletResponse response) {
+        CardModel card = cardRepository.getById(cardId);
         DeckModel deck = deckRepository.getById(deckId);
+
         req.setAttribute("deck", deck);
-        req.setAttribute("card", deck.getCards().get(0));
+        req.setAttribute("card", card);
 
         return "/study/card_answer";
     }
 
     @PostMapping("/study/{deckId}/{cardId}")
-    private String saveResponse(@PathVariable("deckId") Integer deckId, @PathVariable("cardId") Integer cardId,
-            HttpServletRequest req,
-            HttpServletResponse response) {
-        // Notificas al hilo de la respuesta para que empieze a seleccionar la siguente
-        // carta
-        // Aquí pillas el name del boton que te ha mandado el post. Una vez sabes si ha
-        // sido respuesta buena o mala tienes que guardarlo en response.
-        // Return la vista con la siguiente carta. Si por alguna razón era la última
-        // carta y la ha respondido bien puedes pasar a la vista de stats
+    private String saveResponse(@PathVariable("deckId") Integer deckId, @PathVariable("cardId") Integer cardId, HttpServletRequest req, HttpServletResponse response) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String loggedUser = authentication.getName();
@@ -163,10 +140,9 @@ public class StudyController {
         } else {
             System.out.println("No crds reamining -> save results and go");
             sessionCardManager.saveSessionResults();
+            sessionManager.removeSession(loggedUser);
+
             return "redirect:/home";
         }
-
-        // Returnear un redirect a study si todavia quedan cartas, si no tienes que
-        // hacer un redirect a trainingStats
     }
 }
