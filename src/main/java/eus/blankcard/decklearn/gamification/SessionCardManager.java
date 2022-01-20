@@ -312,4 +312,8 @@ public class SessionCardManager {
 
         return time;
     }
+
+    public TrainingSessionModel getCurrentTrainingSession() {
+        return this.trainingSession;
+    }
 }

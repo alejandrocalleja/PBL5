@@ -1,5 +1,6 @@
 package eus.blankcard.decklearn.controller;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -26,6 +27,7 @@ import eus.blankcard.decklearn.repository.TrainingRepository;
 import eus.blankcard.decklearn.repository.deck.DeckRepository;
 import eus.blankcard.decklearn.repository.trainingSession.TrainingSessionRepository;
 import eus.blankcard.decklearn.repository.user.UserRepository;
+import eus.blankcard.decklearn.util.StatsCalculator;
 
 @Controller
 public class StudyController {
@@ -47,6 +49,9 @@ public class StudyController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    StatsCalculator statsCalculator;
 
     @PostMapping("/study/{deckId}")
     private String studyDeck(@PathVariable("deckId") Integer deckId) {
@@ -140,9 +145,31 @@ public class StudyController {
         } else {
             System.out.println("No crds reamining -> save results and go");
             sessionCardManager.saveSessionResults();
+            TrainingSessionModel currentTraining = sessionCardManager.getCurrentTrainingSession();
             sessionManager.removeSession(loggedUser);
 
-            return "redirect:/home";
+            return "redirect:/study/ststs/" + currentTraining.getId();
         }
+    }
+
+    @GetMapping("/study/ststs/{trainingSessionId}")
+    private String getTrainingSessionStats(@PathVariable("trainingSessionId") Integer trainingSessionId, HttpServletRequest req, HttpServletResponse response) {
+
+        Optional<TrainingSessionModel> optionalTrainingSession = trainingSessionRepository.findById(trainingSessionId);
+        TrainingSessionModel trainingSession = optionalTrainingSession.get();
+        DeckModel deck = trainingSession.getTraining().getDeck();
+
+        Time totalStudyTime = statsCalculator.getTotalStudyTime(trainingSession);
+        Time avgResponseTime = statsCalculator.getAvgResponseTime(trainingSession);
+        int totalSessions = trainingSession.getTraining().getTrainingSessions().size();
+        int passRatio = statsCalculator.getPassRatio(trainingSession);
+
+        req.setAttribute("deck", deck);
+        req.setAttribute("totalStudyTime", "00:00:32");
+        req.setAttribute("avgResponseTime", avgResponseTime.toString());
+        req.setAttribute("totalSessions", totalSessions);
+        req.setAttribute("passRatio", passRatio);
+        
+        return "study/session_review";
     }
 }

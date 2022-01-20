@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class ProfileControllerTest {
+class DeckTest {
 
   @Autowired
   private MockMvc mockMvc;
@@ -25,36 +25,19 @@ class ProfileControllerTest {
 
   @Test
   @WithMockUser(username = "testUser", roles = "USER")
-  void shouldReturnUserProfile() throws Exception {
-    String url = "/EmeraldOfMurmer";
+  void shouldReturnDeckViewPage() throws Exception {
+    String url = "/deck/1";
 
     mockMvc.perform(MockMvcRequestBuilders.get(url))
         .andExpect(MockMvcResultMatchers.status().isOk());
   }
 
   @Test
-  @WithMockUser(username = "testUser", roles = "USER")
-  void shouldReturnOwnUserProfile() throws Exception {
-    String url = "/testUser";
+  @WithMockUser(username = "Alroden", roles = "USER")
+  void shouldReturnDeckStatsViewPage() throws Exception {
+    String url = "/deck/153/stats";
 
     mockMvc.perform(MockMvcRequestBuilders.get(url))
         .andExpect(MockMvcResultMatchers.status().isOk());
-  }
-
-  @Test
-  @WithMockUser(username = "testUser", roles = "USER")
-  void shouldReturnUserProfileNotFound() throws Exception {
-    String url = "/notFoundUser";
-
-    mockMvc.perform(MockMvcRequestBuilders.get(url))
-        .andExpect(MockMvcResultMatchers.status().isNotFound());
-  }
-
-  @Test
-  void shouldReturnRedirectionError() throws Exception {
-    String url = "/notFoundUser";
-
-    mockMvc.perform(MockMvcRequestBuilders.get(url))
-        .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
   }
 }
