@@ -27,10 +27,10 @@
 
                         <div class="card" th:each="deck: ${study_sessions}">
                             <div class="card-content">
-                                <img class="" th:src="@{deck.path}"></img>
+                                <img class="" th:src="${deck.imgPath}"></img>
                                 <div>
                                     <h3 th:inline="text">[[${deck.title}]]</h3>
-                                    <span th:text="${deck.text}"></span>
+                                    <span th:text="${deck.description}"></span>
                                 </div>
                             </div>
                             <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
@@ -46,10 +46,10 @@
 
                         <div class="card" th:each="deck: ${explore_deck}">
                             <div class="card-content">
-                                <img class="" th:src="@{deck.path}"></img>
+                                <img class="" th:src="${deck.imgPath}"></img>
                                 <div>
                                     <h3 th:inline="text">[[${deck.title}]]</h3>
-                                    <span th:text="${deck.text}"></span>
+                                    <span th:text="${deck.description}"></span>
                                 </div>
                             </div>
                             <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>

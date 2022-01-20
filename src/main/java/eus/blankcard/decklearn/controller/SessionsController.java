@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,17 +18,17 @@ import eus.blankcard.decklearn.repository.deck.DeckRepository;
 import eus.blankcard.decklearn.repository.user.UserRepository;
 
 @Controller
-public class HomeController {
-    
+public class SessionsController {
+
+
     @Autowired
     UserRepository userRepository;
 
     @Autowired
     DeckRepository deckRepository;
-
-    @GetMapping("/home")
-    public String getHome(HttpServletRequest req, HttpServletResponse response) {
-
+    
+    @GetMapping("/sessions")
+    public String getSessions(HttpServletRequest req, HttpServletResponse response) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
@@ -39,11 +37,11 @@ public class HomeController {
         List<DeckModel> studySessions = new ArrayList<>();
 
         user.getTrainings().forEach(t -> studySessions.add(t.getDeck()));;
-        req.setAttribute("study_sessions", studySessions);
+        req.setAttribute("decks", studySessions);
 
-        Pageable limit = PageRequest.of(0,20);
-        req.setAttribute("explore_deck", deckRepository.findAll(limit));
-
-        return "home";
+        req.setAttribute("pageName", "Study sessions");
+        
+        return "search_results";
     }
+
 }

@@ -1,8 +1,7 @@
 package eus.blankcard.decklearn.gamification;
 
-import static java.time.temporal.ChronoUnit.SECONDS;
 import static java.time.temporal.ChronoUnit.MINUTES;
-import static java.time.temporal.ChronoUnit.HOURS;
+import static java.time.temporal.ChronoUnit.SECONDS;
 
 import java.sql.Time;
 import java.time.Duration;
@@ -202,14 +201,15 @@ public class SessionCardManager {
 
             long sec = responseTime.getSecond();
             long min = responseTime.getMinute();
-            long hour = responseTime.getHour();
 
             totalMilis += sec * 1000;
             totalMilis += (min * 60) * 1000;
-            totalMilis += ((hour * 60) * 60) * 1000;
         }
 
         long milisMean = totalMilis / v.size();
+
+        // - 1h bc Time adds an hour depending on your GTM
+        milisMean -= 3600000;
 
         Time time = new Time(milisMean);
 
@@ -277,17 +277,26 @@ public class SessionCardManager {
     }
 
     private Time calculateTimeDifference(LocalTime closestTime, LocalTime otherTime) {
+
+        System.out.println("Card show moment: " + otherTime.toString());
+        System.out.println("Card response moment: " + closestTime.toString());
         
-        long secDiff = SECONDS.between(closestTime, otherTime);
-        long minDiff = MINUTES.between(closestTime, otherTime);
-        long hourDiff = HOURS.between(closestTime, otherTime);
+        long secDiff = SECONDS.between(otherTime, closestTime);
+        long minDiff = MINUTES.between(otherTime, closestTime);
+        System.out.println("secDiff " + secDiff);
+        System.out.println("minDiff " + minDiff);
 
         long milis = 0; 
         milis += secDiff * 1000;
         milis += (minDiff * 60) * 1000;
-        milis += ((hourDiff * 60) * 60) * 1000;
+        System.out.println("total milis: " + milis);
+
+        // - 1h bc Time adds an hour depending on your GTM
+        milis -= 3600000;
 
         Time time = new Time(milis);
+
+        System.out.println("Final time sql " + time.toString());
 
         return time;
     }
