@@ -26,11 +26,11 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
   @Autowired
   private BCryptPasswordEncoder encoder;
 
-  @Override
-  public UserModel loadUser(String username, String password) {
-    UserModel user = null;
-    Query query = entityManager.createNativeQuery("SELECT * FROM user WHERE username=? AND password=?",
-        UserModel.class);
+    /*@Override
+    public UserModel loadUser(String username, String password) {
+        UserModel user = null;
+        Query query = entityManager.createNativeQuery("SELECT * FROM user WHERE username=? AND password=?",
+                UserModel.class);
 
     query.setParameter(1, username);
     query.setParameter(2, password);
@@ -152,4 +152,37 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     return result;
   }
 
+    */
+    @Override
+    public boolean checkFollowed(UserModel user, UserModel targetUser) {
+        System.out.println("Checking followed");
+        return user.getFollowed().contains(targetUser);
+    }
+/*
+    @Override
+    public void follow(UserModel user, UserModel targetUser) {
+
+        user.addFollowed(targetUser);
+        targetUser.addFollower(user);
+        System.out.println("FOLLOWING");
+        
+        try {
+            entityManager.refresh(user);
+            entityManager.refresh(targetUser);
+        } catch (Exception e) {
+        }
+    }
+
+    @Override
+    public void unfollow(UserModel user, UserModel targetUser) {
+        user.removeFollowed(targetUser);
+        targetUser.removeFollower(user);
+        System.out.println("UNFOLLOW");
+        
+        try {
+            entityManager.refresh(user);
+            entityManager.refresh(targetUser);
+        } catch (Exception e) {
+        }
+    }*/
 }
