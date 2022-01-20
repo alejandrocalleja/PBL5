@@ -4,6 +4,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,121 +20,74 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ProfileTest {
+class ProfileTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-    @Test
-    public void shouldCreateMockMvc() {
-        assertNotNull(mockMvc);
-    }
+  @Test
+  void shouldCreateMockMvc() {
+    assertNotNull(mockMvc);
+  }
 
-    @Test
-    @WithMockUser(username = "testUser", roles = "USER")
-    public void shouldReturnUserPage() throws Exception {
-        String url = "/testUser";
+  @ParameterizedTest
+  @ValueSource(strings = {
+      "/testUser",
+      "/testUser/followers",
+      "/testUser/following",
+      "/testUser/saved",
+      "/testUser/sessions",
+      "/testIncorrect/saved",
+      "/testIncorrect/sessions"
+  })
+  @WithMockUser(username = "testUser", roles = "USER")
+  void shouldReturnWebPage(String url) throws Exception {
+    mockMvc.perform(MockMvcRequestBuilders.get(url))
+        .andExpect(MockMvcResultMatchers.status().isOk());
+  }
 
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+  @Test
+  @WithMockUser(username = "testUser", roles = "USER")
+  void shouldReturnSuccessFollowUnfollow() throws Exception {
+    String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
+    HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
+    CsrfToken csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
 
-    @Test
-    @WithMockUser(username = "testUser", roles = "USER")
-    public void shouldReturnFollowersPage() throws Exception {
-        String url = "/testUser/followers";
+    String url = "/Emeraldoff/follow";
 
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "testUser", roles = "USER")
-    public void shouldReturnFollowingPage() throws Exception {
-        String url = "/testUser/following";
-
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "testUser", roles = "USER")
-    public void shouldReturnSavedPage() throws Exception {
-        String url = "/testUser/saved";
-
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "testUser", roles = "USER")
-    public void shouldReturnSessionsPage() throws Exception {
-        String url = "/testUser/sessions";
-
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "testUser", roles = "USER")
-    public void shouldReturnSuccessFollowUnfollow() throws Exception {
-        String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
-        HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
-        CsrfToken  csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
-
-        String url = "/Emeraldoff/follow";
-    
-        mockMvc.perform(MockMvcRequestBuilders.post(url)
+    mockMvc.perform(MockMvcRequestBuilders.post(url)
         .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken()))
-            .andExpect(redirectedUrl("/Emeraldoff"));
+        .andExpect(redirectedUrl("/Emeraldoff"));
 
-        mockMvc.perform(MockMvcRequestBuilders.post(url)
+    mockMvc.perform(MockMvcRequestBuilders.post(url)
         .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken()))
-            .andExpect(redirectedUrl("/Emeraldoff"));
-    }
+        .andExpect(redirectedUrl("/Emeraldoff"));
+  }
 
-    @Test
-    @WithAnonymousUser
-    public void shouldReturnUserPageRedirectionError() throws Exception {
-        String url = "/testIncorrect";
+  @Test
+  @WithAnonymousUser
+  void shouldReturnUserPageRedirectionError() throws Exception {
+    String url = "/testIncorrect";
 
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
-                .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
-    }
+    mockMvc.perform(MockMvcRequestBuilders.get(url))
+        .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
+  }
 
-    @Test
-    @WithAnonymousUser
-    public void shouldReturnFollowersPageRedirectionError() throws Exception {
-        String url = "/testUser/followers";
+  @Test
+  @WithAnonymousUser
+  void shouldReturnFollowersPageRedirectionError() throws Exception {
+    String url = "/testUser/followers";
 
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
-                .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
-    }
+    mockMvc.perform(MockMvcRequestBuilders.get(url))
+        .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
+  }
 
-    @Test
-    @WithAnonymousUser
-    public void shouldReturnFollowingPageRedirectionError() throws Exception {
-        String url = "/testUser/following";
+  @Test
+  @WithAnonymousUser
+  void shouldReturnFollowingPageRedirectionError() throws Exception {
+    String url = "/testUser/following";
 
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
-                .andExpect(MockMvcResultMatchers.status().isFound());
-    }
-
-    @Test
-    @WithMockUser(username = "testUser", roles = "USER")
-    public void shouldReturnSavedPageRedirectionError() throws Exception {
-        String url = "/testIncorrect/saved";
-
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
-    @WithMockUser(username = "testUser", roles = "USER")
-    public void shouldReturnSessionsPageRedirectionError() throws Exception {
-        String url = "/testIncorrect/sessions";
-
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+    mockMvc.perform(MockMvcRequestBuilders.get(url))
+        .andExpect(MockMvcResultMatchers.status().isFound());
+  }
 }

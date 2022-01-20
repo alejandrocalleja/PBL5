@@ -13,31 +13,31 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class DeckTest {
+class DeckTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-    @Test
-    public void shouldCreateMockMvc() {
-        assertNotNull(mockMvc);
-    }
+  @Test
+  void shouldCreateMockMvc() {
+    assertNotNull(mockMvc);
+  }
 
-    @Test
-    @WithMockUser(username = "testUser", roles = "USER")
-    public void shouldReturnDeckViewPage() throws Exception {
-        String url = "/deck/1";
+  @Test
+  @WithMockUser(username = "testUser", roles = "USER")
+  void shouldReturnDeckViewPage() throws Exception {
+    String url = "/deck/1";
 
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
-            .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+    mockMvc.perform(MockMvcRequestBuilders.get(url))
+        .andExpect(MockMvcResultMatchers.status().isOk());
+  }
 
-    @Test
-    @WithMockUser(username = "Alroden", roles = "USER")
-    public void shouldReturnDeckStatsViewPage() throws Exception {
-        String url = "/deck/153/stats";
+  @Test
+  @WithMockUser(username = "Alroden", roles = "USER")
+  void shouldReturnDeckStatsViewPage() throws Exception {
+    String url = "/deck/153/stats";
 
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
-            .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+    mockMvc.perform(MockMvcRequestBuilders.get(url))
+        .andExpect(MockMvcResultMatchers.status().isOk());
+  }
 }

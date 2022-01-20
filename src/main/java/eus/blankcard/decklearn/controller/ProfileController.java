@@ -17,125 +17,130 @@ import eus.blankcard.decklearn.repository.user.UserRepository;
 @Controller
 public class ProfileController {
 
-    @Autowired
-    UserRepository userRepository;
+  String errorPage = "error";
+  String profilePage = "profile";
+  String followingPage = "following";
+  String followersPage = "followers";
 
-    @GetMapping("/{username}")
-    public String getProfile(@PathVariable("username") String username, HttpServletRequest req,
-            HttpServletResponse response) {
-        UserModel user = null;
+  @Autowired
+  UserRepository userRepository;
 
-        user = userRepository.findByUsername(username);
-        if (user != null) {
-            req.setAttribute("user", user);
+  @GetMapping("/{username}")
+  public String getProfile(@PathVariable("username") String username, HttpServletRequest req,
+      HttpServletResponse response) {
+    UserModel user = null;
 
-            req.setAttribute("followers", user.getFollowers().size());
-            req.setAttribute("following", user.getFollowed().size());
-            req.setAttribute("decks", true);
-            req.setAttribute("userDecks", user.getDecks());
+    user = userRepository.findByUsername(username);
+    if (user != null) {
+      req.setAttribute("user", user);
 
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            String currentPrincipalName = authentication.getName();
+      req.setAttribute(followersPage, user.getFollowers().size());
+      req.setAttribute(followingPage, user.getFollowed().size());
+      req.setAttribute("decks", true);
+      req.setAttribute("userDecks", user.getDecks());
 
-            if (currentPrincipalName.equals(username)) {
-                return "profile";
-            } else {
-                return "profile_visit";
-            }
+      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      String currentPrincipalName = authentication.getName();
 
-        } else {
-            response.setStatus(404);
-            return "error";
-        }
+      if (currentPrincipalName.equals(username)) {
+        return profilePage;
+      } else {
+        return "profile_visit";
+      }
+
+    } else {
+      response.setStatus(404);
+      return errorPage;
+    }
+  }
+
+  @GetMapping("/{username}/followers")
+  public String getFollowers(@PathVariable("username") String username, HttpServletRequest req,
+      HttpServletResponse response) {
+    UserModel user = userRepository.findByUsername(username);
+
+    req.setAttribute(followersPage, user.getFollowers());
+
+    return followingPage;
+  }
+
+  @GetMapping("/{username}/following")
+  public String getFollowing(@PathVariable("username") String username, HttpServletRequest req,
+      HttpServletResponse response) {
+    UserModel user = userRepository.findByUsername(username);
+
+    req.setAttribute(followersPage, user.getFollowed());
+
+    return followingPage;
+  }
+
+  @GetMapping("/{username}/saved")
+  public String getSaved(@PathVariable("username") String username, HttpServletRequest req,
+      HttpServletResponse response) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String currentPrincipalName = authentication.getName();
+
+    if (username.equals(currentPrincipalName)) {
+      UserModel user = null;
+      user = userRepository.findByUsername(username);
+
+      req.setAttribute("user", user);
+
+      req.setAttribute(followersPage, user.getFollowers().size());
+      req.setAttribute(followingPage, user.getFollowed().size());
+      req.setAttribute("saved", true);
+      req.setAttribute("userDecks", user.getSavedDecks());
+      return profilePage;
+    } else {
+      return errorPage;
+    }
+  }
+
+  @GetMapping("/{username}/sessions")
+  public String getSessions(@PathVariable("username") String username, HttpServletRequest req,
+      HttpServletResponse response) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String currentPrincipalName = authentication.getName();
+
+    if (username.equals(currentPrincipalName)) {
+      UserModel user = null;
+      user = userRepository.findByUsername(username);
+
+      req.setAttribute("user", user);
+
+      req.setAttribute(followersPage, user.getFollowers().size());
+      req.setAttribute(followingPage, user.getFollowed().size());
+      req.setAttribute("sessions", true);
+      // req.setAttribute("userDecks", user.getTrainings());
+      return profilePage;
+    } else {
+      return errorPage;
+    }
+  }
+
+  @PostMapping("/{username}/follow")
+  public String follow(@PathVariable("username") String username, HttpServletRequest req,
+      HttpServletResponse response) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String currentPrincipalName = authentication.getName();
+
+    UserModel loggedUser = userRepository.findByUsername(currentPrincipalName);
+    UserModel targetUser = userRepository.findByUsername(username);
+
+    if (userRepository.checkFollowed(loggedUser, targetUser)) {
+      loggedUser.removeFollowed(targetUser);
+      targetUser.removeFollower(loggedUser);
+
+      userRepository.save(loggedUser);
+      userRepository.save(targetUser);
+    } else {
+      loggedUser.addFollowed(targetUser);
+      targetUser.addFollower(loggedUser);
+
+      userRepository.save(loggedUser);
+      userRepository.save(targetUser);
     }
 
-    @GetMapping("/{username}/followers")
-    public String getFollowers(@PathVariable("username") String username, HttpServletRequest req,
-            HttpServletResponse response) {
-        UserModel user = userRepository.findByUsername(username);
-
-        req.setAttribute("followers", user.getFollowers());
-
-        return "following";
-    }
-
-    @GetMapping("/{username}/following")
-    public String getFollowing(@PathVariable("username") String username, HttpServletRequest req,
-            HttpServletResponse response) {
-        UserModel user = userRepository.findByUsername(username);
-
-        req.setAttribute("followers", user.getFollowed());
-
-        return "following";
-    }
-
-    @GetMapping("/{username}/saved")
-    public String getSaved(@PathVariable("username") String username, HttpServletRequest req,
-            HttpServletResponse response) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-
-        if (username.equals(currentPrincipalName)) {
-            UserModel user = null;
-            user = userRepository.findByUsername(username);
-
-            req.setAttribute("user", user);
-
-            req.setAttribute("followers", user.getFollowers().size());
-            req.setAttribute("following", user.getFollowed().size());
-            req.setAttribute("saved", true);
-            req.setAttribute("userDecks", user.getSavedDecks());
-            return "profile";
-        } else {
-            return "error";
-        }
-    }
-
-    @GetMapping("/{username}/sessions")
-    public String getSessions(@PathVariable("username") String username, HttpServletRequest req,
-            HttpServletResponse response) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-
-        if (username.equals(currentPrincipalName)) {
-            UserModel user = null;
-            user = userRepository.findByUsername(username);
-
-            req.setAttribute("user", user);
-
-            req.setAttribute("followers", user.getFollowers().size());
-            req.setAttribute("following", user.getFollowed().size());
-            req.setAttribute("sessions", true);
-            // req.setAttribute("userDecks", user.getTrainings());
-            return "profile";
-        } else {
-            return "error";
-        }
-    }
-
-    @PostMapping("/{username}/follow")
-    public String follow(@PathVariable("username") String username, HttpServletRequest req, HttpServletResponse response) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-
-        UserModel loggedUser = userRepository.findByUsername(currentPrincipalName);
-        UserModel targetUser = userRepository.findByUsername(username);
-
-        
-        if(userRepository.checkFollowed(loggedUser, targetUser) == true) {
-            loggedUser.removeFollowed(targetUser);
-            targetUser.removeFollower(loggedUser);
-
-            userRepository.save(loggedUser);
-            userRepository.save(targetUser);
-        } else {
-            loggedUser.addFollowed(targetUser);
-            targetUser.addFollower(loggedUser);
-
-            userRepository.save(loggedUser);
-            userRepository.save(targetUser);
-        }
-
-        return "redirect:/" + username;
-    }
+    return "redirect:/" + username;
+  }
 }

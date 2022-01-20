@@ -13,13 +13,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class SuccessHandler implements AuthenticationSuccessHandler {
 
-    @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-            Authentication authentication) throws IOException, ServletException {
+  @Override
+  public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+      Authentication authentication) throws IOException, ServletException {
 
-        System.out.println("Logged user: " + authentication.getName());
+    // System.out.println("Logged user: " + authentication.getName());
 
-        response.sendRedirect("/home");
-    }
+    response.sendRedirect("/home");
+  }
 
 }

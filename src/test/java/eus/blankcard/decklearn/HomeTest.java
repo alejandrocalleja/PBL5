@@ -14,31 +14,31 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class HomeTest {
+class HomeTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-    @Test
-    public void shouldCreateMockMvc() {
-        assertNotNull(mockMvc);
-    }
+  @Test
+  void shouldCreateMockMvc() {
+    assertNotNull(mockMvc);
+  }
 
-    @Test
-    @WithMockUser(username = "testUser", roles = "USER")
-    public void shouldReturnHomePage() throws Exception {
-        String url = "/home";
+  @Test
+  @WithMockUser(username = "testUser", roles = "USER")
+  void shouldReturnHomePage() throws Exception {
+    String url = "/home";
 
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+    mockMvc.perform(MockMvcRequestBuilders.get(url))
+        .andExpect(MockMvcResultMatchers.status().isOk());
+  }
 
-    @Test
-    @WithAnonymousUser
-    public void shouldReturnRedirectionError() throws Exception {
-        String url = "/home";
+  @Test
+  @WithAnonymousUser
+  void shouldReturnRedirectionError() throws Exception {
+    String url = "/home";
 
-        mockMvc.perform(MockMvcRequestBuilders.get(url))
-                .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
-    }
+    mockMvc.perform(MockMvcRequestBuilders.get(url))
+        .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
+  }
 }

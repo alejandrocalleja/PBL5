@@ -15,46 +15,23 @@ import org.springframework.stereotype.Service;
 import eus.blankcard.decklearn.models.UserModel;
 import eus.blankcard.decklearn.repository.user.UserRepository;
 
-
 @Service
 public class UserService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+  @Autowired
+  private UserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserModel user = userRepository.findByUsername(username);
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    UserModel user = userRepository.findByUsername(username);
 
-        if (user == null) {
-            throw new UsernameNotFoundException("User " + username + " not found.");
-        }
-
-        List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority("USER"));
-        UserDetails userDet = new User(user.getUsername(), user.getPassword(), roles);
-
-        return userDet;
+    if (user == null) {
+      throw new UsernameNotFoundException("User " + username + " not found.");
     }
 
-    // @Override
-    // public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    //   UserModel user = userRepository.findByUsername(username);
-    //   UserBuilder builder = null;
+    List<GrantedAuthority> roles = new ArrayList<>();
+    roles.add(new SimpleGrantedAuthority("USER"));
 
-    //   if (user != null) {
-    //     builder = org.springframework.security.core.userdetails.User.withUsername(username);
-    //     builder.username(user.getUsername());
-    //     builder.password(user.getPassword());
-        
-    //     List<GrantedAuthority> roles = new ArrayList<>();
-    //     roles.add(new SimpleGrantedAuthority("USER"));
-    //     builder.roles((String[]) roles.toArray());
-
-    //   } else {
-    //     throw new UsernameNotFoundException("User not found.");
-    //   }
-
-    //   return builder.build();
-    // }
+    return new User(user.getUsername(), user.getPassword(), roles);
+  }
 }

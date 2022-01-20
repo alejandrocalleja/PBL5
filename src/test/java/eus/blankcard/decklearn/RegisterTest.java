@@ -23,18 +23,18 @@ import eus.blankcard.decklearn.models.UserModel;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class RegisterTest {
+class RegisterTest {
 
   @Autowired
   private MockMvc mockMvc;
 
   @Test
-  public void shouldCreateMockMvc() {
+  void shouldCreateMockMvc() {
     assertNotNull(mockMvc);
   }
 
   @Test
-  public void shouldReturnRegisterPage() throws Exception {
+  void shouldReturnRegisterPage() throws Exception {
     String url = "/register";
 
     mockMvc.perform(MockMvcRequestBuilders.get(url))
@@ -42,7 +42,7 @@ public class RegisterTest {
   }
 
   @Test
-  public void shouldRetunDate() throws Exception {
+  void shouldRetunDate() throws Exception {
 
     UserModel u = new UserModel();
     u.setBirthDate(new Date(979772400));
@@ -51,7 +51,7 @@ public class RegisterTest {
   }
 
   @Test
-  public void shouldReturnSuccessRegister() throws Exception {
+  void shouldReturnSuccessRegister() throws Exception {
     String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
     HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
     CsrfToken csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
