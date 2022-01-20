@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:inline="text"> [[${user.username}]] Profile Settings | Deck Learn </title>
+  <link rel="stylesheet" th:href="@{/styles/modules/css/settings.css}">
+</head>
+
+<body>
+  <div th:replace="fragments/left-nav :: left-nav"></div>
+
+  <main class="center-screen">
+    <div th:replace="fragments/top-nav :: top-nav"></div>
+
+    <div class="content-container">
+      <div class="content">
+        <section class="settings-content-section">
+          <h1 class="settings__top-title">Settings</h1>
+          <div>
+            <div class="settings-selector">
+              <div class="settings-selector__screens">
+                <nav class="settings-selector__screens__list">
+                  <a th:href="@{/settings/profile}" class="selected">
+                    <p>Profile</p>
+                  </a>
+                  <a th:href="@{/settings/security}">
+                    <p>Security</p>
+                  </a>
+                  <a th:href="@{/settings/language}">
+                    <p>Language</p>
+                  </a>
+                </nav>
+              </div>
+              <div class="settings-selector__logout">
+                <nav>
+                  <a th:href="@{/logout}" id="logout">
+                    <img th:src="@{/images/icons/Log_out.svg}" alt="">
+                    <p>Log out</p>
+                  </a>
+                </nav>
+              </div>
+            </div>
+            <div class="settings-central">
+              <div class="profile-photo">
+                <img class="profile-photo__image" th:src="${user.imgPath}" th:alt="${user.username}">
+                <div>
+                  <p>Profile photo: </p>
+                  <button class="profile-photo__button">Edit</button>
+                </div>
+              </div>
+              <div class="user-data-form">
+                <form th:action="@{/settings/profile}" class="grided-form" method="post">
+                  <label for="name">Name: </label>
+                  <input type="text" class="custom-input" placeholder="Name" id="name" name="name"
+                    th:value="${user.name}">
+                  <label for="surname">Surname: </label>
+                  <input type="text" class="custom-input" placeholder="Surname" id="surname" name="surname"
+                    th:value="${user.surname}">
+                  <label for="username">Username: </label>
+                  <input type="text" class="custom-input" placeholder="Username" id="username" name="username"
+                    th:value="${user.username}">
+                  <label for="postalCode">Postal Code: </label>
+                  <input type="text" class="custom-input" placeholder="Postal Code" id="postalCode" name="postalCode"
+                    th:value="${user.postalCode}">
+                  <!-- <label for="purpose">Purpose: </label>
+                  <input type="text" class="custom-input" placeholder="Purpose" id="purpose" name="purpose"
+                    th:value="${user.purpose}"> -->
+                  <label for="country">Country: </label>
+                  <input type="text" class="custom-input" placeholder="Country" id="country" name="country"
+                    th:value="${user.country}">
+                  <input type="submit" class="custom-submit" value="Save settings">
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

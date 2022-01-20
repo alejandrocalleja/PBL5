@@ -14,20 +14,20 @@ import eus.blankcard.decklearn.repository.user.UserRepository;
 
 @Controller
 public class HomeController {
-    
-    @Autowired
-    UserRepository userRepository;
 
-    @GetMapping("/home")
-    public String getHome(HttpServletRequest req, HttpServletResponse response) {
+  @Autowired
+  UserRepository userRepository;
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+  @GetMapping("/home")
+  public String getHome(HttpServletRequest req, HttpServletResponse response) {
 
-        UserModel user = userRepository.findByUsername(username);
-        // req.setAttribute("study_sessions", user.getDecks());
-        // req.setAttribute("explore_deck", user.getDecks());
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String username = authentication.getName();
 
-        return "home";
-    }
+    UserModel user = userRepository.findByUsername(username);
+    // req.setAttribute("study_sessions", user.getDecks());
+    // req.setAttribute("explore_deck", user.getDecks());
+
+    return "home";
+  }
 }

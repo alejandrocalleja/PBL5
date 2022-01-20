@@ -15,4 +15,5 @@ public interface UserRepositoryCustom {
     boolean checkFollowed(UserModel user, UserModel targetUser);
     // void follow(UserModel user, UserModel targetUser);
     // void unfollow(UserModel user, UserModel targetUser);
+
 }

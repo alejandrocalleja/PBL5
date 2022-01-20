@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:inline="text"> [[${user.username}]] Language Settings | Deck Learn </title>
+  <link rel="stylesheet" th:href="@{/styles/modules/css/settings.css}">
+</head>
+
+<body>
+  <div th:replace="fragments/left-nav :: left-nav"></div>
+
+  <main class="center-screen">
+    <div th:replace="fragments/top-nav :: top-nav"></div>
+
+    <div class="content-container">
+      <div class="content">
+        <section class="settings-content-section">
+          <h1 class="settings__top-title">Settings</h1>
+          <div>
+            <div class="settings-selector">
+              <div class="settings-selector__screens">
+                <nav class="settings-selector__screens__list">
+                  <a th:href="@{/settings/profile}">
+                    <p>Profile</p>
+                  </a>
+                  <a th:href="@{/settings/security}">
+                    <p>Security</p>
+                  </a>
+                  <a th:href="@{/settings/language}" class="selected">
+                    <p>Language</p>
+                  </a>
+                </nav>
+              </div>
+              <div class="settings-selector__logout">
+                <nav>
+                  <a th:href="@{/logout}" id="logout">
+                    <img th:src="@{/images/icons/Log_out.svg}" alt="">
+                    <p>Log out</p>
+                  </a>
+                </nav>
+              </div>
+            </div>
+            <div class="settings-central">
+              <div class="user-data-form">
+                <form action="" class="altered-grided-form">
+                  <label for="lan1">English: </label>
+                  <div class="custom_radio" id="lan1">
+                    <input type="radio" name="lang" value="en" id="radio1" class="custom-radio" checked>
+                    <label for="radio1"></label>
+                  </div>
+                  <label for="lan2">Spanish: </label>
+                  <div class="custom_radio" id="lan2">
+                    <input type="radio" name="lang" value="es" id="radio2" class="custom-radio">
+                    <label for="radio2"></label>
+                  </div>
+                  <label for="lan3">Basque: </label>
+                  <div class="custom_radio" id="lan3">
+                    <input type="radio" name="lang" value="eus" id="radio3" class="custom-radio">
+                    <label for="radio3"></label>
+                  </div>
+                  <label for="lan4">French: </label>
+                  <div class="custom_radio" id="lan4">
+                    <input type="radio" name="lang" value="fr" id="radio4" class="custom-radio">
+                    <label for="radio4"></label>
+                  </div>
+                  <input type="" class="altered-custom-submit" value="Save settings">
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
