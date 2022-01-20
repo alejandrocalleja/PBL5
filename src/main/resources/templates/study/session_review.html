@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck Learn - Session review</title>
+    <link rel="stylesheet" href="assets/modules/css/home.css">
+    <link rel="stylesheet" href="assets/session_review/css/session_review.css">
+    <script src="assets/user_stats/scss/user_stats.js"></script>
+</head>
+
+<body>
+    <div th:replace="fragments/left-nav :: left-nav"></div>
+
+    <main class="center-screen">
+        <div th:replace="fragments/top-nav :: top-nav"></div>
+
+        <section class="content-container">
+            <section class="content">
+                <section class="stats-section">
+                    <h2>Session review</h2>
+                    <div class="titled-stats-section__list">
+                        <h2 th:inline="text">[[${deck.title}]]</h2>
+                        <div class="stats-section__list">
+                            <div class="stats-card__list">
+                                <div class="stats-card">
+                                    <h3>Grade change today</h3>
+                                    <div class="stats-card__content special">
+                                        <p id="grade-change">-1%</p>
+                                        <img id="grade-change-img" alt="">
+                                    </div>
+                                    <p class="stats-card__decoration"> </p>
+                                </div>
+    
+                                <div class="stats-card">
+                                    <h3>Total study time</h3>
+                                    <div class="stats-card__content">
+                                        <p th:inline="text">[[${totalStudyTime}]]</p>
+                                    </div>
+                                    <p class="stats-card__decoration"> </p>
+                                </div>
+    
+                                <div class="stats-card">
+                                    <h3>Average response time</h3>
+                                    <div class="stats-card__content">
+                                        <p th:inline="text">[[${avgResponseTime}]]</p>
+                                        <img src="images/icons/Timer.svg" alt="">
+                                    </div>
+                                    <p class="stats-card__decoration"> </p>
+                                </div>
+    
+                                <div class="stats-card">
+                                    <h3>Total sessions</h3>
+                                    <div class="stats-card__content">
+                                        <p th:inline="text">[[${totalSessions}]]</p>
+                                        <img src="images/book.svg" alt="">
+                                    </div>
+                                    <p class="stats-card__decoration"> </p>
+                                </div>
+                            </div>
+    
+                            <div class="stats-graphic">
+                                <h3 class="stats-graphic__title">Average pass ratio</h3>
+                                <div id="graph1" class="donut-chart chart1">
+                                    <div id="graph_part1" class="slice one"></div>
+                                    <div id="graph_part2" class="slice two"></div>
+                                    <div class="chart-center">
+                                        <span id="texto" th:data-after="${averagePass}"></span>
+                                    </div>
+                                </div>
+                                <a  tabindex="0" th:href="@{/home}">Return to home</a>
+                            </div>
+                        </div>
+                    </div> 
+                </section>
+            </section>
+        </section>
+    </main>
+</body>
+
+</html>

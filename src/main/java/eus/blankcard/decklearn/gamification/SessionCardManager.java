@@ -71,10 +71,14 @@ public class SessionCardManager {
 
         // If it's the first traininSession of the training load all the cards
         System.out.println("There are a total of " + traininSessions.size() + " sessions.");
+
         if (traininSessions.size() <= 1) {
+
             System.out.println("It's the first study session for this training");
             System.out.println("Loading all the cards of deck");
+
             this.cards = trainingSession.getTraining().getDeck().getCards();
+
         } else {
             // Get the previous to the current one
             TrainingSessionModel prevTraining = traininSessions.get(traininSessions.size() - 2);
@@ -87,7 +91,9 @@ public class SessionCardManager {
             if (daysBetween < 1) {
                 System.out.println("Loading all the cards of deck");
                 this.cards = trainingSession.getTraining().getDeck().getCards();
+
             } else {
+
                 System.out.println("Loading required cards of the deck");
                 loadRequiredCards();
             }
@@ -151,19 +157,25 @@ public class SessionCardManager {
             if (v.size() > 1) {
                 System.out.println("There is more than one card response. Setting the box number to 1.");
                 result.setBoxNumber(1);
+
             } else {
                 // If it's the first trainingSession and the card is correct put on box 1
                 if (traininSessions.size() <= 1)  {
+
                     System.out.println("It's the first training session. Setting the box number to 1");
                     result.setBoxNumber(1);
                 } else {
                     System.out.println("Not the first training session. Getting the previous one.");
                     TrainingSessionModel prevTraining = traininSessions.get(traininSessions.size() - 2);
+
                     System.out.println("Previous training has id " + prevTraining.getId());
+
                     // I load the whole prevTraining to be able to acces it's child tables. Bc if i dont load it, i get a LazyInitializationException
                     prevTraining = trainingSessionRepository.getById(prevTraining.getId());
+
                     List<ResultsModel> previousResults = prevTraining.getResults();
                     System.out.println("Previous results size " + previousResults.size());
+
                     for(ResultsModel prevResult : previousResults) {
                         if(prevResult.getCard().getId() == k) {
                             System.out.println("Prev result box found. Box number: " + prevResult.getBoxNumber());
@@ -300,5 +312,4 @@ public class SessionCardManager {
 
         return time;
     }
-
 }
