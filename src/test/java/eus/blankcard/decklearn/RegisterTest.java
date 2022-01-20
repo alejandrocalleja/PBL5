@@ -1,120 +1,91 @@
-// package eus.blankcard.decklearn;
+package eus.blankcard.decklearn;
 
-// import static org.junit.Assert.assertNotNull;
-// import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
-// import org.junit.jupiter.api.Test;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-// import org.springframework.boot.test.context.SpringBootTest;
-// import org.springframework.mock.web.MockHttpServletRequest;
-// import org.springframework.security.web.csrf.CsrfToken;
-// import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-// import org.springframework.test.web.servlet.MockMvc;
-// import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-// import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-// import org.springframework.util.LinkedMultiValueMap;
-// import org.springframework.util.MultiValueMap;
+import java.sql.Date;
 
-// import eus.blankcard.decklearn.models.UserModel;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
+import eus.blankcard.decklearn.models.UserModel;
 
-// @SpringBootTest
-// @AutoConfigureMockMvc
-// public class RegisterTest {
+@SpringBootTest
+@AutoConfigureMockMvc
+public class RegisterTest {
 
-//   @Autowired
-//   private MockMvc mockMvc;
+    @Autowired
+    private MockMvc mockMvc;
 
-//   @Test
-//   public void shouldCreateMockMvc() {
-//     assertNotNull(mockMvc);
-//   }
+    @Test
+    public void shouldCreateMockMvc() {
+        assertNotNull(mockMvc);
+    }
 
-//   @Test
-//   public void shouldReturnLoginPage() throws Exception {
-//     String url = "/register";
+    @Test
+    public void shouldReturnRegisterPage() throws Exception {
+        String url = "/register";
 
-//     mockMvc.perform(MockMvcRequestBuilders.get(url))
-//         .andExpect(MockMvcResultMatchers.status().isOk());
-//   }
+        mockMvc.perform(MockMvcRequestBuilders.get(url))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 
-//   @Test
-//   public void shouldReturnSuccessRegister() throws Exception {
-//     String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
-//     HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
-//     CsrfToken  csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
+    @Test
+    public void shouldRetunDate() throws Exception {
+        
+        UserModel u = new UserModel();
+        u.setBirthDate(new Date(2001, 01, 18));
 
-//     String url = "/register";
+        assertEquals(u.getBirthDate(), new Date(2001, 01, 18));
+        }
 
-//     MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-    
-//     String name = "MVC";
-//     String surname = "Test";
-//     String email = "mvctest@decklearn.eus";
-//     String purpose = "Testing";
-//     String country = "World";
-//     String username = "testRegister";
-//     String password = "testPass";
+    @Test
+    public void shouldReturnSuccessRegister() throws Exception {
+        String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
+        HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
+        CsrfToken csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
 
-//     params.add("name", name);
-//     params.add("surname", surname);
-//     params.add("email", email);
-//     params.add("purpose", purpose);
-//     params.add("country", country);
-//     params.add("username", username);
-//     params.add("password", password);
+        String url = "/register";
 
-//     UserModel userModel = new UserModel();
-//     userModel.setName(name);
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
-//     mockMvc.perform(MockMvcRequestBuilders.post(url)
-//     .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken())
-//         .params(params))
-//         .andExpect(redirectedUrl("/home"));
-//   }
+        String name = "MVC";
+        String surname = "Test";
+        String email = "mvctest@decklearn.eus";
+        String username = "testRegister";
+        String purpose = "Testing";
+        String country = "World";
+        String postalCode = "01234";
+        String password = "testPass";
 
-//   @Test
-//   public void shouldReturnFailedLogin() throws Exception {
-//     String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
-//     HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
-//     CsrfToken  csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
+        params.add("name", name);
+        params.add("surname", surname);
+        params.add("email", email);
+        params.add("username", username);
+        params.add("purpose", purpose);
+        params.add("country", country);
+        params.add("postalCode", postalCode);
+        params.add("password", password);
 
-//     String url = "/login";
+        UserModel userModel = new UserModel();
+        userModel.setName(name);
 
-//     MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        mockMvc.perform(MockMvcRequestBuilders.post(url)
+                .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(),
+                        csrfToken.getToken())
+                .params(params))
+                .andExpect(redirectedUrl("/login"));
+    }
 
-//     String username = "testUser";
-//     String password = "testIncorrect";
-
-//     params.add("username", username);
-//     params.add("password", password);
-
-//     mockMvc.perform(MockMvcRequestBuilders.post(url)
-//     .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken())
-//         .params(params))
-//         .andExpect(MockMvcResultMatchers.status().isUnauthorized());
-//   }
-
-//   @Test
-//   public void shouldReturnNullUser() throws Exception {
-//     String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
-//     HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
-//     CsrfToken  csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
-
-//     String url = "/login";
-
-//     MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-
-//     String username = "testUserIncorrect";
-//     String password = "testIncorrect";
-
-//     params.add("username", username);
-//     params.add("password", password);
-
-//     mockMvc.perform(MockMvcRequestBuilders.post(url)
-//     .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken())
-//         .params(params))
-//         .andExpect(MockMvcResultMatchers.status().isUnauthorized());
-//   }
-// }
+}
