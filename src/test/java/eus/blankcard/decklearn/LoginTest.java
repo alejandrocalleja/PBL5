@@ -16,21 +16,20 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-
 @SpringBootTest
 @AutoConfigureMockMvc
-public class LoginTest {
+class LoginTest {
 
   @Autowired
   private MockMvc mockMvc;
 
   @Test
-  public void shouldCreateMockMvc() {
+  void shouldCreateMockMvc() {
     assertNotNull(mockMvc);
   }
 
   @Test
-  public void shouldReturnLoginPage() throws Exception {
+  void shouldReturnLoginPage() throws Exception {
     String url = "/login";
 
     mockMvc.perform(MockMvcRequestBuilders.get(url))
@@ -38,10 +37,10 @@ public class LoginTest {
   }
 
   @Test
-  public void shouldReturnSuccessLogin() throws Exception {
+  void shouldReturnSuccessLogin() throws Exception {
     String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
     HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
-    CsrfToken  csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
+    CsrfToken csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
 
     String url = "/login";
 
@@ -54,16 +53,16 @@ public class LoginTest {
     params.add("password", password);
 
     mockMvc.perform(MockMvcRequestBuilders.post(url)
-    .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken())
+        .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken())
         .params(params))
         .andExpect(redirectedUrl("/home"));
   }
 
   @Test
-  public void shouldReturnFailedLogin() throws Exception {
+  void shouldReturnFailedLogin() throws Exception {
     String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
     HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
-    CsrfToken  csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
+    CsrfToken csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
 
     String url = "/login";
 
@@ -76,16 +75,16 @@ public class LoginTest {
     params.add("password", password);
 
     mockMvc.perform(MockMvcRequestBuilders.post(url)
-    .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken())
+        .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken())
         .params(params))
         .andExpect(MockMvcResultMatchers.status().isUnauthorized());
   }
 
   @Test
-  public void shouldReturnNullUser() throws Exception {
+  void shouldReturnNullUser() throws Exception {
     String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
     HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
-    CsrfToken  csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
+    CsrfToken csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
 
     String url = "/login";
 
@@ -98,7 +97,7 @@ public class LoginTest {
     params.add("password", password);
 
     mockMvc.perform(MockMvcRequestBuilders.post(url)
-    .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken())
+        .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken())
         .params(params))
         .andExpect(MockMvcResultMatchers.status().isUnauthorized());
   }

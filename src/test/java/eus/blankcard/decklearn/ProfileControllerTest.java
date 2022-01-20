@@ -13,19 +13,19 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ProfileControllerTest {
+class ProfileControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
 
   @Test
-  public void shouldCreateMockMvc() {
+  void shouldCreateMockMvc() {
     assertNotNull(mockMvc);
   }
 
   @Test
   @WithMockUser(username = "testUser", roles = "USER")
-  public void shouldReturnUserProfile() throws Exception {
+  void shouldReturnUserProfile() throws Exception {
     String url = "/EmeraldOfMurmer";
 
     mockMvc.perform(MockMvcRequestBuilders.get(url))
@@ -34,7 +34,7 @@ public class ProfileControllerTest {
 
   @Test
   @WithMockUser(username = "testUser", roles = "USER")
-  public void shouldReturnOwnUserProfile() throws Exception {
+  void shouldReturnOwnUserProfile() throws Exception {
     String url = "/testUser";
 
     mockMvc.perform(MockMvcRequestBuilders.get(url))
@@ -43,7 +43,7 @@ public class ProfileControllerTest {
 
   @Test
   @WithMockUser(username = "testUser", roles = "USER")
-  public void shouldReturnUserProfileNotFound() throws Exception {
+  void shouldReturnUserProfileNotFound() throws Exception {
     String url = "/notFoundUser";
 
     mockMvc.perform(MockMvcRequestBuilders.get(url))
@@ -51,37 +51,10 @@ public class ProfileControllerTest {
   }
 
   @Test
-  public void shouldReturnRedirectionError() throws Exception {
+  void shouldReturnRedirectionError() throws Exception {
     String url = "/notFoundUser";
 
     mockMvc.perform(MockMvcRequestBuilders.get(url))
         .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
   }
-
-  // @Test
-  // @WithMockUser(username = "testUser", roles = "USER")
-  // public void shouldReturnFollowers() throws Exception {
-  //   String url = "/EmeraldOfMurmer/followers";
-
-  //   mockMvc.perform(MockMvcRequestBuilders.get(url))
-  //       .andExpect(MockMvcResultMatchers.status().isOk());
-  // }
-
-  // @Test
-  // @WithMockUser(username = "testUser", roles = "USER")
-  // public void shouldReturnFollowing() throws Exception {
-  //   String url = "/EmeraldOfMurmer/following";
-
-  //   mockMvc.perform(MockMvcRequestBuilders.get(url))
-  //       .andExpect(MockMvcResultMatchers.status().isOk());
-  // }
-
-  // @Test
-  // @WithMockUser(username = "testUser", roles = "USER")
-  // public void shouldReturnFollow() throws Exception {
-  //   String url = "/EmeraldOfMurmer/follow";
-
-  //   mockMvc.perform(MockMvcRequestBuilders.post(url))
-  //       .andExpect(MockMvcResultMatchers.status().isOk());
-  // }
 }

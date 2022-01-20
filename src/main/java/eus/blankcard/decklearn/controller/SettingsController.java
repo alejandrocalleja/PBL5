@@ -25,9 +25,9 @@ public class SettingsController {
   private BCryptPasswordEncoder encoder;
 
   String defaultFolder = "settings/";
+  String constantError = "error";
 
-  @GetMapping({ "/settings/profile", "/settings" })
-  public String getProfile(HttpServletRequest req, HttpServletResponse response) {
+  public String defaultGet(HttpServletRequest req, HttpServletResponse response, String obtaniedPage) {
     UserModel user = null;
     String username = null;
 
@@ -37,47 +37,29 @@ public class SettingsController {
     user = userRepository.findByUsername(username);
     if (user != null) {
       req.setAttribute("user", user);
-      return defaultFolder + "profile_settings";
+      return defaultFolder + obtaniedPage;
     } else {
       response.setStatus(404);
-      return "error";
+      return constantError;
     }
+  }
+
+  @GetMapping({ "/settings/profile", "/settings" })
+  public String getProfile(HttpServletRequest req, HttpServletResponse response) {
+    String returnPage = defaultGet(req, response, "profile_settings");
+    return returnPage;
   }
 
   @GetMapping("/settings/security")
   public String getSecurity(HttpServletRequest req, HttpServletResponse response) {
-    UserModel user = null;
-    String username = null;
-
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    username = authentication.getName();
-
-    user = userRepository.findByUsername(username);
-    if (user != null) {
-      req.setAttribute("user", user);
-      return defaultFolder + "security_settings";
-    } else {
-      response.setStatus(404);
-      return "error";
-    }
+    String returnPage = defaultGet(req, response, "security_settings");
+    return returnPage;
   }
 
   @GetMapping("/settings/language")
   public String getLanguage(HttpServletRequest req, HttpServletResponse response) {
-    UserModel user = null;
-    String username = null;
-
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    username = authentication.getName();
-
-    user = userRepository.findByUsername(username);
-    if (user != null) {
-      req.setAttribute("user", user);
-      return defaultFolder + "language_settings";
-    } else {
-      response.setStatus(404);
-      return "error";
-    }
+    String returnPage = defaultGet(req, response, "language_settings");
+    return returnPage;
   }
 
   @PostMapping("/settings/profile")
@@ -86,8 +68,6 @@ public class SettingsController {
     String username = authentication.getName();
 
     UserModel user = userRepository.findByUsername(username);
-
-    System.out.println(user.getUsername());
 
     String newName = newUser.getName();
     String newSurname = newUser.getSurname();
@@ -116,8 +96,6 @@ public class SettingsController {
 
     UserModel user = userRepository.findByUsername(username);
 
-    System.out.println(user.getUsername());
-
     String newEmail = newUser.getEmail();
     String newPass = newUser.getPassword();
 
@@ -141,4 +119,3 @@ public class SettingsController {
     return "redirect:/home";
   }
 }
-// @PostMapping("/settings/profile")@PostMapping("/settings/security")@PostMapping("/settings/language")
