@@ -24,21 +24,21 @@
             <div class="settings-selector">
               <div class="settings-selector__screens">
                 <nav class="settings-selector__screens__list">
-                  <a href="">
+                  <a th:href="@{/settings/profile}">
                     <p>Profile</p>
                   </a>
-                  <a href="" class="selected">
+                  <a th:href="@{/settings/security}" class="selected">
                     <p>Security</p>
                   </a>
-                  <a href="">
+                  <a th:href="@{/settings/language}">
                     <p>Language</p>
                   </a>
                 </nav>
               </div>
               <div class="settings-selector__logout">
                 <nav>
-                  <a href="" id="logout">
-                    <img src="images/icons/Log_out.svg" alt="">
+                  <a th:href="@{/logout}" id="logout">
+                    <img th:src="@{/images/icons/Log_out.svg}" alt="">
                     <p>Log out</p>
                   </a>
                 </nav>
@@ -46,11 +46,12 @@
             </div>
             <div class="settings-central">
               <div class="user-data-form">
-                <form action="" class="grided-form">
+                <form th:action="@{/settings/security}" class="grided-form" method="post">
                   <label for="email">Email: </label>
-                  <input type="text" class="custom-input" placeholder="Email" id="email">
-                  <label for="passwd">Password: </label>
-                  <input type="password" class="custom-input" placeholder="Password" id="passwd">
+                  <input type="text" class="custom-input" placeholder="Email" id="email" name="email"
+                    th:value="${user.email}">
+                  <label for="passwd">New password: </label>
+                  <input type="password" class="custom-input" placeholder="New password" id="passwd" name="password">
                   <label for="cmpasswd">Confirm Password: </label>
                   <input type="password" class="custom-input" placeholder="Confirm" id="cmpasswd">
                   <input type="submit" class="custom-submit" value="Save settings">

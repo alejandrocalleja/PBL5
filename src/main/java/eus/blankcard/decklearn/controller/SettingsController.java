@@ -47,12 +47,14 @@ public class SettingsController {
   @GetMapping("/settings/security")
   public String getSecurity(HttpServletRequest req, HttpServletResponse response) {
     UserModel user = null;
+    String username = null;
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    String username = authentication.getName();
+    username = authentication.getName();
 
     user = userRepository.findByUsername(username);
     if (user != null) {
+      req.setAttribute("user", user);
       return defaultFolder + "security_settings";
     } else {
       response.setStatus(404);
@@ -63,12 +65,14 @@ public class SettingsController {
   @GetMapping("/settings/language")
   public String getLanguage(HttpServletRequest req, HttpServletResponse response) {
     UserModel user = null;
+    String username = null;
 
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    String username = authentication.getName();
+    username = authentication.getName();
 
     user = userRepository.findByUsername(username);
     if (user != null) {
+      req.setAttribute("user", user);
       return defaultFolder + "language_settings";
     } else {
       response.setStatus(404);
@@ -106,15 +110,32 @@ public class SettingsController {
   }
 
   @PostMapping("/settings/security")
-  public String securitySubmit(HttpServletRequest req, HttpServletResponse response) {
+  public String securitySubmit(UserModel newUser, HttpServletRequest req, HttpServletResponse response) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String username = authentication.getName();
 
     UserModel user = userRepository.findByUsername(username);
-    String newEmail = (String) req.getAttribute("email");
 
-    user.setEmail(newEmail);
-    user.setPassword(encoder.encode((String) req.getAttribute("password")));
+    System.out.println(user.getUsername());
+
+    String newEmail = newUser.getEmail();
+    String newPass = newUser.getPassword();
+
+    if (newEmail != null) {
+      user.setEmail(newEmail);
+    } else {
+      return "redirect:/error";
+    }
+
+    if (newPass != null) {
+      user.setPassword(encoder.encode(newPass));
+    } else {
+      return "redirect:/error";
+    }
+
+    Authentication token = new PreAuthenticatedAuthenticationToken(user.getUsername(), user.getPassword(),
+        authentication.getAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(token);
 
     userRepository.save(user);
     return "redirect:/home";
