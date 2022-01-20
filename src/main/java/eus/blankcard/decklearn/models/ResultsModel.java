@@ -1,6 +1,5 @@
 package eus.blankcard.decklearn.models;
 
-import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
@@ -22,15 +21,15 @@ public class ResultsModel {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name="training_session_id")
+    @JoinColumn(name = "training_session_id")
     private TrainingSessionModel trainingSession;
 
     @ManyToOne
-    @JoinColumn(name="training_id")
-    private TrainingModel training;
+    @JoinColumn(name = "card_id")
+    private CardModel card;
 
     @OneToMany(mappedBy = "result", cascade = CascadeType.ALL)
-    private List<CardResponseModel> cardResponses;
+    List<CardResponseModel> cardResponses;
 
     @Column( name = "box_number")
     private int boxNumber;
@@ -87,13 +86,5 @@ public class ResultsModel {
 
     public void setAvgTime(Time avgTime) {
         this.avgTime = avgTime;
-    }
-
-    public TrainingModel getTraining() {
-        return training;
-    }
-
-    public void setTraining(TrainingModel training) {
-        this.training = training;
     }
 }

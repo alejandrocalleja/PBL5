@@ -40,12 +40,13 @@ public class TrainingSessionRepositoryImpl implements TrainingSessionRepositoryC
         Query query = entityManager.createNativeQuery(
                 "SELECT * FROM training_session t WHERE t.training_id=?1 ORDER BY t.training_session_id DESC limit 1",
                 TrainingSessionModel.class);
-            query.setParameter(1, trainingId);
-        try {
-            trainingSession = (TrainingSessionModel) query.getSingleResult();
+                System.out.println("Trying to load last session with training ID " + trainingId);
+                query.setParameter(1, trainingId);
+                try {
+                    trainingSession = (TrainingSessionModel) query.getSingleResult();
         } catch (Exception e) {
         }
-
+        System.out.println("Training session " + trainingSession);
         return trainingSession;
     }
 }

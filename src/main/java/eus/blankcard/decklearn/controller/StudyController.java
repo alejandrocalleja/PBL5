@@ -70,22 +70,20 @@ public class StudyController {
             training = trainingRepository.save(training);
             System.out.println("Creating one with id " + training.getId());
         }
-
+        
         // Create a new Training Session and save it on the database
         TrainingSessionModel trainingSession = new TrainingSessionModel();
+        System.out.println("Training ID: " + trainingSession.getTraining().getId());
+
         trainingSession.setTraining(training);
-
-        TrainingSessionModel lastIdModel = trainingSessionRepository.findLastSession(training.getId());
-        if (lastIdModel != null) {
-            System.out.println("Loaded ID = " + lastIdModel.getId());
-            trainingSession.setId(lastIdModel.getId() + 1);
-        } else {
-            trainingSession.setId(1);
-        }
-
         trainingSession.setDate(java.sql.Timestamp.valueOf(LocalDateTime.now()));
-        trainingSessionRepository.save(trainingSession);
-        System.out.println("Creating a new training session with id " + trainingSession.getId());
+        trainingSession = trainingSessionRepository.save(trainingSession);
+        
+        // training.addTrainingSession(trainingSession);
+        // trainingRepository.save(training);
+        // trainingSessionRepository.save(trainingSession);
+
+        System.out.println("Created a new training session with id " + trainingSession.getId());
 
         // Add the current session to the sessionManager
         sessionManager.addSession(loggedUser, trainingSession);

@@ -18,19 +18,15 @@ public class CardResponseModel {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name="training_id")
-    private TrainingModel training;
-
-    @ManyToOne
     @JoinColumn(name="results_id")
     private ResultsModel result;
 
     @ManyToOne
     @JoinColumn(name="card_id")
     private CardModel card;
-
+    
     boolean correct;
-
+    
     @Column( name = "response_date")
     Date responseDate;
 

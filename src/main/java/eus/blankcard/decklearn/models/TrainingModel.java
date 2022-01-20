@@ -35,12 +35,6 @@ public class TrainingModel {
     @OneToMany(mappedBy = "training", cascade = CascadeType.ALL)
     List<TrainingSessionModel> trainingSessions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "training", cascade = CascadeType.ALL)
-    List<ResultsModel> results = new ArrayList<>();
-
-    @OneToMany(mappedBy = "training", cascade = CascadeType.ALL)
-    List<CardResponseModel> cardResponses = new ArrayList<>();
-
     @Column( name = "training_date")
     private Timestamp trainingDate;
 
@@ -86,13 +80,5 @@ public class TrainingModel {
 
     public void setTrainingDate(Timestamp trainingDate) {
         this.trainingDate = trainingDate;
-    }
-
-    public List<ResultsModel> getResults() {
-        return results;
-    }
-
-    public void setResults(List<ResultsModel> results) {
-        this.results = results;
     }
 }

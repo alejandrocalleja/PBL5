@@ -1,10 +1,13 @@
 package eus.blankcard.decklearn.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,22 +19,25 @@ import javax.persistence.Table;
 public class CardModel {
 
     @Id
-    @Column( name = "card_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "card_id")
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name="deck_id")
+    @JoinColumn(name = "deck_id")
     private DeckModel deck;
+
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
+    List<ResultsModel> results = new ArrayList<>();
+
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
+    List<CardResponseModel> cardResponses;
 
     private String question;
 
     private String answer;
 
     private String img_path;
-
-    
-    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL)
-    List<CardResponseModel> cardResponses;
 
     public Integer getId() {
         return id;
@@ -79,5 +85,13 @@ public class CardModel {
 
     public void setCardResponses(List<CardResponseModel> cardResponses) {
         this.cardResponses = cardResponses;
+    }
+
+    public List<ResultsModel> getResults() {
+        return results;
+    }
+
+    public void setResults(List<ResultsModel> results) {
+        this.results = results;
     }
 }

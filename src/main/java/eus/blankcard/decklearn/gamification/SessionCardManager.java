@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,7 +114,7 @@ public class SessionCardManager implements Runnable {
     }
 
     public void saveSessionResults() {
-        AtomicInteger idGenerator = new AtomicInteger(1);
+        AtomicInteger idGenerator = new AtomicInteger(10);
         resultResponseMap.forEach((k, v) -> {
             ResultsModel result = new ResultsModel();
             result.setTrainingSession(trainingSession);
@@ -125,6 +124,9 @@ public class SessionCardManager implements Runnable {
 
             v.forEach(response -> {
                 response.setResult(result);
+                CardModel card = cardRepository.getById(k);
+                response.setCard(card);
+                response.setTraining(result.getTraining());
                 cardResponseRepository.save(response);
             });
 
