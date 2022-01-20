@@ -26,7 +26,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
-    @Override
+    /*@Override
     public UserModel loadUser(String username, String password) {
         UserModel user = null;
         Query query = entityManager.createNativeQuery("SELECT * FROM user WHERE username=? AND password=?",
@@ -118,13 +118,13 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
         return userList;
     }
-
+    */
     @Override
     public boolean checkFollowed(UserModel user, UserModel targetUser) {
         System.out.println("Checking followed");
         return user.getFollowed().contains(targetUser);
     }
-
+/*
     @Override
     public void follow(UserModel user, UserModel targetUser) {
 
@@ -150,5 +150,5 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
             entityManager.refresh(targetUser);
         } catch (Exception e) {
         }
-    }
+    }*/
 }
