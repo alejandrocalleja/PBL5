@@ -121,7 +121,7 @@ public class SessionCardManager {
                     Long daysBetween = Duration.between(resDate, LocalDate.now()).toDays();
                     CardModel card = result.getCardResponses().get(0).getCard();
 
-                    if (Math.pow(2, boxNum - 1) >= daysBetween) {
+                    if (Math.pow(2, boxNum - 1L) >= daysBetween) {
                         cards.add(card);
                     } else {
                         // If the card is not required I pass the previous cardResponses
@@ -177,7 +177,7 @@ public class SessionCardManager {
                     System.out.println("Previous results size " + previousResults.size());
 
                     for(ResultsModel prevResult : previousResults) {
-                        if(prevResult.getCard().getId() == k) {
+                        if(prevResult.getCard().getId().equals(k)) {
                             System.out.println("Prev result box found. Box number: " + prevResult.getBoxNumber());
                             result.setBoxNumber(prevResult.getBoxNumber() + 1);
                             break;
@@ -276,8 +276,6 @@ public class SessionCardManager {
             card = cards.get(0);
             cards.remove(card);
         }
-        System.out.println("Next card is card " + card.getId());
-        System.out.println("Remaining cards: " + cards.size());
 
         cardSendTime = LocalTime.now();
 

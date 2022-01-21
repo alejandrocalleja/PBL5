@@ -83,22 +83,28 @@ public class DeckController {
             HttpServletResponse response) {
 
         Optional<DeckModel> optionalDeck = deckRepository.findById(deckId);
-        DeckModel deckModel = optionalDeck.get();
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String loggedUsername = authentication.getName();
-
-        UserModel userModel = userRepository.findByUsername(loggedUsername);
-
-        if (userModel.getSavedDecks().contains(deckModel)) {
-            System.out.println("The user has it saved. Unsaving it");
-            userModel.getSavedDecks().remove(deckModel);
+        if(optionalDeck.isPresent()) {
+            DeckModel deckModel = optionalDeck.get();
+    
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String loggedUsername = authentication.getName();
+    
+            UserModel userModel = userRepository.findByUsername(loggedUsername);
+    
+            if (userModel.getSavedDecks().contains(deckModel)) {
+                System.out.println("The user has it saved. Unsaving it");
+                userModel.getSavedDecks().remove(deckModel);
+            } else {
+                userModel.getSavedDecks().add(deckModel);
+            }
+    
+            userRepository.save(userModel);
+    
+            return "redirect:/deck/" + deckModel.getId();
         } else {
-            userModel.getSavedDecks().add(deckModel);
+            return "redirect:/error";
         }
-
-        userRepository.save(userModel);
-
-        return "redirect:/deck/" + deckModel.getId();
+        
     }
 }

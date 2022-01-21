@@ -105,13 +105,18 @@ public class StudyController {
         // Get the card Id and load all the params from DB bc if there is a second time the card is empty
         CardModel card = sessionCardManager.getNextCard();
         Optional<CardModel> optional = cardRepository.findById(card.getId());
-        card = optional.get();
+        if(optional.isPresent()) {
+            card = optional.get();
 
-        req.setAttribute("card", card);
-        req.setAttribute("deck", deck);
-        req.setAttribute("sessions", true);
+            req.setAttribute("card", card);
+            req.setAttribute("deck", deck);
+            req.setAttribute("sessions", true);
+    
+            return "study/card_question";
+        } else {
+            return "redirect:/error";
+        }
 
-        return "study/card_question";
     }
 
     @GetMapping("/study/{deckId}/{cardId}")
@@ -158,26 +163,32 @@ public class StudyController {
     private String getTrainingSessionStats(@PathVariable("trainingSessionId") Integer trainingSessionId, HttpServletRequest req, HttpServletResponse response) {
 
         Optional<TrainingSessionModel> optionalTrainingSession = trainingSessionRepository.findById(trainingSessionId);
-        TrainingSessionModel trainingSession = optionalTrainingSession.get();
-        DeckModel deck = trainingSession.getTraining().getDeck();
 
-        Time totalStudyTime = statsCalculator.getTotalStudyTime(trainingSession);
-        Time avgResponseTime = statsCalculator.getAvgResponseTime(trainingSession);
-        int totalSessions = trainingSession.getTraining().getTrainingSessions().size();
-        int passRatio = statsCalculator.getPassRatio(trainingSession);
-        float gradeChange = statsCalculator.getGradeChange(trainingSession, passRatio);
+        if(optionalTrainingSession.isPresent()) {
+            TrainingSessionModel trainingSession = optionalTrainingSession.get();
+            DeckModel deck = trainingSession.getTraining().getDeck();
+    
+            Time totalStudyTime = statsCalculator.getTotalStudyTime(trainingSession);
+            Time avgResponseTime = statsCalculator.getAvgResponseTime(trainingSession);
+            int totalSessions = trainingSession.getTraining().getTrainingSessions().size();
+            int passRatio = statsCalculator.getPassRatio(trainingSession);
+            float gradeChange = statsCalculator.getGradeChange(trainingSession, passRatio);
+    
+            req.setAttribute("deck", deck);
+            req.setAttribute("totalStudyTime", totalStudyTime.toString());
+            req.setAttribute("avgResponseTime", avgResponseTime.toString());
+            req.setAttribute("totalSessions", totalSessions);
+            req.setAttribute("passRatio", passRatio);
+            req.setAttribute("gradeChange", gradeChange);
+            req.setAttribute("stats", true);
+    
+            req.setAttribute("up", gradeChange >= 0 ? true : false);
+            req.setAttribute("down", gradeChange < 0 ? true : false);
+            
+            return "study/session_review";
+        } else {
+            return "redirect:/error";
+        }
 
-        req.setAttribute("deck", deck);
-        req.setAttribute("totalStudyTime", totalStudyTime.toString());
-        req.setAttribute("avgResponseTime", avgResponseTime.toString());
-        req.setAttribute("totalSessions", totalSessions);
-        req.setAttribute("passRatio", passRatio);
-        req.setAttribute("gradeChange", gradeChange);
-        req.setAttribute("stats", true);
-
-        req.setAttribute("up", gradeChange >= 0 ? true : false);
-        req.setAttribute("down", gradeChange < 0 ? true : false);
-        
-        return "study/session_review";
     }
 }
