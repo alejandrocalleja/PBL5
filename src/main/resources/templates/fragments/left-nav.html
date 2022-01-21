@@ -8,43 +8,43 @@
         <ul class="nav-bar__list">
             <li>
                 <a th:href="@{/home}">
-                    <img th:src="@{/images/icons/Home_select.svg}" alt="Home">
-                    <span>Home</span>
+                    <img th:src="${home} ? @{/images/icons/Home_select.svg} : @{/images/icons/Home.svg}" alt="Home">
+                    <span th:class="${home} ? 'selected' : 'not-selected'">Home</span>
                 </a>
             </li>
 
             <li>
                 <a th:href="@{/create/deck}">
-                    <img th:src="@{/images/icons/CreateDeck.svg}" alt="Create Deck">
-                    <span>Create deck</span>
+                    <img th:src="${create} ? @{/images/icons/CreateDeck_select.svg} : @{/images/icons/CreateDeck.svg}" alt="Create Deck">
+                    <span th:class="${create} ? 'selected' : 'not-selected'">Create deck</span>
                 </a>
             </li>
 
             <li>
                 <a th:href="@{/sessions}">
-                    <img th:src="@{/images/icons/StudySessions.svg}" alt="Study Sessions">
-                    <span>Study sessions</span>
+                    <img th:src="${sessions} ? @{/images/icons/StudySessions_select.svg} : @{/images/icons/StudySessions.svg}" alt="Study Sessions">
+                    <span th:class="${sessions} ? 'selected' : 'not-selected'">Study sessions</span>
                 </a>
             </li>
 
             <li>
                 <a th:href="@{/{user}(user=${#httpServletRequest.remoteUser})}">
-                    <img th:src="@{/images/icons/Profile.svg}" alt="Profile">
-                    <span>Profile</span>
+                    <img th:src="${profile} ? @{/images/icons/Profile_select.svg} : @{/images/icons/Profile.svg}" alt="Profile">
+                    <span th:class="${profile} ? 'selected' : 'not-selected'">Profile</span>
                 </a>
             </li>
 
             <li>
                 <a th:href="@{/{user}/stats(user=${#httpServletRequest.remoteUser})}">
-                    <img th:src="@{/images/icons/Stats.svg}" alt="User Stats">
-                    <span>Stats</span>
+                    <img th:src="${stats} ? @{/images/icons/Stats_select.svg}: @{/images/icons/Stats.svg}" alt="User Stats">
+                    <span th:class="${stats} ? 'selected' : 'not-selected'">Stats</span>
                 </a>
             </li>
 
             <li>
                 <a th:href="@{/settings}">
-                    <img th:src="@{/images/icons/Settings.svg}" alt="Settings">
-                    <span>Settings</span>
+                    <img th:src="${settings} ? @{/images/icons/Settings_select.svg} : @{/images/icons/Settings.svg}" alt="Settings">
+                    <span th:class="${settings} ? 'selected' : 'not-selected'">Settings</span>
                 </a>
             </li>
         </ul>

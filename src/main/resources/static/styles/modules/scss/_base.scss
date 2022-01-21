@@ -45,11 +45,11 @@ body {
                 padding: 0.5rem 0.5rem 0.5rem 0.5rem;
                 text-decoration: none;
                 color: $nav-bar-items-color;
+                border-radius: $button-radius;
     
                 &:hover{
                     background-color: $darkened-decklearn-color;
-                    border-radius: $button-radius;
-                    transition: 0.2s;
+                    transition: 0.4s;
                 }
     
                 > img {
@@ -65,6 +65,17 @@ body {
                     height: 100%;
                     font-size: 1.3rem;
                     font-weight: 100;
+                }
+
+                .selected {
+                    color: $selected-left-nav-color;
+                    font-weight: normal;
+                    border-bottom: 0;
+                }
+                
+                .not-selected {
+                    color: $not-selected-left-nav-color;
+                    font-weight: lighter;
                 }
             }
         }
@@ -127,8 +138,10 @@ body {
         overflow-y: auto;
         overflow-x: hidden;
 
-        > header > a > img {
-            display: inline;
+        > header > a {
+            > img {
+                display: inline;
+            }
         }
     }
 

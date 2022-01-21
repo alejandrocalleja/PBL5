@@ -50,11 +50,11 @@ body {
     align-items: center;
     padding: 0.5rem 0.5rem 0.5rem 0.5rem;
     text-decoration: none;
-    color: #FFFFFF; }
+    color: #FFFFFF;
+    border-radius: 1.3rem; }
     .nav-bar__list > li > a:hover {
       background-color: #007e68;
-      border-radius: 1.3rem;
-      transition: 0.2s; }
+      transition: 0.4s; }
     .nav-bar__list > li > a > img {
       display: inline-block;
       width: 2rem; }
@@ -66,6 +66,13 @@ body {
       height: 100%;
       font-size: 1.3rem;
       font-weight: 100; }
+    .nav-bar__list > li > a .selected {
+      color: white;
+      font-weight: normal;
+      border-bottom: 0; }
+    .nav-bar__list > li > a .not-selected {
+      color: black;
+      font-weight: lighter; }
 
 .center-screen {
   display: grid;

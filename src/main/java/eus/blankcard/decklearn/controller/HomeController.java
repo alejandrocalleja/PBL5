@@ -44,6 +44,8 @@ public class HomeController {
         Pageable limit = PageRequest.of(0,20);
         req.setAttribute("explore_deck", deckRepository.findAll(limit));
 
+        req.setAttribute("home", true);
+
         return "home";
     }
 }

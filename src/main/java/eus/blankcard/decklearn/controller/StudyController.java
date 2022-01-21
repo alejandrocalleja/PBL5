@@ -171,6 +171,7 @@ public class StudyController {
         req.setAttribute("totalSessions", totalSessions);
         req.setAttribute("passRatio", passRatio);
         req.setAttribute("gradeChange", gradeChange);
+        req.setAttribute("stats", true);
 
         req.setAttribute("up", gradeChange >= 0 ? true : false);
         req.setAttribute("down", gradeChange < 0 ? true : false);
