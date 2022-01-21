@@ -35,6 +35,7 @@ public class DeckController {
         req.setAttribute("types", deck.getTypes());
         req.setAttribute("creator", creator.getUsername());
         req.setAttribute("studies", deck.getTrainings().size());
+        req.setAttribute("home", true);
 
         return "/deck/deck_view";
     }
@@ -56,6 +57,7 @@ public class DeckController {
         req.setAttribute("avgTime", 1);
         req.setAttribute("totalSaves", deck.getSavers().size());
         req.setAttribute("averagePass", 100);
+        req.setAttribute("stats", true);
 
         return "/deck/deck_stats";
     }

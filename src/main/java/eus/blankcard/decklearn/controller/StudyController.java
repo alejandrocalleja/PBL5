@@ -109,6 +109,7 @@ public class StudyController {
 
         req.setAttribute("card", card);
         req.setAttribute("deck", deck);
+        req.setAttribute("sessions", true);
 
         return "study/card_question";
     }
@@ -120,6 +121,7 @@ public class StudyController {
 
         req.setAttribute("deck", deck);
         req.setAttribute("card", card);
+        req.setAttribute("sessions", true);
 
         return "/study/card_answer";
     }
