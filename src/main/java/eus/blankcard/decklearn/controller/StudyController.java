@@ -163,12 +163,17 @@ public class StudyController {
         Time avgResponseTime = statsCalculator.getAvgResponseTime(trainingSession);
         int totalSessions = trainingSession.getTraining().getTrainingSessions().size();
         int passRatio = statsCalculator.getPassRatio(trainingSession);
+        float gradeChange = statsCalculator.getGradeChange(trainingSession, passRatio);
 
         req.setAttribute("deck", deck);
-        req.setAttribute("totalStudyTime", "00:00:32");
+        req.setAttribute("totalStudyTime", totalStudyTime.toString());
         req.setAttribute("avgResponseTime", avgResponseTime.toString());
         req.setAttribute("totalSessions", totalSessions);
         req.setAttribute("passRatio", passRatio);
+        req.setAttribute("gradeChange", gradeChange);
+
+        req.setAttribute("up", gradeChange >= 0 ? true : false);
+        req.setAttribute("down", gradeChange < 0 ? true : false);
         
         return "study/session_review";
     }

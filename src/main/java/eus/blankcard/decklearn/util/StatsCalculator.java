@@ -15,11 +15,28 @@ import eus.blankcard.decklearn.models.TrainingSessionModel;
 public class StatsCalculator {
 
     public Time getTotalStudyTime(TrainingSessionModel trainingSession) {
-        Time totalTime = null;
+        List<ResultsModel> results = trainingSession.getResults();
 
-        List<Time> allTimes = new ArrayList<>();
+        long totalMilis = 0;
 
-        trainingSession.getResults().forEach(r -> r.getCardResponses().forEach(cr -> allTimes.add(cr.getResponseTime())));
+        for(ResultsModel result : results) {
+            for(CardResponseModel cardResponse : result.getCardResponses()) {
+                LocalTime responseTime = cardResponse.getResponseTime().toLocalTime();
+
+                long sec = responseTime.getSecond();
+                long min = responseTime.getMinute();
+    
+                totalMilis += sec * 1000;
+                totalMilis += (min * 60) * 1000;
+            }
+        }
+
+        // - 1h bc Time adds an hour depending on your GTM
+        totalMilis -= 3600000;
+
+        Time totalTime = new Time(totalMilis);
+
+        System.out.println("Total time is " + totalTime.toString());
 
         return totalTime;
     }
@@ -60,13 +77,43 @@ public class StatsCalculator {
         int errorCount = 0;
 
         for(ResultsModel result : results) {
-            errorCount += result.getErrorCount();
+            if(result.getErrorCount() > 1) {
+                errorCount ++;
+            }            
         }
-        
-        int correctCards = cardNum - errorCount;
 
-        passRatio = (correctCards * 100) / cardNum;
+        if(errorCount >= cardNum) {
+            passRatio = 0;
+        } else  {
+            int correctCards = cardNum - errorCount;
+    
+            passRatio = (correctCards * 100) / cardNum;
+        }
 
         return passRatio;
+    }
+
+    public float getGradeChange(TrainingSessionModel trainingSession, int currentPassRatio) {
+        List<TrainingSessionModel> traininSessions = trainingSession.getTraining().getTrainingSessions();
+        float gradeChange = 0;
+
+        if (traininSessions.size() <= 1) {
+            gradeChange = currentPassRatio;
+        } else {
+            // Get the previous to the current one
+            TrainingSessionModel prevTraining = traininSessions.get(traininSessions.size() - 2);
+            System.out.println("Previous training id is " + prevTraining.getId());
+
+            float prevPassRatio = getPassRatio(prevTraining);
+
+            System.out.println("prevPassRatio = " + prevPassRatio);
+            System.out.println("CUrrent pass ratio = " + currentPassRatio);
+
+            gradeChange = ((currentPassRatio / prevPassRatio) - 1) * 100;
+
+            System.out.println("Grade change today = " + gradeChange);
+        }
+
+        return gradeChange;
     }
 }
