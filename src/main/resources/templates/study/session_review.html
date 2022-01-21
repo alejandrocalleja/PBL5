@@ -11,7 +11,7 @@
     <script th:src="@{/js/user_stats.js}"></script>
 </head>
 
-<body>
+<body th:onload="setStats(${averagePass})">
     <div th:replace="fragments/left-nav :: left-nav"></div>
 
     <main class="center-screen">
