@@ -121,7 +121,7 @@ public class SessionCardManager {
                     Long daysBetween = Duration.between(resDate, LocalDate.now()).toDays();
                     CardModel card = result.getCardResponses().get(0).getCard();
 
-                    if (Math.pow(2, boxNum - 1L) >= daysBetween) {
+                    if (Math.pow(2, boxNum - (double) 1) >= daysBetween) {
                         cards.add(card);
                     } else {
                         // If the card is not required I pass the previous cardResponses
