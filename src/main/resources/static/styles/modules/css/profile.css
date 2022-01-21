@@ -311,7 +311,7 @@ body {
 .user-name h2 {
   font-weight: 400;
   font-size: 1.75rem;
-  text-align: left; }
+  text-align: center; }
 
 .user-name h3 {
   font-weight: 100;
@@ -352,5 +352,5 @@ body {
     .profile-data__button {
       display: flex;
       padding-bottom: 1rem; }
-  .user-name h3 {
+  .user-name h3, .user-name h2 {
     text-align: left; } }

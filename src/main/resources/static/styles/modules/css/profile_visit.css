@@ -86,5 +86,5 @@
     .profile-data__button {
       display: flex;
       padding-bottom: 1rem; }
-  .user-name h3 {
+  .user-name h3, .user-name h2 {
     text-align: left; } }

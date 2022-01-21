@@ -233,9 +233,9 @@ body {
     .deck-view__buttons a:hover, .deck-view__buttons form > input:hover {
       background-color: #007e68;
       transition: 0.2s; }
-  .deck-view__buttons form:last-child > input {
+  .deck-view__buttons .thick-red-button {
     background-color: rgba(205, 1, 1, 0.69); }
-    .deck-view__buttons form:last-child > input:hover {
+    .deck-view__buttons .thick-red-button:hover {
       background-color: #cd0101;
       transition: 0.2s; }
 

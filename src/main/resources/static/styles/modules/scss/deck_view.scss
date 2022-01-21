@@ -47,16 +47,13 @@
             @include thick-button;
         }
 
-        form:last-child {
-            > input {
-                background-color: $card-section-button-color-fail;
-                
-                &:hover{
-                    background-color: $darkened-red-color;
-                    transition: 0.2s;
-                }
+        .thick-red-button {
+            background-color: $card-section-button-color-fail;
+            
+            &:hover{
+                background-color: $darkened-red-color;
+                transition: 0.2s;
             }
-
         }
     }
 }

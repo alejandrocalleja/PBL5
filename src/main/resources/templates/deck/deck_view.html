@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:inline="text">[[${deck.title}]] | DeckLearn</title>
     <link rel="stylesheet" th:href="@{/styles/modules/css/deck_view.css}">
+    <link rel="stylesheet" th:href="@{/styles/modules/css/base_imports.css}">
 </head>
 
 <body>
@@ -61,16 +62,16 @@
                     <div class="deck-view__buttons">
                         <a th:href="@{/deck/{id}/stats(id=${deck.id})}" class="">View stats</a>
 
-                        <form th:action="@{/deck/{id}/save(id=${deck.id})}">
-                            <input type="submit" name="save" value="Save">
+                        <form th:action="@{/deck/{id}/save(id=${deck.id})}" method="post">
+                            <input type="submit" name="save" th:value="${saved} ? 'Remove save' : 'Save'" th:class="${saved} ? 'thick-red-button' : ''">
                         </form>
 
-                        <form th:action="@{/deck/{id}/edit(id=${deck.id})}">
+                        <form th:action="@{/deck/{id}/edit(id=${deck.id})}" method="get" th:style="${isCreator} ? '' : 'display: none'">
                             <input type="submit" name="edit" value="Edit">
                         </form>
 
-                        <form th:action="@{/deck/{id}/remove(id=${deck.id})}">
-                            <input type="submit" name="remove" value="Remove">
+                        <form th:action="@{/deck/{id}/remove(id=${deck.id})}" method="post" th:style="${isCreator} ? '' : 'display: none'">
+                            <input type="submit" name="remove" value="Remove" class="thick-red-button">
                         </form>
 
                     </div>

@@ -34,9 +34,9 @@ public class ProfileController {
             req.setAttribute("profile", true);
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            String currentPrincipalName = authentication.getName();
+            String loggedUser = authentication.getName();
 
-            if (currentPrincipalName.equals(username)) {
+            if (loggedUser.equals(username)) {
                 return "profile";
             } else {
                 return "profile_visit";
