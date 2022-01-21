@@ -1,13 +1,18 @@
 @import 'card_answer_question';
 
 .card-content__buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     width: 100%;
 
+    > form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+    
     &-pass {
         background-color: $card-section-button-color;
         border-radius: 0 0 0 5rem;
+        border: none;
 
         &:hover{
             background-color: $darkened-decklearn-color;
@@ -18,12 +23,14 @@
     &-fail {
         background-color: $card-section-button-color-fail;
         border-radius: 0 0 5rem 0;
+        border: none;
 
         &:hover{
             background-color: $darkened-red-color;
             transition: 0.2s;
         }
     }
+
 }
 
 @media (min-width: screen-size(large)){

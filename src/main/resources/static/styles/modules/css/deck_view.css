@@ -216,7 +216,7 @@ body {
   height: 3rem;
   gap: 0.9rem;
   flex-wrap: wrap; }
-  .deck-view__buttons a {
+  .deck-view__buttons a, .deck-view__buttons form > input {
     align-items: center;
     border-radius: 0.9rem;
     border: 0;
@@ -229,12 +229,12 @@ body {
     text-decoration: none;
     cursor: pointer;
     white-space: nowrap; }
-    .deck-view__buttons a:hover {
+    .deck-view__buttons a:hover, .deck-view__buttons form > input:hover {
       background-color: #007e68;
       transition: 0.2s; }
-  .deck-view__buttons :last-child {
+  .deck-view__buttons form:last-child > input {
     background-color: rgba(205, 1, 1, 0.69); }
-    .deck-view__buttons :last-child:hover {
+    .deck-view__buttons form:last-child > input:hover {
       background-color: #cd0101;
       transition: 0.2s; }
 
@@ -258,7 +258,7 @@ body {
   .info__button {
     display: flex;
     justify-content: left; }
-    .info__button a {
+    .info__button > form > input {
       align-items: center;
       border-radius: 0.9rem;
       border: 0;
@@ -272,7 +272,7 @@ body {
       cursor: pointer;
       white-space: nowrap;
       font-weight: 700; }
-      .info__button a:hover {
+      .info__button > form > input:hover {
         background-color: #007e68;
         transition: 0.2s; }
   .info__studiesNum {

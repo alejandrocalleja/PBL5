@@ -24,13 +24,10 @@
                         <p class="card-content__question" th:inline="text">[[${card.question}]]</p>
                         <p class="card-content__answer" th:inline="text">[[${card.answer}]]</p>
                         <div class="card-content__buttons">
-                            <!-- Estos tienen que ser inputs -->
                             <form th:action="@{/study/{deckId}/{cardId}(deckId=${deck.id}, cardId=${card.id})}" method="post">
                                 <input class="card-content__buttons-pass" type="submit" name="response" value="pass">
                                 <input class="card-content__buttons-fail" type="submit" name="response" value="fail">
                             </form>
-                            <!-- <a th:href="" class="card-content__buttons-pass">Pass</a>
-                            <a th:href="" class="card-content__buttons-fail">Fail</a> -->
                         </div>
                     </div>
                 </div>

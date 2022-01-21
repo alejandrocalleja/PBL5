@@ -47,9 +47,8 @@
 
                                 <div class="info__button">
                                     <form th:action="@{/study/{id}(id=${deck.id})}" method="post">
-                                        <input type="submit" name="study">
+                                        <input type="submit" name="study" value="Study">
                                     </form>
-                                    <!-- <a th:href="@{/deck/{id}/study(id=${deck.id})}">Study</a> -->
                                 </div>
 
                                 <span class="info__studiesNum" th:inline="text">[[${studies}]] studies</span>
@@ -61,9 +60,19 @@
 
                     <div class="deck-view__buttons">
                         <a th:href="@{/deck/{id}/stats(id=${deck.id})}" class="">View stats</a>
-                        <a th:href="@{/deck/{id}/save(id=${deck.id})}" class="">Save</a>
-                        <a th:href="@{/deck/{id}/edit(id=${deck.id})}" class="">Edit</a>
-                        <a th:href="@{/deck/{id}/remove(id=${deck.id})}" class="">Remove</a>
+
+                        <form th:action="@{/deck/{id}/save(id=${deck.id})}">
+                            <input type="submit" name="save" value="Save">
+                        </form>
+
+                        <form th:action="@{/deck/{id}/edit(id=${deck.id})}">
+                            <input type="submit" name="edit" value="Edit">
+                        </form>
+
+                        <form th:action="@{/deck/{id}/remove(id=${deck.id})}">
+                            <input type="submit" name="remove" value="Remove">
+                        </form>
+
                     </div>
                 </div>
             </section>

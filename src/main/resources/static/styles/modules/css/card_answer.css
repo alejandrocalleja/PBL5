@@ -218,7 +218,7 @@ body {
   .card-content__answer, .card-content__img__answer {
     font-size: 1.5rem;
     text-align: center; }
-  .card-content a, .card-content__img a {
+  .card-content a, .card-content form > input, .card-content__img a, .card-content__img form > input {
     display: grid;
     width: 100%;
     height: 5rem;
@@ -264,18 +264,22 @@ body {
     padding: 5rem 8rem 5rem 8rem; } }
 
 .card-content__buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   width: 100%; }
+  .card-content__buttons > form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%; }
   .card-content__buttons-pass {
     background-color: #01CDA9;
-    border-radius: 0 0 0 5rem; }
+    border-radius: 0 0 0 5rem;
+    border: none; }
     .card-content__buttons-pass:hover {
       background-color: #007e68;
       transition: 0.2s; }
   .card-content__buttons-fail {
     background-color: rgba(205, 1, 1, 0.69);
-    border-radius: 0 0 5rem 0; }
+    border-radius: 0 0 5rem 0;
+    border: none; }
     .card-content__buttons-fail:hover {
       background-color: #cd0101;
       transition: 0.2s; }
