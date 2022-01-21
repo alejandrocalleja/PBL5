@@ -9,7 +9,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import eus.blankcard.decklearn.models.DeckModel;
+import eus.blankcard.decklearn.models.deck.DeckModel;
 
 @Repository
 public class DeckRepositoryImpl implements DeckRepositoryCustom {

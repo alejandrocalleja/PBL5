@@ -1,5 +1,6 @@
 package eus.blankcard.decklearn.models;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -24,7 +25,10 @@ public class TrainingSessionModel {
     private TrainingModel training;
 
     @OneToMany(mappedBy = "trainingSession", cascade = CascadeType.ALL)
-    List<ResultsModel> results;
+    private List<ResultsModel> results;
+
+    @Column( name = "training_session_date")
+    private Date trainingSessionDate;
 
     public Integer getId() {
         return id;
@@ -50,5 +54,11 @@ public class TrainingSessionModel {
         this.results = results;
     }
 
-    
+    public Date getTrainingSessionDate() {
+        return trainingSessionDate;
+    }
+
+    public void setTrainingSessionDate(Date trainingSessionDate) {
+        this.trainingSessionDate = trainingSessionDate;
+    }
 }

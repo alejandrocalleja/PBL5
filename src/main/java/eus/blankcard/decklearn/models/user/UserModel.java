@@ -1,4 +1,4 @@
-package eus.blankcard.decklearn.models;
+package eus.blankcard.decklearn.models.user;
 
 import java.sql.Date;
 import java.util.Set;
@@ -15,6 +15,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import eus.blankcard.decklearn.models.TrainingModel;
+import eus.blankcard.decklearn.models.deck.DeckModel;
 
 @Entity
 @Table(name = "user")

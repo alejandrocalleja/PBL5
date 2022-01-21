@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import eus.blankcard.decklearn.models.UserModel;
+import eus.blankcard.decklearn.models.user.UserModel;
 import eus.blankcard.decklearn.repository.user.UserRepository;
 
 @Controller

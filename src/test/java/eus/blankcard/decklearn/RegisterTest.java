@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import eus.blankcard.decklearn.models.UserModel;
+import eus.blankcard.decklearn.models.user.UserModel;
 
 @SpringBootTest
 @AutoConfigureMockMvc

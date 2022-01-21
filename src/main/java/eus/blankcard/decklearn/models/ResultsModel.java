@@ -1,5 +1,6 @@
 package eus.blankcard.decklearn.models;
 
+import java.sql.Time;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import eus.blankcard.decklearn.models.card.CardResponseModel;
 
 @Entity
 @Table( name = "results" )
@@ -25,6 +28,9 @@ public class ResultsModel {
 
     @OneToMany(mappedBy = "results", cascade = CascadeType.ALL)
     List<CardResponseModel> cardResponses;
+
+    @Column( name = "avg_response_time" )
+    Time avgResTime;
 
     public Integer getId() {
         return id;
@@ -50,6 +56,11 @@ public class ResultsModel {
         this.cardResponses = cardResponses;
     }
 
+    public Time getAvgResTime() {
+        return avgResTime;
+    }
 
-    
+    public void setAvgResTime(Time avgResTime) {
+        this.avgResTime = avgResTime;
+    }
 }
