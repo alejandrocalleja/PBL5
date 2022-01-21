@@ -17,32 +17,35 @@ import eus.blankcard.decklearn.models.UserModel;
 import eus.blankcard.decklearn.repository.deck.DeckRepository;
 import eus.blankcard.decklearn.repository.user.UserRepository;
 
-@Controller
-public class SessionsController {
 
+@Controller
+public class SearchController {
 
     @Autowired
     UserRepository userRepository;
 
     @Autowired
     DeckRepository deckRepository;
+
+    @GetMapping(value="/deck/search")
+    public String getSearchResults(HttpServletRequest req, HttpServletResponse response) {
+        String title = (String) req.getParameter("searchName");
+
+        String strippedTitle = title.strip();
+
+        if(strippedTitle.equals("")) {
+            return "redirect:/home";
+        } else {
+            List<DeckModel> searchResult = deckRepository.findByTitleContaining(title);
     
-    @GetMapping("/sessions")
-    public String getSessions(HttpServletRequest req, HttpServletResponse response) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+            req.setAttribute("decks", searchResult);
+    
+            req.setAttribute("pageName", "Search results");
+            req.setAttribute("home", true);
+    
+            return "search_results";
+        }
 
-        UserModel user = userRepository.findByUsername(username);
-
-        List<DeckModel> studySessions = new ArrayList<>();
-
-        user.getTrainings().forEach(t -> studySessions.add(t.getDeck()));;
-        req.setAttribute("decks", studySessions);
-
-        req.setAttribute("pageName", "Study sessions");
-        req.setAttribute("sessions", true);
-        
-        return "search_results";
     }
-
+    
 }

@@ -97,15 +97,16 @@ body {
       cursor: pointer; }
 
 .search-bar {
-  min-height: 3rem;
-  margin: 0;
-  width: 50%;
-  border-radius: 4rem;
-  border: 1px solid #BAB8B8;
-  background-image: url("/images/icons/search.svg");
-  background-position: 10px 12px;
-  background-repeat: no-repeat;
-  padding-left: 3rem; }
+  width: 50%; }
+  .search-bar > input {
+    min-height: 3rem;
+    margin: 0;
+    border-radius: 4rem;
+    border: 1px solid #BAB8B8;
+    background-image: url("/images/icons/search.svg");
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    padding-left: 3rem; }
 
 ::placeholder {
   font-size: 1.2rem; }

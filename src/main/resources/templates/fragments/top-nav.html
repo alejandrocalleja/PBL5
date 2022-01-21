@@ -1,6 +1,9 @@
 <div th:fragment="top-nav">
     <nav class="top-nav">
-        <input type="text" id="searchBar" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name" class="search-bar">
+        <form th:action="@{/deck/search}" method="get" class="search-bar">
+            <input type="text" id="searchBar" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name" name="searchName">
+        </form>
+
         <div class="top-nav__profile">
             <!-- <img th:src="${#httpServletRequest.remoteUser.img_path}" alt=""> -->
             <a th:href="@{/{user}(user=${#httpServletRequest.remoteUser})}" th:inline="text" tabindex="0">[[${#httpServletRequest.remoteUser}]]</a>
