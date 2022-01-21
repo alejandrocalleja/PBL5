@@ -1,38 +1,42 @@
 window.onload = function() {
-    var fileName = location.href.split("/").slice(-1); 
-    if(fileName == "session_review.html") {
-        colorText();
-    }
+    console.log("window loaded");
 }
 
-function colorText(){
-    var perc_p = document.getElementById('grade-change');
-    var percent = perc_p.textContent.split("%");
-    var img = document.getElementById('grade-change-img');
-    if(percent[0] >= 0) {
-        perc_p.classList.add("improve");
-        img.src = "images/icons/GradeUP.svg";
-    }
-    else {
-        perc_p.classList.add("worsened");
-        img.src = "images/icons/GradeDOWN.svg";
-    }
-}
+window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    setStats();
+});
 
-function setStats(nuevo) {
+// function colorText(){
+//     console.log("EN LA FUNCION");
+//     var perc_p = document.getElementById('grade-change');
+//     // var percent = perc_p.textContent.split("%");
+//     // var img = document.getElementById('grade-change-img');
+//     if(perc_p >= 0) {
+//         perc_p.classList.add("improve");
+//         // img.src = "images/icons/GradeUP.svg";
+//     }
+//     else {
+//         perc_p.classList.add("worsened");
+//         // img.src = "images/icons/GradeDOWN.svg";
+//     }
+// }
+
+function setStats() {
     var graph = document.getElementById('graph1');
     var slice1 = document.getElementById('graph_part1');
     var slice2 = document.getElementById('graph_part2');
     var texto = document.getElementById('texto');
     console.log('Texto ' + texto);
-    console.log('Nuevo ' + nuevo);
 
     var uno;
     var dos;
-    texto.setAttribute('data-after', nuevo + '%');
-    var dataNum = texto.getAttribute('data-after').slice(0, -1);
+    // var dataNum = texto.getAttribute('data-after').slice(0, -1);
+    var dataNum = texto.getAttribute('data-after');
+    
+    // console.log("Datanum: " + dataNum);
 
-    if (nuevo < 50) {
+    if (dataNum < 50) {
         uno = dataNum/100*360+90;
         dos = 0;
         graph.style.background = '#46B6A0';
@@ -49,4 +53,6 @@ function setStats(nuevo) {
     
     slice1.style.transform = "rotate(" + uno + "deg)";
     slice2.style.transform = "rotate(" + dos + "deg)";
+
+    texto.setAttribute('data-after', dataNum + '%');
 }

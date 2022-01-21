@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:inline="text">Studying: [[${deck.title}]] | Deck Learn</title>
+    <link rel="stylesheet" th:href="@{/styles/modules/css/card_answer.css}">
+</head>
+
+<body>
+    <div th:replace="fragments/left-nav :: left-nav"></div>
+
+    <main class="center-screen">
+        <div th:replace="fragments/top-nav :: top-nav"></div>
+
+        <div class="content-container">
+            <section class="content">
+                <h2>Studying: French Revolution</h2>
+
+                <div class="card-view">
+                    <div class="card-content">
+                        <p class="card-content__question" th:inline="text">[[${card.question}]]</p>
+                        <p class="card-content__answer" th:inline="text">[[${card.answer}]]</p>
+                        <div class="card-content__buttons">
+                            <form th:action="@{/study/{deckId}/{cardId}(deckId=${deck.id}, cardId=${card.id})}" method="post">
+                                <input class="card-content__buttons-pass" type="submit" name="response" value="pass">
+                                <input class="card-content__buttons-fail" type="submit" name="response" value="fail">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </main>
+</body>
+
+</html>

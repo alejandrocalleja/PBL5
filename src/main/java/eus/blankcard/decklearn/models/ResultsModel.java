@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,18 +21,28 @@ import eus.blankcard.decklearn.models.card.CardResponseModel;
 public class ResultsModel {
     
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column( name = "results_id")
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name="training_session_id")
+    @JoinColumn(name = "training_session_id")
     private TrainingSessionModel trainingSession;
 
-    @OneToMany(mappedBy = "results", cascade = CascadeType.ALL)
-    List<CardResponseModel> cardResponses;
 
-    @Column( name = "avg_response_time" )
-    Time avgResTime;
+    @ManyToOne
+    @JoinColumn(name = "card_id")
+    private CardModel card;
+
+    @OneToMany(mappedBy = "result", cascade = CascadeType.ALL)
+    List<CardResponseModel> cardResponses;    @Column( name = "box_number")
+    private int boxNumber;
+
+    @Column( name = "error_count")
+    private int errorCount;
+
+    @Column( name = "avg_response_time")
+    private Time avgTime;
 
     public Integer getId() {
         return id;
@@ -56,11 +68,34 @@ public class ResultsModel {
         this.cardResponses = cardResponses;
     }
 
-    public Time getAvgResTime() {
-        return avgResTime;
+
+    public int getBoxNumber() {
+        return boxNumber;
+    }    public void setBoxNumber(int boxNumber) {
+        this.boxNumber = boxNumber;
     }
 
-    public void setAvgResTime(Time avgResTime) {
-        this.avgResTime = avgResTime;
+    public int getErrorCount() {
+        return errorCount;
+    }
+
+    public void setErrorCount(int errorCount) {
+        this.errorCount = errorCount;
+    }
+
+    public Time getAvgTime() {
+        return avgTime;
+    }
+
+    public void setAvgTime(Time avgTime) {
+        this.avgTime = avgTime;
+    }
+
+    public CardModel getCard() {
+        return card;
+    }
+
+    public void setCard(CardModel card) {
+        this.card = card;
     }
 }

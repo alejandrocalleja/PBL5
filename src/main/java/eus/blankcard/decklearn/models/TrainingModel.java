@@ -1,11 +1,14 @@
 package eus.blankcard.decklearn.models;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +23,7 @@ import eus.blankcard.decklearn.models.user.UserModel;
 public class TrainingModel {
     
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column( name = "training_id" )
     private Integer id;
 
@@ -32,9 +36,10 @@ public class TrainingModel {
     private DeckModel deck;
 
     @OneToMany(mappedBy = "training", cascade = CascadeType.ALL)
-    List<TrainingSessionModel> trainingSessions;
+    List<TrainingSessionModel> trainingSessions = new ArrayList<>();
 
-    private Date training_date;
+    @Column( name = "training_date")
+    private Timestamp trainingDate;
 
     public Integer getId() {
         return id;
@@ -60,19 +65,23 @@ public class TrainingModel {
         this.deck = deck;
     }
 
-    public Date getTraining_date() {
-        return training_date;
-    }
-
-    public void setTraining_date(Date training_date) {
-        this.training_date = training_date;
-    }
-
     public List<TrainingSessionModel> getTrainingSessions() {
         return trainingSessions;
     }
 
     public void setTrainingSessions(List<TrainingSessionModel> trainingSessions) {
         this.trainingSessions = trainingSessions;
+    }
+
+    public void addTrainingSession(TrainingSessionModel trainingSession) {
+        trainingSessions.add(trainingSession);
+    }
+
+    public Timestamp getTrainingDate() {
+        return trainingDate;
+    }
+
+    public void setTrainingDate(Timestamp trainingDate) {
+        this.trainingDate = trainingDate;
     }
 }

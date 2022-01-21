@@ -43,13 +43,13 @@
         gap: 0.9rem;
         flex-wrap: wrap;
 
-        a {
+        a, form > input{
             @include thick-button;
         }
 
-        :last-child {
+        .thick-red-button {
             background-color: $card-section-button-color-fail;
-
+            
             &:hover{
                 background-color: $darkened-red-color;
                 transition: 0.2s;
@@ -88,9 +88,11 @@
         display: flex;
         justify-content: left;
 
-        a {
-            @include thick-button;
-            font-weight: 700;
+        > form {
+            > input {
+                @include thick-button;
+                font-weight: 700;
+            }
         }
     }
 

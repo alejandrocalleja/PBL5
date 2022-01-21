@@ -50,11 +50,11 @@ body {
     align-items: center;
     padding: 0.5rem 0.5rem 0.5rem 0.5rem;
     text-decoration: none;
-    color: #FFFFFF; }
+    color: #FFFFFF;
+    border-radius: 1.3rem; }
     .nav-bar__list > li > a:hover {
       background-color: #007e68;
-      border-radius: 1.3rem;
-      transition: 0.2s; }
+      transition: 0.4s; }
     .nav-bar__list > li > a > img {
       display: inline-block;
       width: 2rem; }
@@ -66,6 +66,13 @@ body {
       height: 100%;
       font-size: 1.3rem;
       font-weight: 100; }
+    .nav-bar__list > li > a .selected {
+      color: white;
+      font-weight: normal;
+      border-bottom: 0; }
+    .nav-bar__list > li > a .not-selected {
+      color: black;
+      font-weight: lighter; }
 
 .center-screen {
   display: grid;
@@ -98,15 +105,16 @@ body {
       cursor: pointer; }
 
 .search-bar {
-  min-height: 3rem;
-  margin: 0;
-  width: 50%;
-  border-radius: 4rem;
-  border: 1px solid #BAB8B8;
-  background-image: url("/images/icons/search.svg");
-  background-position: 10px 12px;
-  background-repeat: no-repeat;
-  padding-left: 3rem; }
+  width: 50%; }
+  .search-bar > input {
+    min-height: 3rem;
+    margin: 0;
+    border-radius: 4rem;
+    border: 1px solid #BAB8B8;
+    background-image: url("/images/icons/search.svg");
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    padding-left: 3rem; }
 
 ::placeholder {
   font-size: 1.2rem; }
@@ -211,7 +219,7 @@ body {
   .card-content__answer, .card-content__img__answer {
     font-size: 1.5rem;
     text-align: center; }
-  .card-content a, .card-content__img a {
+  .card-content a, .card-content form > input, .card-content__img a, .card-content__img form > input {
     display: grid;
     width: 100%;
     height: 5rem;
@@ -257,18 +265,22 @@ body {
     padding: 5rem 8rem 5rem 8rem; } }
 
 .card-content__buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   width: 100%; }
+  .card-content__buttons > form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%; }
   .card-content__buttons-pass {
     background-color: #01CDA9;
-    border-radius: 0 0 0 5rem; }
+    border-radius: 0 0 0 5rem;
+    border: none; }
     .card-content__buttons-pass:hover {
       background-color: #007e68;
       transition: 0.2s; }
   .card-content__buttons-fail {
     background-color: rgba(205, 1, 1, 0.69);
-    border-radius: 0 0 5rem 0; }
+    border-radius: 0 0 5rem 0;
+    border: none; }
     .card-content__buttons-fail:hover {
       background-color: #cd0101;
       transition: 0.2s; }

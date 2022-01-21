@@ -35,15 +35,15 @@ public class DeckModel {
     @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
     List<CardModel> cards;
 
-    @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
-    List<TrainingModel> trainings;
-
     @ManyToMany
     @JoinTable( name = "type_relation",
                 joinColumns = { @JoinColumn( name = "deck_id") },
                 inverseJoinColumns = {@JoinColumn( name = "deck_type_id")}
                 )
     private List<DeckTypeModel> types;
+
+    @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
+    List<TrainingModel> trainings;
 
     @ManyToMany(mappedBy = "savedDecks")
     private List<UserModel> savers;
@@ -52,7 +52,8 @@ public class DeckModel {
 
     private String description;
 
-    private String img_path;
+    @Column( name = "img_path")
+    private String imgPath;
 
     public Integer getId() {
         return id;
@@ -86,20 +87,12 @@ public class DeckModel {
         this.description = description;
     }
 
-    public String getImg_path() {
-        return img_path;
+    public String getImgPath() {
+        return imgPath;
     }
 
-    public void setImg_path(String img_path) {
-        this.img_path = img_path;
-    }
-
-    public List<CardModel> getCards() {
-        return cards;
-    }
-
-    public void setCards(List<CardModel> cards) {
-        this.cards = cards;
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 
     public List<DeckTypeModel> getTypes() {
@@ -110,19 +103,31 @@ public class DeckModel {
         this.types = types;
     }
 
-    public List<TrainingModel> getTrainings() {
-        return trainings;
-    }
-
-    public void setTrainings(List<TrainingModel> trainings) {
-        this.trainings = trainings;
-    }
-
     public List<UserModel> getSavers() {
         return savers;
     }
 
     public void setSavers(List<UserModel> savers) {
         this.savers = savers;
+    }
+
+    public List<CardModel> getCards() {
+        return cards;
+    }
+
+    public void setCards(List<CardModel> cards) {
+        this.cards = cards;
+    }
+
+    public void addCard(CardModel card) {
+        this.cards.add(card);
+    }
+
+    public List<TrainingModel> getTrainings() {
+        return trainings;
+    }
+
+    public void setTrainings(List<TrainingModel> trainings) {
+        this.trainings = trainings;
     }
 }
