@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import eus.blankcard.decklearn.gamification.SessionCardManager;
 import eus.blankcard.decklearn.gamification.SessionManager;
-import eus.blankcard.decklearn.models.CardModel;
-import eus.blankcard.decklearn.models.DeckModel;
 import eus.blankcard.decklearn.models.TrainingModel;
 import eus.blankcard.decklearn.models.TrainingSessionModel;
-import eus.blankcard.decklearn.models.UserModel;
+import eus.blankcard.decklearn.models.card.CardModel;
+import eus.blankcard.decklearn.models.deck.DeckModel;
+import eus.blankcard.decklearn.models.user.UserModel;
 import eus.blankcard.decklearn.repository.CardRepository;
 import eus.blankcard.decklearn.repository.TrainingRepository;
 import eus.blankcard.decklearn.repository.deck.DeckRepository;

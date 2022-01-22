@@ -6,7 +6,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import eus.blankcard.decklearn.models.CardModel;
+import eus.blankcard.decklearn.models.card.CardModel;
 
 public class Buffer {
 

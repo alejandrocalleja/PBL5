@@ -37,6 +37,7 @@ public class SettingsController {
     user = userRepository.findByUsername(username);
     if (user != null) {
       req.setAttribute("user", user);
+      req.setAttribute("settings", true);
       return defaultFolder + obtaniedPage;
     } else {
       response.setStatus(404);
@@ -46,16 +47,19 @@ public class SettingsController {
 
   @GetMapping({ "/settings/profile", "/settings" })
   public String getProfile(HttpServletRequest req, HttpServletResponse response) {
+    req.setAttribute("settings", true);
     return defaultGet(req, response, "profile_settings");
   }
 
   @GetMapping("/settings/security")
   public String getSecurity(HttpServletRequest req, HttpServletResponse response) {
+    req.setAttribute("settings", true);
     return defaultGet(req, response, "security_settings");
   }
 
   @GetMapping("/settings/language")
   public String getLanguage(HttpServletRequest req, HttpServletResponse response) {
+    req.setAttribute("settings", true);
     return defaultGet(req, response, "language_settings");
   }
 

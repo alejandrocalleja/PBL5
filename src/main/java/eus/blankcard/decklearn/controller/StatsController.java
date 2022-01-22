@@ -35,7 +35,7 @@ public class StatsController {
         AtomicInteger monthStudies = new AtomicInteger(0);
         user.getTrainings()
                 .forEach(t -> t.getTrainingSessions().stream()
-                        .filter(ts -> ts.getTrainingSessionDate().toLocalDate().getMonthValue() == now.getMonthValue())
+                        .filter(ts -> ts.getDate().toLocalDateTime().getMonthValue() == now.getMonthValue())
                         .forEach(filteredTraining -> monthStudies.getAndIncrement()));
 
                         // AtomicReference<Time> avgTime = new AtomicReference<>("");
@@ -51,6 +51,7 @@ public class StatsController {
         req.setAttribute("avgTime", 0);
         req.setAttribute("total", 0);
         req.setAttribute("passRatio", 0);
+        req.setAttribute("stats", true);
 
         return "user/user_stats";
     }

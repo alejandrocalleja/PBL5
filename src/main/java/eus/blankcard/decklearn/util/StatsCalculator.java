@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import eus.blankcard.decklearn.models.CardResponseModel;
 import eus.blankcard.decklearn.models.ResultsModel;
 import eus.blankcard.decklearn.models.TrainingSessionModel;
+import eus.blankcard.decklearn.models.card.CardResponseModel;
 
 @Component
 public class StatsCalculator {

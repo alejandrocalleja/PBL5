@@ -19,25 +19,21 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-
 import eus.blankcard.decklearn.models.user.UserModel;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-
 class RegisterTest {
 
   @Autowired
   private MockMvc mockMvc;
 
   @Test
-
   void shouldCreateMockMvc() {
     assertNotNull(mockMvc);
   }
 
   @Test
-
   void shouldReturnRegisterPage() throws Exception {
     String url = "/register";
 
@@ -46,7 +42,6 @@ class RegisterTest {
   }
 
   @Test
-
   void shouldRetunDate() throws Exception {
 
     UserModel u = new UserModel();
@@ -59,13 +54,11 @@ class RegisterTest {
   void shouldReturnSuccessRegister() throws Exception {
     String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
     HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
-
     CsrfToken csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
 
     String url = "/register";
 
     MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-
 
     String name = "MVC";
     String surname = "Test";
@@ -73,7 +66,6 @@ class RegisterTest {
     String username = "testRegister";
     String purpose = "Testing";
     String country = "World";
-
     String postalCode = "01234";
     String password = "testPass";
 
@@ -83,7 +75,6 @@ class RegisterTest {
     params.add("username", username);
     params.add("purpose", purpose);
     params.add("country", country);
-
     params.add("postalCode", postalCode);
     params.add("password", password);
 
@@ -91,11 +82,10 @@ class RegisterTest {
     userModel.setName(name);
 
     mockMvc.perform(MockMvcRequestBuilders.post(url)
-
         .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(),
             csrfToken.getToken())
         .params(params))
-
         .andExpect(redirectedUrl("/login"));
   }
+
 }

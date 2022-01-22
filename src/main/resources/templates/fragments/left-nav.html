@@ -35,7 +35,7 @@
             </li>
 
             <li>
-                <a th:href="@{/{user}/stats(user=${#httpServletRequest.remoteUser})}">
+                <a th:href="@{/stats}">
                     <img th:src="${stats} ? @{/images/icons/Stats_select.svg}: @{/images/icons/Stats.svg}" alt="User Stats">
                     <span th:class="${stats} ? 'selected' : 'not-selected'">Stats</span>
                 </a>

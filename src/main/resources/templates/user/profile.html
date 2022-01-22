@@ -62,7 +62,7 @@
 
           <div class="card" th:each="deck: ${userDecks}">
             <div class="card-content">
-              <img class="" th:src="@{deck.imgPath}"></img>
+              <img class="" th:src="${deck.imgPath}"></img>
               <div>
                 <h3 th:inline="text">[[${deck.title}]]</h3>
                 <span th:inline="text">[[${deck.description}]]</span>

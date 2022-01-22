@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import eus.blankcard.decklearn.models.ResultsModel;
 import eus.blankcard.decklearn.models.deck.DeckModel;
 
 @Entity

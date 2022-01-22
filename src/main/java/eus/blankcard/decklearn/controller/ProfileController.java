@@ -1,5 +1,8 @@
 package eus.blankcard.decklearn.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import eus.blankcard.decklearn.models.deck.DeckModel;
 import eus.blankcard.decklearn.models.user.UserModel;
 import eus.blankcard.decklearn.repository.user.UserRepository;
 
@@ -30,7 +34,8 @@ public class ProfileController {
             req.setAttribute("user", user);
 
             req.setAttribute("followers", user.getFollowers().size());
-            req.setAttribute("following", user.getFollowed().size());            req.setAttribute("profile", true);
+            req.setAttribute("following", user.getFollowed().size());            
+            req.setAttribute("profile", true);
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -38,7 +43,7 @@ public class ProfileController {
 
 
             if (loggedUser.equals(username)) {
-
+                req.setAttribute("decks", true);
                 return "user/profile";
             } else {
 
@@ -104,12 +109,15 @@ public class ProfileController {
             UserModel user = null;
             user = userRepository.findByUsername(username);
 
+            List<DeckModel> trainingSessions = new ArrayList<>();
+            user.getTrainings().forEach(t -> trainingSessions.add(t.getDeck()));
+
             req.setAttribute("user", user);
 
             req.setAttribute("followers", user.getFollowers().size());
             req.setAttribute("following", user.getFollowed().size());
             req.setAttribute("sessions", true);
-            req.setAttribute("userDecks", user.getTrainings());
+            req.setAttribute("userDecks", trainingSessions);
             return "user/profile";
         } else {
             return "error";

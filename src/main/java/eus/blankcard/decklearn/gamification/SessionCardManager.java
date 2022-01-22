@@ -17,10 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import eus.blankcard.decklearn.models.CardModel;
-import eus.blankcard.decklearn.models.CardResponseModel;
 import eus.blankcard.decklearn.models.ResultsModel;
 import eus.blankcard.decklearn.models.TrainingSessionModel;
+import eus.blankcard.decklearn.models.card.CardModel;
+import eus.blankcard.decklearn.models.card.CardResponseModel;
 import eus.blankcard.decklearn.repository.CardRepository;
 import eus.blankcard.decklearn.repository.CardResponseRepository;
 import eus.blankcard.decklearn.repository.ResultsRepository;
