@@ -1,6 +1,7 @@
 package eus.blankcard.decklearn;
 
 import static org.junit.Assert.assertNotNull;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ class IndexTest {
     String url = "/";
 
     mockMvc.perform(MockMvcRequestBuilders.get(url))
-        .andExpect(MockMvcResultMatchers.status().isOk());
+        .andExpect(redirectedUrl("/home"));
   }
 
   @Test
