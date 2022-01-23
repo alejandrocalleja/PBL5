@@ -1,5 +1,6 @@
 package eus.blankcard.decklearn.models.deck;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ public class DeckTypeModel {
     private String description;
 
     @ManyToMany(mappedBy = "types")
-    private List<DeckModel> decks;
+    private List<DeckModel> decks = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -48,5 +49,7 @@ public class DeckTypeModel {
         this.decks = decks;
     }
 
-    
+    public void addDeck(DeckModel deck) {
+        this.decks.add(deck);
+    }
 }

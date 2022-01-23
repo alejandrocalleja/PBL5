@@ -43,6 +43,7 @@ public class ProfileController {
 
 
             if (loggedUser.equals(username)) {
+                req.setAttribute("userDecks", user.getDecks());
                 req.setAttribute("decks", true);
                 return "user/profile";
             } else {

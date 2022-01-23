@@ -1,5 +1,6 @@
 package eus.blankcard.decklearn.models.deck;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -33,20 +34,20 @@ public class DeckModel {
     private UserModel creator;
 
     @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
-    List<CardModel> cards;
+    List<CardModel> cards = new ArrayList<>();
 
     @ManyToMany
     @JoinTable( name = "type_relation",
                 joinColumns = { @JoinColumn( name = "deck_id") },
                 inverseJoinColumns = {@JoinColumn( name = "deck_type_id")}
                 )
-    private List<DeckTypeModel> types;
+    private List<DeckTypeModel> types = new ArrayList<>();
 
     @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
-    List<TrainingModel> trainings;
+    List<TrainingModel> trainings = new ArrayList<>();
 
     @ManyToMany(mappedBy = "savedDecks")
-    private List<UserModel> savers;
+    private List<UserModel> savers = new ArrayList<>();
 
     private String title;
 
@@ -101,6 +102,10 @@ public class DeckModel {
 
     public void setTypes(List<DeckTypeModel> types) {
         this.types = types;
+    }
+
+    public void addType(DeckTypeModel type) {
+        this.types.add(type);
     }
 
     public List<UserModel> getSavers() {

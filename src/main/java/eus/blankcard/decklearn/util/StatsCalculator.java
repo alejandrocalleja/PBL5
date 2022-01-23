@@ -8,8 +8,10 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import eus.blankcard.decklearn.models.ResultsModel;
+import eus.blankcard.decklearn.models.TrainingModel;
 import eus.blankcard.decklearn.models.TrainingSessionModel;
 import eus.blankcard.decklearn.models.card.CardResponseModel;
+import eus.blankcard.decklearn.models.deck.DeckModel;
 
 @Component
 public class StatsCalculator {
@@ -69,6 +71,43 @@ public class StatsCalculator {
         return time;
     }
 
+    // public Time getAvgResponseTime(DeckModel deck) {
+
+    //     List<TrainingModel> trainings =  deck.getTrainings();
+
+    //     for(TrainingModel training : trainings) {
+    //         List<TrainingSessionModel> trainingSessions = training.getTrainingSessions();
+
+    //         for(TrainingSessionModel trainingSession : trainingSessions) {
+    //             List<CardResponseModel> cardResponses = new ArrayList<>();
+    //             trainingSession.getResults().forEach(r -> r.getCardResponses().forEach(cr -> cardResponses.add(cr)));
+        
+    //             long totalMilis = 0;
+        
+    //             for (CardResponseModel cardResponse : cardResponses) {
+    //                 LocalTime responseTime = cardResponse.getResponseTime().toLocalTime();
+        
+    //                 long sec = responseTime.getSecond();
+    //                 long min = responseTime.getMinute();
+        
+    //                 totalMilis += sec * 1000;
+    //                 totalMilis += (min * 60) * 1000;
+    //             }
+        
+    //             long milisMean = totalMilis / cardResponses.size();
+        
+    //             // - 1h bc Time adds an hour depending on your GTM
+    //             milisMean -= 3600000;
+        
+    //             Time time = new Time(milisMean);
+        
+    //             System.out.println("Avg time is " + time.toString());
+    //         }
+    //     }
+
+    //     return time;
+    // }
+
     public int getPassRatio(TrainingSessionModel trainingSession) {
         List<ResultsModel> results = trainingSession.getResults();
         
@@ -116,4 +155,8 @@ public class StatsCalculator {
 
         return gradeChange;
     }
+
+
+
+
 }

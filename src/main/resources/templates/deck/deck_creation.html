@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deack Learn - Deck Creation</title>
+    <link rel="stylesheet" th:href="@{/styles/modules/css/home.css}">
+    <link rel="stylesheet" th:href="@{/styles/modules/css/deck_creation.css}">
+    <script th:src="@{/js/textarea.js}"></script>
+</head>
+
+<body>
+    <div th:replace="fragments/left-nav :: left-nav"></div>
+
+    <main class="center-screen">
+        <div th:replace="fragments/top-nav :: top-nav"></div>
+
+        <section class="content-container">
+            <form class="content" th:action="@{/create/deck/{deckId}(deckId=${deck.id})}" method="post">
+                <section class="deck-creation-section">
+                    <h2>Create a deck</h2>
+
+                    <div class="deck-creation-section__list">
+                        <div class="deck-creation">
+                            <div>
+                                <h4>Title:</h4>
+
+                                <input type="text" name="title" placeholder="Title" title="Type in a title"
+                                    class="card-creation__data" th:value="${deck.title}">
+                            </div>
+
+                            <div>
+                                <h4>Description:</h4>
+
+                                <textarea name="description" cols="50" rows="1" placeholder="Description"
+                                class="card-creation__data card-creation__data__of-hidden" th:inline="text">[[${deck.description}]]</textarea>
+                            </div>
+                            <button class="creation-button"><img th:src="@{/images/icons/Upload.svg}" alt="">Upload
+                                image</button>
+                        </div>
+
+                        <div class="card-creation">
+                            <h4>Cards:</h4>
+
+                            <label th:inline="text">Card number: [[${cardNum}]]</label>
+                            <div id="question-answer">
+                                <textarea name="question" cols="50" rows="1" placeholder="Question"
+                                class="card-creation__data card-creation__data__of-hidden"></textarea>
+
+                                <textarea name="answer" cols="50" rows="1" placeholder="Answer"
+                                class="card-creation__data card-creation__data__of-hidden"></textarea>
+                            </div>
+
+
+                            <div id="buttons">
+                                <button class="creation-button"><img th:src="@{/images/icons/Upload.svg}" alt="">Upload
+                                    image</button>
+                                <input type="submit" name="action" value="Save Card" class="custom-button"></input>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <section class="deck-categories">
+                    <input type="text" name="type" placeholder="Add a category"
+                        title="Type in a name" class="card-creation__data">
+                    
+                    <input type="submit" name="action" value="Add Type" class="custom-button"></input>
+
+                    <div class="deck-categories__list">
+                        <button th:each="type: ${deck.types}"><img th:src="@{/images/icons/x.svg}" alt="" th:inline="text">[[${type.description}]]</button>
+                    </div>
+                </section>
+
+                <div class="create-deck">
+                    <input type="submit" name="action" value="Save Deck" class="create-deck__button"></input>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>
