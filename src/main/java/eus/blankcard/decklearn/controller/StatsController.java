@@ -50,7 +50,7 @@ public class StatsController {
         req.setAttribute("saves", user.getSavedDecks().size());
         req.setAttribute("avgTime", 0);
         req.setAttribute("total", 0);
-        req.setAttribute("passRatio", 0);
+        req.setAttribute("passRatio", 52);
         req.setAttribute("stats", true);
 
         return "user/user_stats";

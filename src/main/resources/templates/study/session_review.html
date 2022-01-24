@@ -9,6 +9,17 @@
     <link rel="stylesheet" th:href="@{/styles/modules/css/home.css}">
     <link rel="stylesheet" th:href="@{/styles/modules/css/session_review.css}">
     <script th:src="@{/js/user_stats.js}"></script>
+    <!-- Hotjar Tracking Code for http://localhost:8080/ -->
+    <script>
+        (function (h, o, t, j, a, r) {
+            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+            h._hjSettings = { hjid: 2792035, hjsv: 6 };
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script'); r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
 </head>
 
 <body th:onload="setStats(${averagePass})">
@@ -28,14 +39,17 @@
                                 <div class="stats-card">
                                     <h3>Grade change today</h3>
                                     <div class="stats-card__content special">
-                                        <p id="grade-change" th:inline="text" th:style="${up} ? 'color:#4abb15' : 'color:#cd0101'">[[${gradeChange}]]%</p>
+                                        <p id="grade-change" th:inline="text"
+                                            th:style="${up} ? 'color:#4abb15' : 'color:#cd0101'">[[${gradeChange}]]%</p>
 
-                                        <img alt="" th:src="@{/images/icons/GradeUP.svg}" th:style="${up} ? '' : 'display:none'">
-                                        <img alt="" th:src="@{/images/icons/GradeDOWN.svg}" th:style="${down} ? '' : 'display:none'">
+                                        <img alt="" th:src="@{/images/icons/GradeUP.svg}"
+                                            th:style="${up} ? '' : 'display:none'">
+                                        <img alt="" th:src="@{/images/icons/GradeDOWN.svg}"
+                                            th:style="${down} ? '' : 'display:none'">
                                     </div>
                                     <p class="stats-card__decoration"> </p>
                                 </div>
-    
+
                                 <div class="stats-card">
                                     <h3>Total study time</h3>
                                     <div class="stats-card__content">
@@ -43,7 +57,7 @@
                                     </div>
                                     <p class="stats-card__decoration"> </p>
                                 </div>
-    
+
                                 <div class="stats-card">
                                     <h3>Average response time</h3>
                                     <div class="stats-card__content">
@@ -52,7 +66,7 @@
                                     </div>
                                     <p class="stats-card__decoration"> </p>
                                 </div>
-    
+
                                 <div class="stats-card">
                                     <h3>Total sessions</h3>
                                     <div class="stats-card__content">
@@ -62,7 +76,7 @@
                                     <p class="stats-card__decoration"> </p>
                                 </div>
                             </div>
-    
+
                             <div class="stats-graphic">
                                 <h3 class="stats-graphic__title">Pass ratio</h3>
                                 <div id="graph1" class="donut-chart chart1">
@@ -72,10 +86,10 @@
                                         <span id="texto" th:data-after="${passRatio}"></span>
                                     </div>
                                 </div>
-                                <a  tabindex="0" th:href="@{/home}">Return to home</a>
+                                <a tabindex="0" th:href="@{/home}">Return to home</a>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </section>
             </section>
         </section>
