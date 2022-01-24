@@ -14,42 +14,42 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "deck_type")
 public class DeckTypeModel {
-    
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="deck_type_id")
-    private Integer id;
 
-    private String description;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "deck_type_id")
+  private Integer id;
 
-    @ManyToMany(mappedBy = "types")
-    private List<DeckModel> decks = new ArrayList<>();
+  private String description;
 
-    public Integer getId() {
-        return id;
-    }
+  @ManyToMany(mappedBy = "types")
+  private List<DeckModel> decks = new ArrayList<>();
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public List<DeckModel> getDecks() {
-        return decks;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public void setDecks(List<DeckModel> decks) {
-        this.decks = decks;
-    }
+  public List<DeckModel> getDecks() {
+    return decks;
+  }
 
-    public void addDeck(DeckModel deck) {
-        this.decks.add(deck);
-    }
+  public void setDecks(List<DeckModel> decks) {
+    this.decks = decks;
+  }
+
+  public void addDeck(DeckModel deck) {
+    this.decks.add(deck);
+  }
 }

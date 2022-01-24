@@ -21,32 +21,31 @@ import eus.blankcard.decklearn.repository.user.UserRepository;
 
 @Controller
 public class HomeController {
-    
-    @Autowired
-    UserRepository userRepository;
 
-    @Autowired
-    DeckRepository deckRepository;
+  @Autowired
+  UserRepository userRepository;
 
-    @GetMapping("/home")
-    public String getHome(HttpServletRequest req, HttpServletResponse response) {
+  @Autowired
+  DeckRepository deckRepository;
 
+  @GetMapping("/home")
+  public String getHome(HttpServletRequest req, HttpServletResponse response) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String username = authentication.getName();
 
-        UserModel user = userRepository.findByUsername(username);
+    UserModel user = userRepository.findByUsername(username);
 
-        List<DeckModel> studySessions = new ArrayList<>();
+    List<DeckModel> studySessions = new ArrayList<>();
 
-        user.getTrainings().forEach(t -> studySessions.add(t.getDeck()));;
-        req.setAttribute("study_sessions", studySessions);
+    user.getTrainings().forEach(t -> studySessions.add(t.getDeck()));
+    req.setAttribute("study_sessions", studySessions);
 
-        Pageable limit = PageRequest.of(0,20);
-        req.setAttribute("explore_deck", deckRepository.findAll(limit));
+    Pageable limit = PageRequest.of(0, 20);
+    req.setAttribute("explore_deck", deckRepository.findAll(limit));
 
-        req.setAttribute("home", true);
+    req.setAttribute("home", true);
 
-        return "home";
-    }
+    return "home";
+  }
 }
