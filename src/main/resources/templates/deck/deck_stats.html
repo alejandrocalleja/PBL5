@@ -10,6 +10,17 @@
     <link rel="stylesheet" th:href="@{/styles/modules/css/deck_stats.css}">
     <link rel="stylesheet" th:href="@{/styles/modules/css/base_imports.css}">
     <script th:src="@{/js/user_stats.js}"></script>
+    <!-- Hotjar Tracking Code for http://localhost:8080/ -->
+    <script>
+        (function (h, o, t, j, a, r) {
+            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+            h._hjSettings = { hjid: 2792035, hjsv: 6 };
+            a = o.getElementsByTagName('head')[0];
+            r = o.createElement('script'); r.async = 1;
+            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
 </head>
 
 <body th:onload="setStats(${averagePass})">
@@ -35,7 +46,7 @@
                                     </div>
                                     <div class="stats-card__decoration"> </div>
                                 </div>
-    
+
                                 <div class="stats-card">
                                     <h3>Total Studies</h3>
                                     <div class="stats-card__content">
@@ -43,7 +54,7 @@
                                     </div>
                                     <div class="stats-card__decoration"> </div>
                                 </div>
-    
+
                                 <div class="stats-card">
                                     <h3>Average completion time</h3>
                                     <div class="stats-card__content">
@@ -51,7 +62,7 @@
                                     </div>
                                     <div class="stats-card__decoration"> </div>
                                 </div>
-    
+
                                 <div class="stats-card">
                                     <h3>Total saves</h3>
                                     <div class="stats-card__content">
@@ -61,7 +72,7 @@
                                     <div class="stats-card__decoration"> </div>
                                 </div>
                             </div>
-    
+
                             <div class="stats-graphic">
                                 <h3 class="stats-graphic__title">Average pass ratio</h3>
                                 <div id="graph1" class="donut-chart chart1">
@@ -74,7 +85,7 @@
                                 <a tabindex="0" th:href="@{/deck/{id}(id=${deck.id})}">Exit review</a>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </section>
             </div>
         </div>
