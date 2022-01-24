@@ -37,8 +37,9 @@ public class DeckModel {
   List<CardModel> cards = new ArrayList<>();
 
   @ManyToMany
-  @JoinTable(name = "type_relation", joinColumns = { @JoinColumn(name = "deck_id") }, inverseJoinColumns = {
-      @JoinColumn(name = "deck_type_id") })
+  @JoinTable(name = "type_relation", 
+            joinColumns = { @JoinColumn(name = "deck_id")}, 
+            inverseJoinColumns = { @JoinColumn(name = "deck_type_id")})
   private List<DeckTypeModel> types = new ArrayList<>();
 
   @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)

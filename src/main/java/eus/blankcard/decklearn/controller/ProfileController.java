@@ -17,12 +17,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import eus.blankcard.decklearn.models.deck.DeckModel;
 import eus.blankcard.decklearn.models.user.UserModel;
 import eus.blankcard.decklearn.repository.user.UserRepository;
+import eus.blankcard.decklearn.util.UserUtils;
 
 @Controller
 public class ProfileController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserUtils userUtils;
 
     @GetMapping("/{username}")
     public String getProfile(@PathVariable("username") String username, HttpServletRequest req,
@@ -135,7 +139,7 @@ public class ProfileController {
         UserModel targetUser = userRepository.findByUsername(username);
 
         
-        if(userRepository.checkFollowed(loggedUser, targetUser) == true) {
+        if(userUtils.checkFollowed(loggedUser, targetUser) == true) {
             loggedUser.removeFollowed(targetUser);
             targetUser.removeFollower(loggedUser);
 
