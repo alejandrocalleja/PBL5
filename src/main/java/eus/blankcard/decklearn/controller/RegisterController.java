@@ -8,9 +8,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import eus.blankcard.decklearn.models.user.UserModel;
 import eus.blankcard.decklearn.repository.user.UserRepository;
+import eus.blankcard.decklearn.util.RegisterUtils;
 
 @Controller
 public class RegisterController {
+
+  @Autowired
+  RegisterUtils registerUtils;
 
   @Autowired
   private UserRepository userRepository;
@@ -27,7 +31,9 @@ public class RegisterController {
   public String registerSubmit(UserModel user) {
     user.setPassword(encoder.encode(user.getPassword()));
     user.setImgPath("/images/user/default.png");
-    userRepository.save(user);
+    user = userRepository.save(user);
+    registerUtils.setDefaultFollower(user);
+
     return "redirect:/login";
   }
 }
