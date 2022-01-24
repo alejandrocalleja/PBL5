@@ -1,6 +1,7 @@
 package eus.blankcard.decklearn.models.user;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -52,23 +53,23 @@ public class UserModel {
   private String imgPath;
 
   @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
-  Set<DeckModel> decks;
+  Set<DeckModel> decks = new HashSet<>();
 
   @ManyToMany
   @JoinTable(name = "saved_deck", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
       @JoinColumn(name = "deck_id") })
-  private Set<DeckModel> savedDecks;
+  private Set<DeckModel> savedDecks = new HashSet<>();
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-  Set<TrainingModel> trainings;
+  Set<TrainingModel> trainings = new HashSet<>();
 
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "followed", joinColumns = { @JoinColumn(name = "followed_id") }, inverseJoinColumns = {
       @JoinColumn(name = "follower_id") })
-  private Set<UserModel> followers;
+  private Set<UserModel> followers = new HashSet<>();
 
   @ManyToMany(mappedBy = "followers", fetch = FetchType.LAZY)
-  private Set<UserModel> followed;
+  private Set<UserModel> followed = new HashSet<>();
 
   public Integer getId() {
     return id;
