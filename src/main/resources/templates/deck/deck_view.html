@@ -42,7 +42,7 @@
 
                                     <div>
                                         <span class="info__details__title">Type:</span>
-                                        <span class="info__details__response">Hystory, France, Revolution</span>
+                                        <span class="info__details__response"> <span th:each="type: ${deck.types}" th:inline="text">[[${type.description}]] </span> </span>
                                     </div>
                                 </div>
 
@@ -66,7 +66,7 @@
                             <input type="submit" name="save" th:value="${saved} ? 'Remove save' : 'Save'" th:class="${saved} ? 'thick-red-button' : ''">
                         </form>
 
-                        <form th:action="@{/deck/{id}/edit(id=${deck.id})}" method="get" th:style="${isCreator} ? '' : 'display: none'">
+                        <form th:action="@{/create/deck/{id}(id=${deck.id})}" method="get" th:style="${isCreator} ? '' : 'display: none'">
                             <input type="submit" name="edit" value="Edit">
                         </form>
 

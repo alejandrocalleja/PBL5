@@ -1,5 +1,6 @@
 package eus.blankcard.decklearn.models.deck;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,114 +21,120 @@ import eus.blankcard.decklearn.models.card.CardModel;
 import eus.blankcard.decklearn.models.user.UserModel;
 
 @Entity
-@Table(name="deck")
+@Table(name = "deck")
 public class DeckModel {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="deck_id")
-    private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name="creator_id")
-    private UserModel creator;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "deck_id")
+  private Integer id;
 
-    @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
-    List<CardModel> cards;
+  @ManyToOne
+  @JoinColumn(name = "creator_id")
+  private UserModel creator;
 
-    @ManyToMany
-    @JoinTable( name = "type_relation",
-                joinColumns = { @JoinColumn( name = "deck_id") },
-                inverseJoinColumns = {@JoinColumn( name = "deck_type_id")}
-                )
-    private List<DeckTypeModel> types;
+  @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
+  List<CardModel> cards = new ArrayList<>();
 
-    @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
-    List<TrainingModel> trainings;
+  @ManyToMany
+  @JoinTable(name = "type_relation", joinColumns = { @JoinColumn(name = "deck_id") }, inverseJoinColumns = {
+      @JoinColumn(name = "deck_type_id") })
+  private List<DeckTypeModel> types = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "savedDecks")
-    private List<UserModel> savers;
+  @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL)
+  List<TrainingModel> trainings = new ArrayList<>();
 
-    private String title;
+  @ManyToMany(mappedBy = "savedDecks")
+  private List<UserModel> savers = new ArrayList<>();
 
-    private String description;
+  private String title;
 
-    @Column( name = "img_path")
-    private String imgPath;
+  private String description;
 
-    public Integer getId() {
-        return id;
-    }
+  @Column(name = "img_path")
+  private String imgPath;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public UserModel getCreator() {
-        return creator;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public void setCreator(UserModel creator) {
-        this.creator = creator;
-    }
+  public UserModel getCreator() {
+    return creator;
+  }
 
-    public String getTitle() {
-        return title;
-    }
+  public void setCreator(UserModel creator) {
+    this.creator = creator;
+  }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public String getImgPath() {
-        return imgPath;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
-    }
+  public String getImgPath() {
+    return imgPath;
+  }
 
-    public List<DeckTypeModel> getTypes() {
-        return types;
-    }
+  public void setImgPath(String imgPath) {
+    this.imgPath = imgPath;
+  }
 
-    public void setTypes(List<DeckTypeModel> types) {
-        this.types = types;
-    }
+  public List<DeckTypeModel> getTypes() {
+    return types;
+  }
 
-    public List<UserModel> getSavers() {
-        return savers;
-    }
+  public void setTypes(List<DeckTypeModel> types) {
+    this.types = types;
+  }
 
-    public void setSavers(List<UserModel> savers) {
-        this.savers = savers;
-    }
+  public void addType(DeckTypeModel type) {
+    this.types.add(type);
+  }
 
-    public List<CardModel> getCards() {
-        return cards;
-    }
+  public List<UserModel> getSavers() {
+    return savers;
+  }
 
-    public void setCards(List<CardModel> cards) {
-        this.cards = cards;
-    }
+  public void setSavers(List<UserModel> savers) {
+    this.savers = savers;
+  }
 
-    public void addCard(CardModel card) {
-        this.cards.add(card);
-    }
+  public List<CardModel> getCards() {
+    return cards;
+  }
 
-    public List<TrainingModel> getTrainings() {
-        return trainings;
-    }
+  public void setCards(List<CardModel> cards) {
+    this.cards = cards;
+  }
 
-    public void setTrainings(List<TrainingModel> trainings) {
-        this.trainings = trainings;
-    }
+  public void addCard(CardModel card) {
+    this.cards.add(card);
+  }
+
+  public List<TrainingModel> getTrainings() {
+    return trainings;
+  }
+
+  public void setTrainings(List<TrainingModel> trainings) {
+    this.trainings = trainings;
+  }
+
+  public void removeDeckType(DeckTypeModel type) {
+    this.types.remove(type);
+  }
 }

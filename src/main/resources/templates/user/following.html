@@ -25,7 +25,7 @@
 
           <div class="following__card" th:each="follower: ${followers}">
             <a class="following__content" th:href="@{/{username}(username=${follower.username})}">
-              <img class="card__img" th:src="@{/{username}(username=${follower.imgPath})}" alt="">
+              <img class="card__img" th:src="@{{username}(username=${follower.imgPath})}" alt="">
               <div class="card__data">
                 <div class="data__user">
                   <h2 th:inline="text">[[${follower.name}]]</h2>

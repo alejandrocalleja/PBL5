@@ -7,6 +7,6 @@ import eus.blankcard.decklearn.models.TrainingModel;
 
 public interface TrainingRepository extends JpaRepository<TrainingModel, Integer> {
     
-    @Query(value="SELECT * FROM Training t WHERE t.user_id = ?1 AND t.deck_id = ?2",  nativeQuery = true)
+    @Query(value="SELECT * FROM training t WHERE t.user_id = ?1 AND t.deck_id = ?2",  nativeQuery = true)
     TrainingModel findByUserIdInAndDeckId(Integer userId, Integer deckId);
 }
