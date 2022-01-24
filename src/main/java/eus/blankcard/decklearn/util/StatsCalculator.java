@@ -8,10 +8,8 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import eus.blankcard.decklearn.models.ResultsModel;
-import eus.blankcard.decklearn.models.TrainingModel;
 import eus.blankcard.decklearn.models.TrainingSessionModel;
 import eus.blankcard.decklearn.models.card.CardResponseModel;
-import eus.blankcard.decklearn.models.deck.DeckModel;
 
 @Component
 public class StatsCalculator {
@@ -146,10 +144,15 @@ public class StatsCalculator {
             float prevPassRatio = getPassRatio(prevTraining);
 
             System.out.println("prevPassRatio = " + prevPassRatio);
+
             System.out.println("CUrrent pass ratio = " + currentPassRatio);
 
-            gradeChange = ((currentPassRatio / prevPassRatio) - 1) * 100;
-
+            if(prevPassRatio == 0) {
+                gradeChange = currentPassRatio;
+            } else {
+                gradeChange = ((currentPassRatio / prevPassRatio) - 1) * 100;
+            }
+            
             System.out.println("Grade change today = " + gradeChange);
         }
 

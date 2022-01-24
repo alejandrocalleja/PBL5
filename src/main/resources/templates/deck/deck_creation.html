@@ -18,7 +18,7 @@
         <div th:replace="fragments/top-nav :: top-nav"></div>
 
         <section class="content-container">
-            <form class="content" th:action="@{/create/deck/{deckId}(deckId=${deck.id})}" method="post">
+            <form class="content" th:action="${action} == 'new' ? @{/create/deck} : @{/create/deck/{deckId}(deckId=${deck.id})}" method="post">
                 <section class="deck-creation-section">
                     <h2>Create a deck</h2>
 

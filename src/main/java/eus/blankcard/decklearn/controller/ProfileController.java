@@ -63,7 +63,7 @@ public class ProfileController {
         UserModel user = userRepository.findByUsername(username);
 
         req.setAttribute("followers", user.getFollowers());
-
+        req.setAttribute("profile", true);
 
         return "user/following";
     }
@@ -74,6 +74,7 @@ public class ProfileController {
         UserModel user = userRepository.findByUsername(username);
 
         req.setAttribute("followers", user.getFollowed());
+        req.setAttribute("profile", true);
 
         return "user/following";
     }

@@ -63,6 +63,28 @@ class DeckTest {
         .andExpect(redirectedUrl("/deck/1"));
   }
 
+  // @ParameterizedTest
+  // @ValueSource(strings = {
+  //     "/create/deck",
+  //     "/create/deck",
+  //     "/create/deck",
+  //     "/create/deck",
+  //     "/create/deck"
+  // })
+  // @WithMockUser(username = "testUser", roles = "USER")
+  // void shouldCreateDeckAndRemove(String url) throws Exception {
+  //   String TOKEN_ATTR_NAME = "org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN";
+  //   HttpSessionCsrfTokenRepository httpSessionCsrfTokenRepository = new HttpSessionCsrfTokenRepository();
+  //   CsrfToken csrfToken = httpSessionCsrfTokenRepository.generateToken(new MockHttpServletRequest());
 
+
+  //   mockMvc.perform(MockMvcRequestBuilders.post(url)
+  //   .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken()))
+  //       .andExpect(redirectedUrl("/deck/1"));
+
+  //   mockMvc.perform(MockMvcRequestBuilders.post(url)
+  //   .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken()))
+  //       .andExpect(redirectedUrl("/deck/1"));
+  // }
   
 }

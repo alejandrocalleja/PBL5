@@ -142,18 +142,13 @@ public class DeckController {
     public String getCreationForm(HttpServletRequest req,
             HttpServletResponse response) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String loggedUsername = authentication.getName();
-        UserModel loggedUser = userRepository.findByUsername(loggedUsername);
-
-        System.out.println("No deck recived. Creating a new one");
         DeckModel deck = new DeckModel();
-        deck.setCreator(loggedUser);
-        deck = deckRepository.save(deck);
         deck.setCards(new ArrayList<>());
 
         req.setAttribute("deck", deck);
         req.setAttribute("cardNum", deck.getCards().size());
+        req.setAttribute("action", "new");
+        req.setAttribute("create", true);
 
         return "deck/deck_creation";
     }
@@ -171,6 +166,8 @@ public class DeckController {
         if (deck.getCreator().getId().equals(userModel.getId())) {
             req.setAttribute("deck", deck);
             req.setAttribute("cardNum", deck.getCards().size());
+            req.setAttribute("action", "edit");
+            req.setAttribute("create", true);
             return "deck/deck_creation";
         } else {
             return "redirect:/error";
@@ -178,9 +175,32 @@ public class DeckController {
 
     }
 
+    @PostMapping("/create/deck")
+    public String saveDeckForFirstTime(HttpServletRequest req, HttpServletResponse res) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String loggedUsername = authentication.getName();
+        UserModel loggedUser = userRepository.findByUsername(loggedUsername);
+
+        DeckModel deck = new DeckModel();
+
+        deck.setCreator(loggedUser);
+        deck = deckRepository.save(deck);
+
+        deck.setTitle(req.getParameter("title"));
+        deck.setDescription(req.getParameter("description"));
+        deck.setImgPath("/images/deck/default.png");
+
+        String redirectUrl = "redirect:/create/deck/" + deck.getId();
+        String action = req.getParameter("action");
+
+        redirectUrl = deckCreationUtils.checkAction(req, res, deck, action);
+
+        return redirectUrl;
+    }
+
     @PostMapping("/create/deck/{deckId}")
     public String createDeck(@PathVariable("deckId") Integer deckId, HttpServletRequest req,
-            HttpServletResponse response) {
+            HttpServletResponse res) {
             
         DeckModel deck = deckRepository.getById(deckId);            
         deck.setTitle(req.getParameter("title"));
@@ -191,31 +211,7 @@ public class DeckController {
         String redirectUrl = "redirect:/create/deck/" + deck.getId();
         String action = req.getParameter("action");
 
-        switch (action) {
-            case "Save Card":
-                String question = req.getParameter("question");
-                String answer = req.getParameter("answer");
-
-                deckCreationUtils.saveCard(question, answer, deck);
-                break;
-            case "Add Type":
-                String description = req.getParameter("type");
-                System.out.println("Description " + description);
-
-                deckCreationUtils.saveDeckType(description, deck);
-                break;
-            case "Save Deck":
-                System.out.println("Saving changes to deck");
-
-                deck = deckRepository.save(deck);
-
-                redirectUrl = "redirect:/deck/" + deck.getId();
-                break;
-
-            default:
-                redirectUrl = "redirect:/error";
-                break;
-        }
+        redirectUrl = deckCreationUtils.checkAction(req, res, deck, action);
 
         return redirectUrl;
     }

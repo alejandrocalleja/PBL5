@@ -1,5 +1,8 @@
 package eus.blankcard.decklearn.util;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -49,6 +52,38 @@ public class DeckCreationUtils {
         deck.addType(type);
         type = deckTypeRepository.save(type);
         deckRepository.save(deck);
+    }
+
+    public String checkAction(HttpServletRequest req, HttpServletResponse res, DeckModel deck, String action) {
+        String redirectUrl = "redirect:/create/deck/" + deck.getId();
+
+        switch (action) {
+            case "Save Card":
+                String question = req.getParameter("question");
+                String answer = req.getParameter("answer");
+
+                saveCard(question, answer, deck);
+                break;
+            case "Add Type":
+                String description = req.getParameter("type");
+                System.out.println("Description " + description);
+
+                saveDeckType(description, deck);
+                break;
+            case "Save Deck":
+                System.out.println("Saving changes to deck");
+
+                deck = deckRepository.save(deck);
+
+                redirectUrl = "redirect:/deck/" + deck.getId();
+                break;
+
+            default:
+                redirectUrl = "redirect:/error";
+                break;
+        }
+
+        return redirectUrl;
     }
     
 }
