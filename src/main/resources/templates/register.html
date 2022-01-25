@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | DeckLearn</title>
+    <title>Register | Deck Learn</title>
     <link th:href=@{/styles/modules/css/register.css} rel="stylesheet" />
     <link rel="icon" th:href="@{/images/favicon.ico}">
+    <script th:src="@{/js/password.js}"></script>
     <!-- Hotjar Tracking Code for https://decklearn.eus/register -->
     <script>
         (function(h,o,t,j,a,r){
@@ -37,11 +38,11 @@
                         <input title="Country" type="text" autocomplete="country-name" class="custom-input" placeholder="Country"
                             name="country" required>
                         <input title="Postal code" type="text" class="custom-input" placeholder="Postal code" name="postalCode" required>
-                        <input title="Password" type="password" class="custom-input" placeholder="Password" name="password" required>
-                        <input title="Confirm Password" type="password" class="custom-input" placeholder="Confirm Password" required>
+                        <input title="Password" type="password" class="custom-input" placeholder="Password" name="password" id="passwordField" required>
+                        <input title="Confirm Password" type="password" class="custom-input" placeholder="Confirm Password" id="passwordConfirmField" required>
                         <div class="checkboxes">
                             <div class="bordered-checkbox">
-                                <input type="checkbox" id="check2">
+                                <input type="checkbox" id="check2" th:onclick="changeBothVisivility()">
                                 <label for="check2"></label>
                             </div>
                             <label for="">Show password</label>
