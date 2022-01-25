@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -32,7 +34,9 @@ public class SearchController {
         if(strippedTitle.equals("")) {
             return "redirect:/home";
         } else {
-            List<DeckModel> searchResult = deckRepository.findByTitleContaining(title);
+            Pageable limit = PageRequest.of(0, 20);
+        
+            List<DeckModel> searchResult = deckRepository.findByTitleContaining(title, limit);
     
             req.setAttribute("decks", searchResult);
     
