@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title th:inline="text"> [[${user.username}]] Profile Settings | Deck Learn </title>
+  <link rel="stylesheet" th:href="@{/styles/modules/css/home.css}">
   <link rel="stylesheet" th:href="@{/styles/modules/css/settings.css}">
 </head>
 
@@ -36,7 +37,7 @@
               </div>
               <div class="settings-selector__logout">
                 <nav>
-                  <a th:href="@{/logout}" id="logout">
+                  <a th:href="@{/logout}" class="logout">
                     <img th:src="@{/images/icons/Log_out.svg}" alt="">
                     <p>Log out</p>
                   </a>
@@ -65,9 +66,6 @@
                   <label for="postalCode">Postal Code: </label>
                   <input type="text" class="custom-input" placeholder="Postal Code" id="postalCode" name="postalCode"
                     th:value="${user.postalCode}">
-                  <!-- <label for="purpose">Purpose: </label>
-                  <input type="text" class="custom-input" placeholder="Purpose" id="purpose" name="purpose"
-                    th:value="${user.purpose}"> -->
                   <label for="country">Country: </label>
                   <input type="text" class="custom-input" placeholder="Country" id="country" name="country"
                     th:value="${user.country}">

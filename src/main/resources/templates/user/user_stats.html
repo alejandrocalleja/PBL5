@@ -2,91 +2,91 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[[${user.username}]] stats | DeckLearn</title>
-    <link rel="stylesheet" th:href="@{styles/modules/css/home.css}">
-    <link rel="stylesheet" th:href="@{styles/modules/css/user_stats.css}">
-    <script th:src="@{/js/user_stats.js}"></script>
-    <!-- Hotjar Tracking Code for http://localhost:8080/ -->
-    <script>
-        (function (h, o, t, j, a, r) {
-            h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
-            h._hjSettings = { hjid: 2792035, hjsv: 6 };
-            a = o.getElementsByTagName('head')[0];
-            r = o.createElement('script'); r.async = 1;
-            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
-    </script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[[${user.username}]] Stats | Deck Learn</title>
+  <link rel="stylesheet" th:href="@{styles/modules/css/home.css}">
+  <link rel="stylesheet" th:href="@{styles/modules/css/user_stats.css}">
+  <script th:src="@{/js/user_stats.js}"></script>
+  <!-- Hotjar Tracking Code for http://localhost:8080/ -->
+  <script>
+    (function (h, o, t, j, a, r) {
+      h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+      h._hjSettings = { hjid: 2792035, hjsv: 6 };
+      a = o.getElementsByTagName('head')[0];
+      r = o.createElement('script'); r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+  </script>
 </head>
 
 <body th:onload="setStats(${averagePass})">
-    <div th:replace="fragments/left-nav :: left-nav"></div>
+  <div th:replace="fragments/left-nav :: left-nav"></div>
 
-    <main class="center-screen">
+  <main class="center-screen">
 
-        <div th:replace="fragments/top-nav :: top-nav"></div>
+    <div th:replace="fragments/top-nav :: top-nav"></div>
 
-        <section class="content-container">
-            <section class="content">
-                <section class="stats-section">
-                    <h2>Your Stats</h2>
+    <section class="content-container">
+      <section class="content">
+        <section class="stats-section">
+          <h1>Your Stats</h1>
 
-                    <div class="stats-section__list">
-                        <div class="stats-card__list">
-                            <div class="stats-card">
-                                <h3>Studies this month</h3>
-                                <div class="stats-card__content">
-                                    <p th:inline="text">[[${studiesMonth}]]</p>
-                                </div>
-                                <p class="stats-card__decoration"> </p>
-                            </div>
+          <div class="stats-section__list">
+            <div class="stats-card__list">
+              <div class="stats-card">
+                <h3>Studies this month</h3>
+                <div class="stats-card__content">
+                  <p th:inline="text">[[${studiesMonth}]]</p>
+                </div>
+                <p class="stats-card__decoration"> </p>
+              </div>
 
-                            <div class="stats-card">
-                                <h3>Total Studies</h3>
-                                <div class="stats-card__content">
-                                    <p th:inline="text">[[${totalStudies}]]</p>
-                                </div>
-                                <p class="stats-card__decoration"> </p>
-                            </div>
+              <div class="stats-card">
+                <h3>Total Studies</h3>
+                <div class="stats-card__content">
+                  <p th:inline="text">[[${totalStudies}]]</p>
+                </div>
+                <p class="stats-card__decoration"> </p>
+              </div>
 
-                            <div class="stats-card">
-                                <h3>Average completion time</h3>
-                                <div class="stats-card__content">
-                                    <p th:inline="text">[[${avgTime}]]</p>
-                                </div>
-                                <p class="stats-card__decoration"> </p>
-                            </div>
+              <div class="stats-card">
+                <h3>Average completion time</h3>
+                <div class="stats-card__content">
+                  <p th:inline="text">[[${avgTime}]]</p>
+                </div>
+                <p class="stats-card__decoration"> </p>
+              </div>
 
-                            <div class="stats-card">
-                                <h3>Total Saves</h3>
-                                <div class="stats-card__content">
-                                    <p th:inline="text">[[${saves}]]</p>
-                                    <img src="images/book.svg" alt="">
-                                </div>
-                                <p class="stats-card__decoration"> </p>
-                            </div>
-                        </div>
+              <div class="stats-card">
+                <h3>Total Saves</h3>
+                <div class="stats-card__content">
+                  <p th:inline="text">[[${saves}]]</p>
+                  <img src="images/book.svg" alt="">
+                </div>
+                <p class="stats-card__decoration"> </p>
+              </div>
+            </div>
 
-                        <div class="stats-graphic">
-                            <h3 class="stats-graphic__title">Average pass ratio</h3>
-                            <div id="graph1" class="donut-chart chart1">
-                                <div id="graph_part1" class="slice one"></div>
-                                <div id="graph_part2" class="slice two"></div>
-                                <div class="chart-center">
-                                    <span id="texto" data-after="${averagePass}"></span>
-                                </div>
-                            </div>
-                            <a id="prueba" th:href="@{/{name}(name=${user.username})}">Return to profile</a>
-                        </div>
+            <div class="stats-graphic">
+              <h3 class="stats-graphic__title">Average pass ratio</h3>
+              <div id="graph1" class="donut-chart chart1">
+                <div id="graph_part1" class="slice one"></div>
+                <div id="graph_part2" class="slice two"></div>
+                <div class="chart-center">
+                  <span id="texto" data-after="${averagePass}"></span>
+                </div>
+              </div>
+              <a id="prueba" th:href="@{/{name}(name=${user.username})}">Return to profile</a>
+            </div>
 
-                    </div>
-                </section>
-            </section>
+          </div>
         </section>
-    </main>
+      </section>
+    </section>
+  </main>
 </body>
 
 </html>
