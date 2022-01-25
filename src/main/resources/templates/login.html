@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Login | DeckLearn</title>
   <link th:href=@{/styles/modules/css/login.css} rel="stylesheet" />
   <!-- Hotjar Tracking Code for https://decklearn.eus/login -->
   <script>
@@ -28,8 +28,8 @@
       <div class="right-part__inside">
         <img th:src="@{images/svg/Cards_NEGATIVE.svg}" alt="Deck learn logo">
         <form th:action="@{/login}" method="post" class="inputs">
-          <input type="text" class="custom-input" placeholder="username" name="username">
-          <input type="password" class="custom-input" placeholder="password" name="password">
+          <input title="username" type="text" class="custom-input" placeholder="username" name="username" required>
+          <input title="password" type="password" class="custom-input" placeholder="password" name="password" required>
           <div class="checkboxes">
             <!-- <div>
               <div class="bordered-checkbox" id="checkbox1">

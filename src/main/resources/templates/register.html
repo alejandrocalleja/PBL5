@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Register | DeckLearn</title>
     <link th:href=@{/styles/modules/css/register.css} rel="stylesheet" />
     <!-- Hotjar Tracking Code for https://decklearn.eus/login -->
     <script>
@@ -27,17 +27,17 @@
                 <img th:src="@{images/svg/Cards_NEGATIVE.svg}" alt="Deck learn logo">
                 <form th:action="@{/register}" method="post" class="flexed-form">
                     <div class="inputs">
-                        <input type="text" class="custom-input" placeholder="Name" name="name">
-                        <input type="text" class="custom-input" placeholder="Surname" name="surname">
-                        <input type="email" class="custom-input" placeholder="Email" name="email">
-                        <input type="text" class="custom-input" placeholder="Username" name="username">
-                        <input type="text" class="custom-input" placeholder="Purpose" name="purpose">
-                        <input type="date" class="custom-input" placeholder="Birth date" name="birthDate">
-                        <input type="text" autocomplete="country-name" class="custom-input" placeholder="Country"
-                            name="country">
-                        <input type="text" class="custom-input" placeholder="Postal code" name="postalCode">
-                        <input type="password" class="custom-input" placeholder="Password" name="password">
-                        <input type="password" class="custom-input" placeholder="Confirm Password">
+                        <input title="Name" type="text" class="custom-input" placeholder="Name" name="name" required>
+                        <input title="Surname" type="text" class="custom-input" placeholder="Surname" name="surname" required>
+                        <input title="Email" type="email" class="custom-input" placeholder="Email" name="email" required>
+                        <input title="Username" type="text" class="custom-input" placeholder="Username" name="username" required>
+                        <input title="Purpose" type="text" class="custom-input" placeholder="Purpose" name="purpose" required>
+                        <input title="Birth date" type="date" class="custom-input" placeholder="Birth date" name="birthDate" required>
+                        <input title="Country" type="text" autocomplete="country-name" class="custom-input" placeholder="Country"
+                            name="country" required>
+                        <input title="Postal code" type="text" class="custom-input" placeholder="Postal code" name="postalCode" required>
+                        <input title="Password" type="password" class="custom-input" placeholder="Password" name="password" required>
+                        <input title="Confirm Password" type="password" class="custom-input" placeholder="Confirm Password" required>
                         <div class="checkboxes">
                             <div class="bordered-checkbox">
                                 <input type="checkbox" id="check2">
@@ -46,7 +46,7 @@
                             <label for="">Show password</label>
                         </div>
                     </div>
-                    <input type="submit" class="custom-submit">
+                    <input type="submit" class="custom-submit" value="Register">
                 </form>
             </div>
         </div>

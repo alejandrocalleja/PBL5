@@ -45,16 +45,14 @@ public class ProfileController {
 
             String loggedUser = authentication.getName();
 
+            req.setAttribute("userDecks", user.getDecks());
 
             if (loggedUser.equals(username)) {
-                req.setAttribute("userDecks", user.getDecks());
                 req.setAttribute("decks", true);
                 return "user/profile";
             } else {
-
                 return "user/profile_visit";
             }
-
         } else {
             response.setStatus(404);
             return "error";
