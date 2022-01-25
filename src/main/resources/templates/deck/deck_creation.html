@@ -8,6 +8,7 @@
     <title>Deack Learn - Deck Creation</title>
     <link rel="stylesheet" th:href="@{/styles/modules/css/home.css}">
     <link rel="stylesheet" th:href="@{/styles/modules/css/deck_creation.css}">
+    <link rel="icon" th:href="@{/images/favicon.ico}">
     <script th:src="@{/js/textarea.js}"></script>
 </head>
 
@@ -28,14 +29,14 @@
                                 <h4>Title:</h4>
 
                                 <input type="text" name="title" placeholder="Title" title="Type in a title"
-                                    class="card-creation__data" th:value="${deck.title}">
+                                    class="card-creation__data" th:value="${deck.title}" required>
                             </div>
 
                             <div>
                                 <h4>Description:</h4>
 
                                 <textarea name="description" cols="50" rows="1" placeholder="Description"
-                                class="card-creation__data card-creation__data__of-hidden" th:inline="text">[[${deck.description}]]</textarea>
+                                class="card-creation__data card-creation__data__of-hidden" th:inline="text" required>[[${deck.description}]]</textarea>
                             </div>
                             <button class="creation-button"><img th:src="@{/images/icons/Upload.svg}" alt="">Upload
                                 image</button>

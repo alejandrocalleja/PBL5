@@ -1,15 +1,21 @@
 package eus.blankcard.decklearn.util;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.stereotype.Component;
 
 import eus.blankcard.decklearn.models.ResultsModel;
+import eus.blankcard.decklearn.models.TrainingModel;
 import eus.blankcard.decklearn.models.TrainingSessionModel;
 import eus.blankcard.decklearn.models.card.CardResponseModel;
+import eus.blankcard.decklearn.models.deck.DeckModel;
+import eus.blankcard.decklearn.models.user.UserModel;
 
 @Component
 public class StatsCalculator {
@@ -19,13 +25,13 @@ public class StatsCalculator {
 
         long totalMilis = 0;
 
-        for(ResultsModel result : results) {
-            for(CardResponseModel cardResponse : result.getCardResponses()) {
+        for (ResultsModel result : results) {
+            for (CardResponseModel cardResponse : result.getCardResponses()) {
                 LocalTime responseTime = cardResponse.getResponseTime().toLocalTime();
 
                 long sec = responseTime.getSecond();
                 long min = responseTime.getMinute();
-    
+
                 totalMilis += sec * 1000;
                 totalMilis += (min * 60) * 1000;
             }
@@ -46,6 +52,7 @@ public class StatsCalculator {
         trainingSession.getResults().forEach(r -> r.getCardResponses().forEach(cr -> cardResponses.add(cr)));
 
         long totalMilis = 0;
+        long milisMean = 0;
 
         for (CardResponseModel cardResponse : cardResponses) {
             LocalTime responseTime = cardResponse.getResponseTime().toLocalTime();
@@ -57,10 +64,12 @@ public class StatsCalculator {
             totalMilis += (min * 60) * 1000;
         }
 
-        long milisMean = totalMilis / cardResponses.size();
+        if (cardResponses.size() != 0) {
+            milisMean = totalMilis / cardResponses.size();
 
-        // - 1h bc Time adds an hour depending on your GTM
-        milisMean -= 3600000;
+            // - 1h bc Time adds an hour depending on your GTM
+            milisMean -= 3600000;
+        }
 
         Time time = new Time(milisMean);
 
@@ -69,62 +78,43 @@ public class StatsCalculator {
         return time;
     }
 
-    // public Time getAvgResponseTime(DeckModel deck) {
-
-    //     List<TrainingModel> trainings =  deck.getTrainings();
-
-    //     for(TrainingModel training : trainings) {
-    //         List<TrainingSessionModel> trainingSessions = training.getTrainingSessions();
-
-    //         for(TrainingSessionModel trainingSession : trainingSessions) {
-    //             List<CardResponseModel> cardResponses = new ArrayList<>();
-    //             trainingSession.getResults().forEach(r -> r.getCardResponses().forEach(cr -> cardResponses.add(cr)));
-        
-    //             long totalMilis = 0;
-        
-    //             for (CardResponseModel cardResponse : cardResponses) {
-    //                 LocalTime responseTime = cardResponse.getResponseTime().toLocalTime();
-        
-    //                 long sec = responseTime.getSecond();
-    //                 long min = responseTime.getMinute();
-        
-    //                 totalMilis += sec * 1000;
-    //                 totalMilis += (min * 60) * 1000;
-    //             }
-        
-    //             long milisMean = totalMilis / cardResponses.size();
-        
-    //             // - 1h bc Time adds an hour depending on your GTM
-    //             milisMean -= 3600000;
-        
-    //             Time time = new Time(milisMean);
-        
-    //             System.out.println("Avg time is " + time.toString());
-    //         }
-    //     }
-
-    //     return time;
-    // }
-
     public int getPassRatio(TrainingSessionModel trainingSession) {
         List<ResultsModel> results = trainingSession.getResults();
-        
+
         int passRatio = 0;
         int cardNum = results.size();
         int errorCount = 0;
 
-        for(ResultsModel result : results) {
-            if(result.getErrorCount() > 1) {
-                errorCount ++;
-            }            
+        for (ResultsModel result : results) {
+            if (result.getErrorCount() > 1) {
+                errorCount++;
+            }
         }
 
-        if(errorCount >= cardNum) {
+        if (errorCount >= cardNum) {
             passRatio = 0;
-        } else  {
+        } else {
             int correctCards = cardNum - errorCount;
-    
+
             passRatio = (correctCards * 100) / cardNum;
+        }
+
+        return passRatio;
+    }
+
+    public int getAveragePassRatio(UserModel user) {
+        int passRatio = 0;
+        int sessionNumber = 0;
+
+        for (TrainingModel training : user.getTrainings()) {
+            for (TrainingSessionModel trainingsession : training.getTrainingSessions()) {
+                passRatio += getPassRatio(trainingsession);
+                sessionNumber++;
+            }
+        }
+
+        if (sessionNumber != 0) {
+            passRatio = passRatio / sessionNumber;
         }
 
         return passRatio;
@@ -147,19 +137,130 @@ public class StatsCalculator {
 
             System.out.println("CUrrent pass ratio = " + currentPassRatio);
 
-            if(prevPassRatio == 0) {
+            if (prevPassRatio == 0) {
                 gradeChange = currentPassRatio;
             } else {
                 gradeChange = ((currentPassRatio / prevPassRatio) - 1) * 100;
             }
-            
+
             System.out.println("Grade change today = " + gradeChange);
         }
 
         return gradeChange;
     }
 
+    public Time getAvgResponseTime(UserModel user) {
+        List<Time> avgResponseTimes = new ArrayList<>();
+        long totalMilis = 0;
+        long milisMean = 0;
 
+        for (TrainingModel training : user.getTrainings()) {
+            for (TrainingSessionModel trainingsession : training.getTrainingSessions()) {
+                avgResponseTimes.add(getAvgResponseTime(trainingsession));
+            }
+        }
 
+        for (Time time : avgResponseTimes) {
+            LocalTime responseTime = time.toLocalTime();
 
+            long sec = responseTime.getSecond();
+            long min = responseTime.getMinute();
+
+            totalMilis += sec * 1000;
+            totalMilis += (min * 60) * 1000;
+        }
+
+        if (avgResponseTimes.size() != 0) {
+            milisMean = totalMilis / avgResponseTimes.size();
+
+            // - 1h bc Time adds an hour depending on your GTM
+            milisMean -= 3600000;
+        }
+
+        Time time = new Time(milisMean);
+        System.out.println("Avg time is " + time.toString());
+
+        return time;
+    }
+
+    public AtomicInteger getTotalStudies(UserModel user) {
+        AtomicInteger totalStudies = new AtomicInteger(0);
+
+        user.getTrainings().forEach(t -> totalStudies.getAndAdd(t.getTrainingSessions().size()));
+
+        return totalStudies;
+    }
+
+    public AtomicInteger getMonthStudies(UserModel user) {
+        AtomicInteger monthStudies = new AtomicInteger(0);
+        LocalDate now = LocalDate.now();
+
+        user.getTrainings()
+                .forEach(t -> t.getTrainingSessions().stream()
+                        .filter(ts -> ts.getDate().toLocalDateTime().getMonthValue() == now.getMonthValue())
+                        .forEach(filteredTraining -> monthStudies.getAndIncrement()));
+
+        return monthStudies;
+    }
+
+    public AtomicInteger getMonthStudies(DeckModel deck) {
+        LocalDate now = LocalDate.now();
+        List<TrainingModel> monthTraining = deck.getTrainings().stream()
+                .filter(t -> t.getTrainingDate().toLocalDateTime().getMonthValue() == now.getMonthValue())
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        return new AtomicInteger(monthTraining.size());
+    }
+
+    public Time getAvgResponseTime(DeckModel deck) {
+        List<Time> avgResponseTimes = new ArrayList<>();
+        long totalMilis = 0;
+        long milisMean = 0;
+
+        for (TrainingModel training : deck.getTrainings()) {
+            for (TrainingSessionModel trainingsession : training.getTrainingSessions()) {
+                avgResponseTimes.add(getAvgResponseTime(trainingsession));
+            }
+        }
+
+        for (Time time : avgResponseTimes) {
+            LocalTime responseTime = time.toLocalTime();
+
+            long sec = responseTime.getSecond();
+            long min = responseTime.getMinute();
+
+            totalMilis += sec * 1000;
+            totalMilis += (min * 60) * 1000;
+        }
+
+        if (avgResponseTimes.size() != 0) {
+            milisMean = totalMilis / avgResponseTimes.size();
+
+            // - 1h bc Time adds an hour depending on your GTM
+            milisMean -= 3600000;
+        }
+
+        Time time = new Time(milisMean);
+        System.out.println("Avg time is " + time.toString());
+
+        return time;
+    }
+
+    public int getAveragePassRatio(DeckModel deck) {
+        int passRatio = 0;
+        int sessionNumber = 0;
+
+        for (TrainingModel training : deck.getTrainings()) {
+            for (TrainingSessionModel trainingsession : training.getTrainingSessions()) {
+                passRatio += getPassRatio(trainingsession);
+                sessionNumber++;
+            }
+        }
+
+        if (sessionNumber != 0) {
+            passRatio = passRatio / sessionNumber;
+        }
+
+        return passRatio;
+    }
 }
