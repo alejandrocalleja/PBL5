@@ -8,6 +8,7 @@
   <title>Login | DeckLearn</title>
   <link th:href=@{/styles/modules/css/login.css} rel="stylesheet" />
   <link rel="icon" th:href="@{/images/favicon.ico}">
+  <script th:src="@{/js/password.js}"></script>
   <!-- Hotjar Tracking Code for https://decklearn.eus/login -->
   <script>
       (function(h,o,t,j,a,r){
@@ -30,7 +31,7 @@
         <img th:src="@{images/svg/Cards_NEGATIVE.svg}" alt="Deck learn logo">
         <form th:action="@{/login}" method="post" class="inputs">
           <input title="username" type="text" class="custom-input" placeholder="username" name="username" required>
-          <input title="password" type="password" class="custom-input" placeholder="password" name="password" required>
+          <input title="password" type="password" class="custom-input" placeholder="password" name="password" id="passwordField" required>
           <div class="checkboxes">
             <!-- <div>
               <div class="bordered-checkbox" id="checkbox1">
@@ -41,7 +42,7 @@
             </div> -->
             <div>
               <div class="bordered-checkbox" id="checkbox2">
-                <input type="checkbox" id="check2" class="custom-check">
+                <input type="checkbox" id="check2" class="custom-check" th:onclick="changeVisivility()">
                 <label for="check2" tabindex="0" class="custom-check__label"></label>
               </div>
               <label for="checkbox2">Show password</label>

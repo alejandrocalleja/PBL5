@@ -4,9 +4,7 @@
         </form>
 
         <div class="top-nav__profile">
-            <!-- <img th:src="${#httpServletRequest.remoteUser.img_path}" alt=""> -->
+            <img th:src="${#session.getAttribute('userImg')}" alt="">
             <a th:href="@{/{user}(user=${#httpServletRequest.remoteUser})}" th:inline="text" tabindex="0">[[${#httpServletRequest.remoteUser}]]</a>
-            <!-- <span> Logged user: <span sec:authentication="name"></span> </span> -->
-            <!-- <span th:text ="${#authentication.getPrincipal()}"></span> -->
     </nav>
 </div>
