@@ -43,8 +43,11 @@
           </div>
         </div>
 
-        <div class="profile-data__button">
-          <form th:action="@{/{username}/follow(username=${user.username})}" method="post">
+        <div class="profile-data__button" th:switch="${loggedUserFollowing}">
+          <form th:case="true" th:action="@{/{username}/follow(username=${user.username})}" method="post">
+            <input type="submit" class="button-following button-follow" tabindex="0" name="follow" value="Following">
+          </form>
+          <form th:case="false" th:action="@{/{username}/follow(username=${user.username})}" method="post">
             <input type="submit" class="button-following button-follow" tabindex="0" name="follow" value="Follow">
           </form>
         </div>

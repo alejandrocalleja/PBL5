@@ -24,6 +24,7 @@
   .profile-nav__center a {
     font-size: 1.2rem;
     text-decoration: none;
+    text-align: center;
     color: black;
     cursor: pointer; }
 

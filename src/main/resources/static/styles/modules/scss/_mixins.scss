@@ -81,6 +81,7 @@
   justify-content: $justify-content;
   border-bottom: 1px solid $border-bottom-color;
   padding: 1rem;
+  gap: 0.5rem;
 
   &__profile {
     height: 100%;
@@ -91,6 +92,7 @@
     > img {
       height: 3rem;
       border-radius: 50%;
+      display: block;
     }
 
     a {
@@ -243,6 +245,7 @@
   a {
     font-size: 1.2rem;
     text-decoration: none;
+    text-align: center;
     color: $text-color;
     cursor: pointer;
   }

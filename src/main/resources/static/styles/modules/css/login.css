@@ -76,6 +76,10 @@ main {
       width: 65%;
       padding: 1rem;
       justify-self: center; }
+  .right-part__messages {
+    font-weight: 200; }
+    .right-part__messages #error {
+      color: red; }
 
 .inputs {
   display: grid;

@@ -36,19 +36,20 @@ public class ProfileController {
 
     user = userRepository.findByUsername(username);
     if (user != null) {
-      req.setAttribute("user", user);
+      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      String currentPrincipalName = authentication.getName();
 
+      UserModel loggedUser = userRepository.findByUsername(currentPrincipalName);
+
+      req.setAttribute("user", user);
       req.setAttribute("followers", user.getFollowers().size());
       req.setAttribute("following", user.getFollowed().size());
+      req.setAttribute("loggedUserFollowing", userUtils.checkFollowed(loggedUser, user));
       req.setAttribute("profile", true);
-
-      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-      String loggedUser = authentication.getName();
 
       req.setAttribute("userDecks", user.getDecks());
 
-      if (loggedUser.equals(username)) {
+      if (currentPrincipalName.equals(username)) {
         req.setAttribute("decks", true);
         return "user/profile";
       } else {
