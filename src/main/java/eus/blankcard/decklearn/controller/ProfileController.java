@@ -29,6 +29,9 @@ public class ProfileController {
   @Autowired
   UserUtils userUtils;
 
+  String userProfile = "user/profile";
+  String error = "error";
+
   @GetMapping("/{username}")
   public String getProfile(@PathVariable("username") String username, HttpServletRequest req,
       HttpServletResponse response) {
@@ -51,13 +54,13 @@ public class ProfileController {
 
       if (currentPrincipalName.equals(username)) {
         req.setAttribute("decks", true);
-        return "user/profile";
+        return userProfile;
       } else {
         return "user/profile_visit";
       }
     } else {
       response.setStatus(404);
-      return "error";
+      return error;
     }
   }
 
@@ -120,9 +123,9 @@ public class ProfileController {
       req.setAttribute("following", user.getFollowed().size());
       req.setAttribute("saved", true);
       req.setAttribute("userDecks", user.getSavedDecks());
-      return "user/profile";
+      return userProfile;
     } else {
-      return "error";
+      return error;
     }
   }
 
@@ -145,9 +148,9 @@ public class ProfileController {
       req.setAttribute("following", user.getFollowed().size());
       req.setAttribute("sessions", true);
       req.setAttribute("userDecks", trainingSessions);
-      return "user/profile";
+      return userProfile;
     } else {
-      return "error";
+      return error;
     }
   }
 
@@ -160,7 +163,7 @@ public class ProfileController {
     UserModel loggedUser = userRepository.findByUsername(currentPrincipalName);
     UserModel targetUser = userRepository.findByUsername(username);
 
-    if (userUtils.checkFollowed(loggedUser, targetUser) == true) {
+    if (userUtils.checkFollowed(loggedUser, targetUser)) {
       loggedUser.removeFollowed(targetUser);
       targetUser.removeFollower(loggedUser);
 

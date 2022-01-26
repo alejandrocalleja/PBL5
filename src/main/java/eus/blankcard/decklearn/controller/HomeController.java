@@ -48,7 +48,7 @@ public class HomeController {
 
     Set<DeckModel> followedDecks = userUtils.getFollowingDecks(user);
 
-    if(followedDecks.size() == 0) {
+    if (followedDecks.isEmpty()) {
       Pageable limit = PageRequest.of(0, 20);
       followedDecks = deckRepository.findAll(limit).toSet();
       req.setAttribute("listName", "Explore Decks");

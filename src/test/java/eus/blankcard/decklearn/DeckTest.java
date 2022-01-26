@@ -32,38 +32,15 @@ class DeckTest {
     assertNotNull(mockMvc);
   }
 
-  @Test
+  @ParameterizedTest
+  @ValueSource(strings = {
+      "/deck/1",
+      "/deck/153/stats",
+      "/create/deck",
+      "/create/deck/"
+  })
   @WithMockUser(username = "testUser", roles = "USER")
-  void shouldReturnDeckViewPage() throws Exception {
-    String url = "/deck/1";
-
-    mockMvc.perform(MockMvcRequestBuilders.get(url))
-        .andExpect(MockMvcResultMatchers.status().isOk());
-  }
-
-  @Test
-  @WithMockUser(username = "Alroden", roles = "USER")
-  void shouldReturnDeckStatsViewPage() throws Exception {
-    String url = "/deck/153/stats";
-
-    mockMvc.perform(MockMvcRequestBuilders.get(url))
-        .andExpect(MockMvcResultMatchers.status().isOk());
-  }
-
-  @Test
-  @WithMockUser(username = "testUser", roles = "USER")
-  void shouldReturnDeckCreationForm() throws Exception {
-    String url = "/create/deck";
-
-    mockMvc.perform(MockMvcRequestBuilders.get(url))
-        .andExpect(MockMvcResultMatchers.status().isOk());
-  }
-
-  @Test
-  @WithMockUser(username = "testUser", roles = "USER")
-  void shouldReturnDeckEditForm() throws Exception {
-    String url = "/create/deck/";
-
+  void shouldReturnDeckPage(String url) throws Exception {
     mockMvc.perform(MockMvcRequestBuilders.get(url))
         .andExpect(MockMvcResultMatchers.status().isOk());
   }
