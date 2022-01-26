@@ -13,40 +13,40 @@ import eus.blankcard.decklearn.models.TrainingSessionModel;
 @Transactional(readOnly = true)
 public class TrainingSessionRepositoryImpl implements TrainingSessionRepositoryCustom {
 
-    @PersistenceContext
-    EntityManager entityManager;
+    // @PersistenceContext
+    // EntityManager entityManager;
 
-    @Override
-    public TrainingSessionModel findByTrainingIdAndDateWithLimit(Integer trainingId, Integer index) {
-        TrainingSessionModel trainingSession = null;
-        Query query = entityManager.createNativeQuery(
-                "SELECT * FROM training_session t WHERE t.training_id = ?1 ORDER BY t.training_session_date DESC limit ?2",
-                TrainingSessionModel.class);
+    // @Override
+    // public TrainingSessionModel findByTrainingIdAndDateWithLimit(Integer trainingId, Integer index) {
+    //     TrainingSessionModel trainingSession = null;
+    //     Query query = entityManager.createNativeQuery(
+    //             "SELECT * FROM training_session t WHERE t.training_id = ?1 ORDER BY t.training_session_date DESC limit ?2",
+    //             TrainingSessionModel.class);
 
-                query.setParameter(1, trainingId);
-                query.setParameter(2, index);
+    //             query.setParameter(1, trainingId);
+    //             query.setParameter(2, index);
 
-        try {
-            trainingSession = (TrainingSessionModel) query.getSingleResult();
-        } catch (Exception e) {
-        }
+    //     try {
+    //         trainingSession = (TrainingSessionModel) query.getSingleResult();
+    //     } catch (Exception e) {
+    //     }
 
-        return trainingSession;
-    }
+    //     return trainingSession;
+    // }
     
-    @Override
-    public TrainingSessionModel findLastSession(int trainingId) {
-        TrainingSessionModel trainingSession = null;
-        Query query = entityManager.createNativeQuery(
-                "SELECT * FROM training_session t WHERE t.training_id=?1 ORDER BY t.training_session_id DESC limit 1",
-                TrainingSessionModel.class);
-                System.out.println("Trying to load last session with training ID " + trainingId);
-                query.setParameter(1, trainingId);
-                try {
-                    trainingSession = (TrainingSessionModel) query.getSingleResult();
-        } catch (Exception e) {
-        }
-        System.out.println("Training session " + trainingSession);
-        return trainingSession;
-    }
+    // @Override
+    // public TrainingSessionModel findLastSession(int trainingId) {
+    //     TrainingSessionModel trainingSession = null;
+    //     Query query = entityManager.createNativeQuery(
+    //             "SELECT * FROM training_session t WHERE t.training_id=?1 ORDER BY t.training_session_id DESC limit 1",
+    //             TrainingSessionModel.class);
+    //             System.out.println("Trying to load last session with training ID " + trainingId);
+    //             query.setParameter(1, trainingId);
+    //             try {
+    //                 trainingSession = (TrainingSessionModel) query.getSingleResult();
+    //     } catch (Exception e) {
+    //     }
+    //     System.out.println("Training session " + trainingSession);
+    //     return trainingSession;
+    // }
 }

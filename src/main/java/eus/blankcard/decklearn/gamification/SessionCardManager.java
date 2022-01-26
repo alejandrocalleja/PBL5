@@ -102,8 +102,6 @@ public class SessionCardManager {
     }
 
     private void loadRequiredCards() {
-        // TrainingSessionModel prevTraining = trainingSessionRepository
-        //         .findLastSession(trainingSession.getTraining().getId());
 
         // Load the previous
         List<TrainingSessionModel> traininSessions = trainingSession.getTraining().getTrainingSessions();

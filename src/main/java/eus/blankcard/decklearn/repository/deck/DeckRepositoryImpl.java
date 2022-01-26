@@ -14,25 +14,25 @@ import eus.blankcard.decklearn.models.deck.DeckModel;
 @Repository
 public class DeckRepositoryImpl implements DeckRepositoryCustom {
 
-  @PersistenceContext
-  EntityManager entityManager;
+  // @PersistenceContext
+  // EntityManager entityManager;
 
-  @Override
-  public List<DeckModel> findByCreator(Integer creatorId) {
-    List<DeckModel> deckList = new ArrayList<>();
+  // @Override
+  // public List<DeckModel> findByCreator(Integer creatorId) {
+  //   List<DeckModel> deckList = new ArrayList<>();
 
-    TypedQuery<DeckModel> query = entityManager.createQuery("SELECT * from deck WHERE creator_id=?1",
-        DeckModel.class);
+  //   TypedQuery<DeckModel> query = entityManager.createQuery("SELECT * from deck WHERE creator_id=?1",
+  //       DeckModel.class);
 
-    query.setParameter(1, creatorId);
+  //   query.setParameter(1, creatorId);
 
-    try {
-      deckList = query.getResultList();
-    } catch (Exception e) {
-      System.out.println("Failed to load decks from user " + creatorId);
-    }
+  //   try {
+  //     deckList = query.getResultList();
+  //   } catch (Exception e) {
+  //     System.out.println("Failed to load decks from user " + creatorId);
+  //   }
 
-    return deckList;
-  }
+  //   return deckList;
+  // }
 
 }
