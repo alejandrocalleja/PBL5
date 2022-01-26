@@ -66,13 +66,10 @@ public class DeckCreationUtils {
         break;
       case "Add Type":
         String description = req.getParameter("type");
-        System.out.println("Description " + description);
 
         saveDeckType(description, deck);
         break;
       case "Save Deck":
-        System.out.println("Saving changes to deck");
-
         deck = deckRepository.save(deck);
 
         redirectUrl = "redirect:/deck/" + deck.getId();

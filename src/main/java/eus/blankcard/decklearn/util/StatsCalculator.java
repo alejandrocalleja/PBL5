@@ -44,8 +44,6 @@ public class StatsCalculator {
 
         Time totalTime = new Time(totalMilis);
 
-        System.out.println("Total time is " + totalTime.toString());
-
         return totalTime;
     }
 
@@ -75,8 +73,6 @@ public class StatsCalculator {
         }
 
         Time time = new Time(milisMean);
-
-        System.out.println("Avg time is " + time.toString());
 
         return time;
     }
@@ -132,21 +128,14 @@ public class StatsCalculator {
         } else {
             // Get the previous to the current one
             TrainingSessionModel prevTraining = traininSessions.get(traininSessions.size() - 2);
-            System.out.println("Previous training id is " + prevTraining.getId());
 
             float prevPassRatio = getPassRatio(prevTraining);
-
-            System.out.println("prevPassRatio = " + prevPassRatio);
-
-            System.out.println("CUrrent pass ratio = " + currentPassRatio);
 
             if (prevPassRatio == 0) {
                 gradeChange = currentPassRatio;
             } else {
                 gradeChange = ((currentPassRatio / prevPassRatio) - 1) * 100;
             }
-
-            System.out.println("Grade change today = " + gradeChange);
         }
 
         return gradeChange;
@@ -182,7 +171,6 @@ public class StatsCalculator {
         }
 
         Time time = new Time(milisMean);
-        System.out.println("Avg time is " + time.toString());
 
         return time;
     }
@@ -246,7 +234,6 @@ public class StatsCalculator {
         }
 
         Time time = new Time(milisMean);
-        System.out.println("Avg time is " + time.toString());
 
         return time;
     }

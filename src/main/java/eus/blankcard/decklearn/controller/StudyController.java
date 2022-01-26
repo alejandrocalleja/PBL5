@@ -63,18 +63,15 @@ public class StudyController {
         UserModel user = userRepository.findByUsername(loggedUser);
         DeckModel deck = deckRepository.getById(deckId);
 
-        System.out.println("User " + loggedUser + " started a study session with deck " + deckId);
 
         // Try loading the trainign and if null (not exist) create one.
         TrainingModel training = trainingRepository.findByUserIdInAndDeckId(user.getId(), deckId);
         if (training == null) {
-            System.out.println("There is no existing training.");
             training = new TrainingModel();
             training.setUser(user);
             training.setDeck(deck);
             training.setTrainingDate(java.sql.Timestamp.valueOf(LocalDateTime.now()));
             training = trainingRepository.save(training);
-            System.out.println("Creating one with id " + training.getId());
         }
         
         // Create a new Training Session and save it on the database
@@ -83,7 +80,6 @@ public class StudyController {
         trainingSession.setDate(java.sql.Timestamp.valueOf(LocalDateTime.now()));
         trainingSession = trainingSessionRepository.save(trainingSession);
 
-        System.out.println("Created a new training session with id " + trainingSession.getId());
 
         // Add the current session to the sessionManager
         sessionManager.addSession(loggedUser, trainingSession);
@@ -97,11 +93,8 @@ public class StudyController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String loggedUser = authentication.getName();
         DeckModel deck = deckRepository.getById(deckId);
-        System.out.println("Deck loaded in getStudyView()");
-        System.out.println("Deck: " + deck.getId());
 
         SessionCardManager sessionCardManager = sessionManager.getSession(loggedUser);
-        System.out.println("Loading the sessionManager from getStudyView()");
 
         // Get the card Id and load all the params from DB bc if there is a second time the card is empty
         CardModel card = sessionCardManager.getNextCard();
@@ -144,7 +137,6 @@ public class StudyController {
         String loggedUser = authentication.getName();
 
         String cardResult = (String) req.getParameter("response");
-        System.out.println("Result: " + cardResult);
 
         boolean correct = cardResult.equals("pass");
         CardModel card = cardRepository.getById(cardId);
@@ -153,10 +145,8 @@ public class StudyController {
         sessionCardManager.saveCardResponse(card, correct);
 
         if (sessionCardManager.cardsRemaining()) {
-            System.out.println("Cards reamining -> loop study again");
             return "redirect:/study/" + deckId;
         } else {
-            System.out.println("No crds reamining -> save results and go");
             sessionCardManager.saveSessionResults();
             TrainingSessionModel currentTraining = sessionCardManager.getCurrentTrainingSession();
             sessionManager.removeSession(loggedUser);

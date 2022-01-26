@@ -102,7 +102,6 @@ public class DeckController {
             UserModel userModel = userRepository.findByUsername(loggedUsername);
 
             if (userModel.getSavedDecks().contains(deckModel)) {
-                System.out.println("The user has it saved. Unsaving it");
                 userModel.getSavedDecks().remove(deckModel);
             } else {
                 userModel.getSavedDecks().add(deckModel);
