@@ -23,55 +23,55 @@
 </head>
 
 <body>
-    <div th:replace="fragments/left-nav :: left-nav"></div>
+  <div th:replace="fragments/left-nav :: left-nav"></div>
 
-    <main class="center-screen">
+  <main class="center-screen">
 
-        <div th:replace="fragments/top-nav :: top-nav"></div>
+    <div th:replace="fragments/top-nav :: top-nav"></div>
 
-        <div class="content-container">
-            <div class="content">
+    <div class="content-container">
+      <div class="content">
 
-                <section class="card-section">
-                    <h2>Your Study Sessions</h2>
+        <section class="card-section">
+          <h1>Your Study Sessions</h1>
 
-                    <div class="card-section__list">
+          <div class="card-section__list">
 
-                        <div class="card" th:each="deck: ${study_sessions}">
-                            <div class="card-content">
-                                <img class="" th:src="${deck.imgPath}"></img>
-                                <div>
-                                    <h3 th:inline="text">[[${deck.title}]]</h3>
-                                    <span th:text="${deck.description}"></span>
-                                </div>
-                            </div>
-                            <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
-                        </div>
-
-                    </div>
-                </section>
-
-                <section class="card-section">
-                    <h2>Explore Decks</h2>
-
-                    <div class="card-section__list">
-
-                        <div class="card" th:each="deck: ${explore_deck}">
-                            <div class="card-content">
-                                <img class="" th:src="${deck.imgPath}"></img>
-                                <div>
-                                    <h3 th:inline="text">[[${deck.title}]]</h3>
-                                    <span th:text="${deck.description}"></span>
-                                </div>
-                            </div>
-                            <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
-                        </div>
-
-                    </div>
-                </section>
+            <div class="card" th:each="deck: ${study_sessions}">
+              <div class="card-content">
+                <img class="" th:src="${deck.imgPath}">
+                <div>
+                  <h3 th:inline="text">[[${deck.title}]]</h3>
+                  <span th:text="${deck.description}"></span>
+                </div>
+              </div>
+              <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
             </div>
-        </div>
-    </main>
+
+          </div>
+        </section>
+
+        <section class="card-section">
+          <h2>Explore Decks</h2>
+
+          <div class="card-section__list">
+
+            <div class="card" th:each="deck: ${explore_deck}">
+              <div class="card-content">
+                <img class="" th:src="${deck.imgPath}">
+                <div>
+                  <h3 th:inline="text">[[${deck.title}]]</h3>
+                  <span th:text="${deck.description}"></span>
+                </div>
+              </div>
+              <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
+            </div>
+
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
 </body>
 
 </html>

@@ -1,68 +1,65 @@
-@import 'variables';
-@import 'generic';
-@import 'scrollbar';
-@import 'base';
-@import 'card';
+@import "variables";
+@import "generic";
+@import "scrollbar";
+@import "base";
+@import "card";
 
 .top-nav {
-    @include top-nav(flex-end);
+  @include top-nav(space-between);
 }
 
-.profile__top-title{
-    border-bottom: $input-underline 1px solid;
-    padding: 0.1rem;
+.profile__top-title {
+  @include h1-title;
 }
 
-.profile-data{
-    @include profile-data;
+.profile-data {
+  @include profile-data;
 }
 
 .button-editProfile {
-    @include default-button;
+  @include default-button;
 }
 
 .user-name {
-    h2{
-        font-weight: 400;
-        font-size: 1.75rem;
-        text-align: center;
+  h2 {
+    font-weight: 400;
+    font-size: 1.75rem;
+    text-align: center;
+  }
+  h3 {
+    font-weight: 100;
+    font-size: 1rem;
+    color: $h3-color;
+    padding: 0.3rem 0 0.3rem 0;
+  }
+}
+
+.user-follower {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 1.5rem;
+
+  a {
+    text-decoration: none;
+    color: $following-follower-color;
+    p {
+      span {
+        font-weight: bold;
+      }
     }
-    h3{
-        font-weight: 100;
-        font-size: 1rem;
-        color: $h3-color;
-        padding: 0.3rem 0 0.3rem 0;
-    }
+  }
 }
 
-.user-follower{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    gap: 1.5rem;
-
-    a {
-        text-decoration: none;
-        color: $following-follower-color;
-        p{
-            span{
-                font-weight: bold;
-            }
-        }
-    }
-
+.profile-nav {
+  @include profile-nav;
+  justify-content: space-between;
 }
 
-.profile-nav{
-    @include profile-nav;
-    justify-content: space-between;
+.selected {
+  border-bottom: $decklearn-green solid 2px;
 }
 
-.selected{
-    border-bottom: $decklearn-green solid 2px;
-}
-
-@media (min-width: screen-size(medium)){
-       @include profile-data-media;
-       
+@media (min-width: screen-size(medium)) {
+  @include profile-data-media;
 }

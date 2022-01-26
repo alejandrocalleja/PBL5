@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title th:inline="text">[[${user.username}]] | DeckLearn</title>
+  <title th:inline="text">[[${user.username}]] | Deck Learn</title>
   <link rel="stylesheet" th:href="@{/styles/modules/css/profile_visit.css}">
   <link rel="stylesheet" th:href="@{/styles/modules/css/profile.css}">
   <link rel="icon" th:href="@{/images/favicon.ico}">
@@ -45,7 +45,7 @@
 
         <div class="profile-data__button">
           <form th:action="@{/{username}/follow(username=${user.username})}" method="post">
-            <input type="submit" class="button-following button-follow" tabindex="0" name="follow" placeholder="follow">
+            <input type="submit" class="button-following button-follow" tabindex="0" name="follow" value="Follow">
           </form>
         </div>
 
@@ -61,7 +61,7 @@
 
           <div class="card" th:each="deck: ${userDecks}">
             <div class="card-content">
-              <img class="" th:src="${deck.imgPath}"></img>
+              <img class="" th:src="${deck.imgPath}">
               <div>
                 <h3 th:inline="text">[[${deck.title}]]</h3>
                 <span th:inline="text">[[${deck.description}]]</span>

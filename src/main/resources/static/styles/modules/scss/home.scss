@@ -1,15 +1,16 @@
-@import 'variables';
+@import "variables";
 
 .card-section {
-    > h2 {
-        font-size: $title-font-size;
-        font-weight: 500;
-        border-bottom: 1px solid $border-bottom-color;
-    }
+  > h1 {
+    @include h1-title;
+  }
+  > h2 {
+    @include h2-title;
+  }
 }
 
-@media (min-width: screen-size(medium)){
-    .card-section {
-        padding: 3rem, 2rem, 2rem, 3rem;
-    }
+@media (min-width: screen-size(medium)) {
+  .card-section {
+    padding: 3rem, 2rem, 2rem, 3rem;
+  }
 }
