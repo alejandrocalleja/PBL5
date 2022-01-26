@@ -1,7 +1,7 @@
 <p align="center">
  <img width="100px" src="https://res.cloudinary.com/anuraghazra/image/upload/v1594908242/logo_ccswme.svg" align="center" alt="GitHub Readme Stats" />
- <h2 align="center">GitHub Readme Stats</h2>
- <p align="center">Get dynamically generated GitHub stats on your readmes!</p>
+ <h2 align="center">Deck Learn</h2>
+ <p align="center">A spaced repetition based learning application</p>
 </p>
 
 <p align="center">
@@ -17,19 +17,9 @@
   <a href="https://github.com/anuraghazra/github-readme-stats/pulls">
     <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/anuraghazra/github-readme-stats?color=0088ff" />
   </a>
-  <br />
-  <br />
-  <a href="https://a.paddle.com/v2/click/16413/119403?link=1227">
-    <img src="https://img.shields.io/badge/Supported%20by-VSCode%20Power%20User%20%E2%86%92-gray.svg?colorA=655BE1&colorB=4F44D6&style=for-the-badge"/>
-  </a>
-  <a href="https://a.paddle.com/v2/click/16413/119403?link=2345">
-    <img src="https://img.shields.io/badge/Supported%20by-Node%20Cli.com%20%E2%86%92-gray.svg?colorA=61c265&colorB=4CAF50&style=for-the-badge"/>
-  </a>
 </p>
 
-[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=alejandrocalleja)](https://github.com/anuraghazra/github-readme-stats)
-
-
+## Description
 Learning is an everyday necessity worldwide, which needs to be done the correct way
 to be effective. Information tends to fade in what is known as “the forgetting curve”, a problem
 that concerns a wide range of population. However, the fading of the data can be reverted and
@@ -47,3 +37,4 @@ explains the development of the product, named DeckLearn, as well as its impact 
 established objectives and working hypotheses.
 
 ## Used technologies
+
