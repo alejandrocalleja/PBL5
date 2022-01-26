@@ -44,8 +44,10 @@ pipeline {
       when {
         branch 'develop'
       }
-      withCredentials(bindings: [usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'pass', usernameVariable: 'name')]) {
-        sh 'mvn compile jib:dockerBuild -Djib.to.auth.username=$name -Djib.to.auth.password=$pass'
+      steps {
+        withCredentials(bindings: [usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'pass', usernameVariable: 'name')]) {
+          sh 'mvn compile jib:dockerBuild -Djib.to.auth.username=$name -Djib.to.auth.password=$pass'
+        }
       }
     }
 
@@ -69,12 +71,6 @@ pipeline {
       }
     }
 
-  }
-
-  post {
-    always {
-      junit 'build/reports/**/*.xml'
-    }
   }
   
   tools {

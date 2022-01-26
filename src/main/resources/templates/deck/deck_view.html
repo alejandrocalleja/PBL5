@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:inline="text">[[${deck.title}]] | Deck Learn</title>
+    <link rel="stylesheet" th:href="@{/styles/modules/css/deck_view.css}">
+    <link rel="stylesheet" th:href="@{/styles/modules/css/base_imports.css}">
+    <link rel="icon" th:href="@{/images/favicon.ico}">
+</head>
+
+<body>
+
+  <div th:replace="fragments/left-nav :: left-nav"></div>
+
+  <main class="center-screen">
+
+    <div th:replace="fragments/top-nav :: top-nav"></div>
+
+    <div class="content-container">
+      <section class="content">
+        <h1>Deck View</h1>
+
+        <div class="deck-view">
+          <div class="deck-view__content">
+            <div class="deck-view__content__info">
+              <h3 th:inline="text">[[${deck.title}]]</h3>
+              <div class="info">
+                <p th:inline="text">[[${deck.description}]]</p>
+
+                <div class="info__details">
+                  <div>
+                    <span class="info__details__title">Card number:</span>
+                    <span class="info__details__response" th:inline="text">[[${cardNumber}]]</span>
+                  </div>
+
+                  <div>
+                    <span class="info__details__title">Creator:</span>
+                    <a th:href="@{/{username}(username=${creator})}" class="info__details__response">[[${creator}]]</a>
+                  </div>
+
+                  <div>
+                    <span class="info__details__title">Type:</span>
+                    <span class="info__details__response"> <span th:each="type: ${deck.types}"
+                        th:inline="text">[[${type.description}]] </span> </span>
+                  </div>
+                </div>
+
+                <div class="info__button">
+                  <form th:action="@{/study/{id}(id=${deck.id})}" method="post">
+                    <input type="submit" name="study" value="Study">
+                  </form>
+                </div>
+
+                <span class="info__studiesNum" th:inline="text">[[${studies}]] studies</span>
+              </div>
+            </div>
+
+            <img th:src="${deck.imgPath}" alt="">
+          </div>
+
+          <div class="deck-view__buttons">
+            <a th:href="@{/deck/{id}/stats(id=${deck.id})}" class="">View stats</a>
+
+            <form th:action="@{/deck/{id}/save(id=${deck.id})}" method="post">
+              <input type="submit" name="save" th:value="${saved} ? 'Remove save' : 'Save'"
+                th:class="${saved} ? 'thick-red-button' : ''">
+            </form>
+
+            <form th:action="@{/create/deck/{id}(id=${deck.id})}" method="get"
+              th:style="${isCreator} ? '' : 'display: none'">
+              <input type="submit" name="edit" value="Edit">
+            </form>
+
+            <form th:action="@{/deck/{id}/remove(id=${deck.id})}" method="post"
+              th:style="${isCreator} ? '' : 'display: none'">
+              <input type="submit" name="remove" value="Remove" class="thick-red-button">
+            </form>
+
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+
+</html>

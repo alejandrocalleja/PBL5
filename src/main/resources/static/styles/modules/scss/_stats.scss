@@ -1,0 +1,134 @@
+@import "variables";
+@import "generic";
+@import "scrollbar";
+@import "base";
+
+.top-nav {
+  @include top-nav(space-between);
+}
+
+.stats-section {
+  > h1 {
+    @include h1-title;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-top: 3rem;
+  }
+}
+
+.stats-card {
+  border-radius: 0.5rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__list {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    gap: 2rem;
+  }
+
+  h3 {
+    font-weight: normal;
+    padding: 1rem 0 1rem 1rem;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 0 0 0 2.5rem;
+
+    p {
+      font-size: 4rem;
+      padding-bottom: 2rem;
+      font-weight: 500;
+    }
+
+    img {
+      height: 5rem;
+    }
+  }
+
+  &__decoration {
+    background-color: $decklearn-green;
+    border-radius: 0 0 0.5rem 0.5rem;
+    padding-bottom: 2rem;
+  }
+}
+
+.stats-graphic {
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+  justify-content: center;
+  align-content: stretch;
+  gap: 2rem;
+
+  &__title {
+    text-align: center;
+  }
+
+  a {
+    text-align: center;
+    @include thick-button;
+  }
+}
+
+.donut-chart {
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+
+  .slice {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .chart-center {
+    position: absolute;
+    border-radius: 50%;
+
+    span {
+      display: block;
+      text-align: center;
+    }
+  }
+}
+
+@include donut-chart(
+  ".chart1",
+  45,
+  15rem,
+  1.5rem,
+  $donut-base-color,
+  $donut-center-color,
+  $decklearn-green
+);
+
+@media (min-width: screen-size(medium)) {
+  .stats-card {
+    &__list {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+  }
+}
+
+@media (min-width: screen-size(large)) {
+  .stats-section {
+    &__list {
+      grid-template-columns: 3fr 1fr;
+    }
+  }
+}
+
+@media (min-width: screen-size(extra-large)) {
+}

@@ -1,0 +1,141 @@
+@import "variables";
+@import "generic";
+@import "scrollbar";
+@import "checkbox";
+
+body {
+  margin: 0;
+  padding: 0;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
+}
+
+.left-part {
+  position: relative;
+  height: 100%;
+  max-height: 100%;
+  padding: 1rem;
+  width: 100%;
+
+  display: grid;
+
+  &__inside {
+    height: 100%;
+    max-height: 100%;
+    width: 100%;
+
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    > img {
+      position: static;
+      width: 20%;
+      padding: 1rem;
+    }
+  }
+}
+
+.right-part {
+  background-color: $decklearn-green;
+  height: 100%;
+  max-height: 100%;
+}
+
+.inputs {
+  display: grid;
+  padding-top: 2rem;
+  column-gap: 4rem;
+  row-gap: 1.5rem;
+}
+
+.custom-input {
+  @include custom-input;
+}
+
+::placeholder {
+  color: $placeholder-color;
+}
+
+.checkboxes {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.flexed-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.bordered-checkbox {
+  padding: 0 0.2rem 0 0;
+}
+
+.custom-submit {
+  @include custom-submit;
+  width: fit-content;
+}
+
+.forgot-password {
+  text-align: center;
+  text-decoration: none;
+  color: $button-green;
+}
+
+@media (min-width: screen-size(medium)) {
+  main {
+    width: 80%;
+    height: 95%;
+  }
+
+  .inputs {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .flexed-form {
+    gap: 10rem;
+    height: 90%;
+    justify-content: flex-end;
+  }
+}
+
+@media (min-width: screen-size(large)) {
+  .inputs {
+    width: 90%;
+    row-gap: 2rem;
+  }
+
+  .custom-submit {
+    padding: 0.15rem 5rem 0.6rem 5rem;
+  }
+}
+
+@media (min-height: screen-size-register-vertical()) and (min-width: screen-size(medium)) {
+  body {
+    height: 100vh;
+  }
+
+  .left-part {
+    &__inside {
+      > img {
+        position: static;
+        width: 20%;
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:inline="text"> [[${user.username}]] Security Settings | Deck Learn </title>
+  <link rel="stylesheet" th:href="@{/styles/modules/css/home.css}">
+  <link rel="stylesheet" th:href="@{/styles/modules/css/settings.css}">
+  <link rel="icon" th:href="@{/images/favicon.ico}">
+</head>
+
+<body>
+  <div th:replace="fragments/left-nav :: left-nav"></div>
+
+  <main class="center-screen">
+    <div th:replace="fragments/top-nav :: top-nav"></div>
+
+    <div class="content-container">
+      <div class="content">
+        <section class="settings-content-section">
+          <h1 class="settings__top-title">Settings</h1>
+          <div>
+            <div class="settings-selector">
+              <div class="settings-selector__screens">
+                <nav class="settings-selector__screens__list">
+                  <a th:href="@{/settings/profile}">
+                    <p>Profile</p>
+                  </a>
+                  <a th:href="@{/settings/security}" class="selected">
+                    <p>Security</p>
+                  </a>
+                  <a th:href="@{/settings/language}">
+                    <p>Language</p>
+                  </a>
+                </nav>
+              </div>
+              <div class="settings-selector__logout">
+                <nav>
+                  <a th:href="@{/logout}" class="logout">
+                    <img th:src="@{/images/icons/Log_out.svg}" alt="">
+                    <p>Log out</p>
+                  </a>
+                </nav>
+              </div>
+            </div>
+            <div class="settings-central">
+              <div class="user-data-form">
+                <form th:action="@{/settings/security}" class="grided-form" method="post">
+                  <label for="email">Email: </label>
+                  <input type="text" class="custom-input" placeholder="Email" id="email" name="email"
+                    th:value="${user.email}">
+                  <label for="passwd">New password: </label>
+                  <input type="password" class="custom-input" placeholder="New password" id="passwd" name="password">
+                  <label for="cmpasswd">Confirm Password: </label>
+                  <input type="password" class="custom-input" placeholder="Confirm" id="cmpasswd">
+                  <input type="submit" class="custom-submit" value="Save settings">
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

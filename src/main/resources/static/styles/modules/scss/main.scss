@@ -1,5 +1,5 @@
-@import '../../variables/variables';
-@import '../../objects/card';
+@import 'variables';
+@import 'card';
 
 *, *::before, *::after{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -69,7 +69,7 @@ body {
         > a {
             display: flex;
             align-items: center;
-            padding: .5rem;
+            padding: 0.5rem 0.5rem 0.5rem 0.5rem;
             text-decoration: none;
             color: $nav-bar-items-color;
 
@@ -85,7 +85,6 @@ body {
                 height: 100%;
                 font-size: 1.3rem;
                 font-weight: 100;
-                padding: .2rem;
             }
         }
     }
@@ -181,7 +180,7 @@ body {
     }
 }
 
-@media (min-width: 1251px){
+@media (min-width: 1307px){
     .left-nav {
         padding: 0;
     }
@@ -198,4 +197,21 @@ body {
         grid-template-columns: 1fr 6fr;
         grid-template-areas: none;
     }
+
+    .nav-bar__list {
+        > a {
+            > li {
+                padding: 0.2rem 0.2rem 0.2rem 0.5rem;
+            }
+        }
+    }
+
+    .nav-bar {
+        &__list{
+            > a {
+                padding: 0.5rem 0.5rem 0.5rem 0.7rem;
+            }
+        }
+    }
+
 }

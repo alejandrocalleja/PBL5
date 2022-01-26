@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:inline="text">[[${user.username}]] | Deck Learn</title>
+  <link rel="stylesheet" th:href="@{/styles/modules/css/profile.css}">
+  <link rel="stylesheet" th:href="@{/styles/modules/css/base_imports.css}">
+  <link rel="icon" th:href="@{/images/favicon.ico}">
+</head>
+
+<body>
+
+  <div th:replace="fragments/left-nav :: left-nav"></div>
+
+  <main class="center-screen">
+
+    <div th:replace="fragments/top-nav :: top-nav"></div>
+
+    <section class="content">
+
+      <h1 class="profile__top-title">Profile</h1>
+
+      <div class="profile-data">
+
+        <div class="profile-data__img-user">
+          <img class="profile-data__image" th:src="${user.imgPath}" alt="">
+          <div class="profile-data__user">
+            <div class="user-name">
+              <h2 th:inline="text">[[${user.name}]]</h2>
+              <h3 th:inline="text">[[${user.username}]]</h3>
+            </div>
+            <div class="user-follower">
+              <a th:href="@{/{username}/following(username=${user.username})}">
+                <p> <span th:inline="text">[[${following}]]</span> Following</p>
+              </a>
+              <a th:href="@{/{username}/followers(username=${user.username})}">
+                <p> <span th:inline="text">[[${followers}]]</span> Followers</p>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="profile-data__button">
+          <a th:href="@{/settings/profile}" class="button-editProfile">Edit profile</a>
+        </div>
+
+      </div>
+
+      <nav class="profile-nav">
+        <a th:href="@{/{username}(username=${user.username})}" th:class="${decks} ? 'selected' : 'selectable'">Created
+          decks</a>
+        <a th:href="@{/{username}/saved(username=${user.username})}"
+          th:class="${saved} ? 'selected' : 'selectable'">Saved decks</a>
+        <a th:href="@{/{username}/sessions(username=${user.username})}"
+          th:class="${sessions} ? 'selected' : 'selectable'">Study sessions</a>
+      </nav>
+
+      <div class="card-section">
+
+        <div class="card-section__list">
+
+          <div class="card" th:each="deck: ${userDecks}">
+            <div class="card-content">
+              <img class="" th:src="${deck.imgPath}">
+              <div>
+                <h3 th:inline="text">[[${deck.title}]]</h3>
+                <span th:inline="text">[[${deck.description}]]</span>
+              </div>
+            </div>
+            <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+
+</html>

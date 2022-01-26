@@ -1,197 +1,223 @@
-@import '../../variables/variables';
+@import "variables";
+@import "scrollbar";
+@import "generic";
+@import "base";
 
-.deck-creation-section {
-    > h2 {
-        display: flex;
-        text-align: center;
-        margin: 0;
-        // margin-bottom: 1rem;
-    
-        font-size: $title-font-size;
-        font-weight: normal;
-        border-bottom: 1px solid $border-bottom-color;
-    }
-
-    &__list {
-        display: grid;
-        gap: 2rem;
-    }
+.top-nav {
+  @include top-nav(space-between);
 }
 
-.deck-creation > div > h4, .card-creation > h4 {
-    margin: 0;
-    margin-bottom: 0.2rem;
+.deck-creation-section {
+  > h1 {
+    @include h1-title;
+  }
 
-    font-size: $title-h4-font-size;
-    font-weight: normal;
+  &__list {
+    display: grid;
+    gap: 2rem;
+    padding-top: 1.5rem;
+  }
+}
+
+.deck-creation > div > h4,
+.card-creation > h4 {
+  margin: 0;
+  margin-bottom: 0.2rem;
+
+  font-size: $title-h4-font-size;
+  font-weight: normal;
 }
 
 .card-creation {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+
+  &__data {
+    outline: none;
+    border: 0;
+    border-bottom: 1px solid $border-bottom-color;
+    margin-bottom: 1rem;
+    padding-bottom: 0.3rem;
+    padding-top: 0.5rem;
+
+    width: calc(100% - 1.5rem);
+    resize: none;
+
+    font-size: $data-font-size;
+    line-height: 26px;
+
+    &__of-hidden {
+      overflow-y: hidden;
+    }
+
+    &__of-auto {
+      overflow-y: auto;
+    }
+  }
+
+  #question-answer {
     display: flex;
     flex-direction: column;
+    gap: 2rem;
+    padding: 1rem 0 1rem 0;
+  }
+
+  > label {
+    margin-left: 1rem;
+  }
+
+  #buttons {
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    padding-top: 1rem;
-
-    &__data {
-        outline: none;
-        border: 0;
-        border-bottom: 1px solid $border-bottom-color;
-        margin-left: 1.5rem;
-        padding-bottom: 0.3rem;
-
-        width: calc(100% - 1.5rem);
-        resize: none;
-
-        font-size: $data-font-size;
-    }
-
-    > label {
-        margin-left: 1rem;
-    }
+    width: 100%;
+  }
 }
 
 .deck-creation {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .creation-button {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.4rem;
-    padding-left: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem;
+  padding-left: 0.6rem;
 
-    font-size: $data-font-size;
-    border: 0;
-    border-bottom: 1px solid $card-section-button-color;
-    border-radius: $button-radius;
-    
-    background-color: $card-section-button-color;
-    color: $custom-button-color;
+  font-size: $data-font-size;
+  border: 0;
+  border-radius: $button-radius;
 
-    > img {
-        width: 1.7rem;
-        margin-right: 0.5rem;
-    }
+  background-color: $creation-button-bg-color;
+  color: $creation-button-color;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $darkened-for-white-buttons-color;
+    transition: 0.2s;
+  }
+
+  > img {
+    width: 1.7rem;
+    margin-right: 0.5rem;
+  }
 }
 
 .add-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .custom-button {
-    text-align: center;
-    
-    border-radius: $button-radius;
-    border: 0;
-    height: fit-content;
-    font-size: $data-font-size;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+  text-align: center;
 
-    color: $custom-button-font-color;
-    background-color: $card-section-button-color;
+  border-radius: $button-radius;
+  border: 0;
+  height: fit-content;
+  font-size: $data-font-size;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  cursor: pointer;
 
-    white-space: nowrap;
+  color: $custom-button-font-color;
+  background-color: $card-section-button-color;
+
+  white-space: nowrap;
+
+  &:hover {
+    background-color: $darkened-decklearn-color;
+    transition: 0.2s;
+  }
 }
 
 .deck-categories {
-    padding-top: 3rem;
+  padding-top: 3rem;
 
-    &__list {
-        display: flex;
-        flex-wrap: wrap;
-        grid-template-columns: repeat(4, 1fr);
-        padding-top: 1rem;
-        gap: 1rem;
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(4, 1fr);
+    padding-top: 1.5rem;
+    gap: 1rem;
 
-        > button {
-            display: flex;
-            align-items: center;
-        
-            border: 1px solid $border-bottom-color;
-            border-radius: $button-radius;
-        
-            padding: 0.2rem;
-            font-size: $categories-font-size;
+    > button {
+      display: flex;
+      align-items: center;
 
-            > img {
-                width: 1rem;
-                margin-right: 0.2rem;
-                margin-left: 0.2rem;
-            }
-        }
+      border: 1px solid $border-bottom-color;
+      border-radius: $button-radius;
+
+      padding: 0.2rem;
+      font-size: $categories-font-size;
+
+      > img {
+        width: 0.7rem;
+        margin-right: 0.2rem;
+        margin-left: 0.2rem;
+        cursor: pointer;
+      }
+
+      &:hover {
+        background-color: $darkened-tags-color;
+        transition: 0.2s;
+      }
     }
+  }
 }
 
 .create-deck {
-    display: flex;
-    justify-content: center;
-    padding-top: 3rem;
+  display: flex;
+  justify-content: center;
+  padding-top: 3rem;
 
-    &__button {
-        display: flex;
-        justify-content: center;
-    
-        width: 40%;
-        padding: 0.5rem;
-
-        border-radius: $button-radius;
-        border: 0;
-        font-size: $button-font-size;
-
-        color: $custom-button-font-color;
-        background-color: $card-section-button-color;
-    }
+  &__button {
+    @include thick-button;
+  }
 }
 
 .categories-bar {
-    width: 100%;
+  width: 100%;
 }
 
-@media (min-width: screen-size(medium)){
-    .categories-bar {
-        width: 40%;
-    }
+@media (min-width: screen-size(medium)) {
+  .categories-bar {
+    width: 40%;
+  }
 }
 
-@media (min-width: screen-size(large)){
-    .create-deck__button{
-        width: 33%;
-    }
+@media (min-width: screen-size(large)) {
+  .create-deck__button {
+    width: 33%;
+  }
 
-    .deck-creation-section__list{
-        grid-template-columns: 3fr 2fr min-content;
-    }
+  .deck-creation-section__list {
+    grid-template-columns: 3fr 2fr min-content;
+  }
 
-    .categories-bar {
-        width: 40%;
-    }
-}   
+  .categories-bar {
+    width: 40%;
+  }
+}
 
-@media (min-width: screen-size(extra-large)){
+@media (min-width: screen-size(extra-large)) {
+  .create-deck__button {
+    width: 33%;
+  }
 
-    .create-deck__button{
-        width: 33%;
-    }
+  .deck-creation-section__list {
+    grid-template-columns: 3fr 2fr min-content;
+  }
 
-    .deck-creation-section__list{
-        grid-template-columns: 3fr 2fr min-content;
-    }
-
-    .categories-bar {
-        width: 40%;
-    }
+  .categories-bar {
+    width: 40%;
+  }
 }

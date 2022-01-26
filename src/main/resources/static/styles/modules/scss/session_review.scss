@@ -1,0 +1,30 @@
+@import 'stats';
+
+.titled-stats-section__list{
+    display: grid;
+    grid-template-columns: 1fr;
+
+    > h2 {
+        padding: 3rem 1rem 0 2rem;
+        font-weight: 400;
+        font-size: 1.4rem;
+    }
+}
+
+.improve{
+    color: $percentage-improve;
+}
+
+.worsened{
+    color: $percentage-worsened;
+}
+
+.special{
+    grid-template-columns: auto 1fr;
+
+    > img {
+        height: 60%;
+        padding-top: 1.5rem;
+        padding-left: 0.5rem;
+    }
+}

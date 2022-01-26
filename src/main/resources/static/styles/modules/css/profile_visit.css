@@ -1,0 +1,93 @@
+@font-face {
+  font-family: 'Sans Forgetica Regular';
+  src: local("Sans Forgetica Regular"), url("../../../font/SansForgetica-Regular.woff") format("woff"); }
+
+*, *::before, *::after {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /*font-family: 'Sans Forgetica Regular';*/
+  box-sizing: border-box;
+  margin: 0; }
+
+/* BARRA SCROLL PERSONALIZADA */
+::-webkit-scrollbar {
+  width: 6px; }
+
+::-webkit-scrollbar-thumb {
+  background: #01CDA9;
+  border-radius: 5px; }
+
+.profile-nav__center {
+  border-bottom: #BAB8B8 1px solid;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center; }
+  .profile-nav__center a {
+    font-size: 1.2rem;
+    text-decoration: none;
+    text-align: center;
+    color: black;
+    cursor: pointer; }
+
+.profile-data {
+  padding-top: 1.5rem;
+  padding-bottom: 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-direction: column;
+  text-align: center; }
+  .profile-data__img-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; }
+  .profile-data__image {
+    padding: 1rem;
+    object-fit: cover;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%; }
+
+.button-follow {
+  border-radius: 1.3rem;
+  background-color: #01CDA9;
+  text-decoration: none;
+  border: none;
+  color: #FFFFFF;
+  padding: 0.2rem 1rem 0.2rem 1rem;
+  font-weight: 100;
+  font-size: 1.3rem;
+  cursor: pointer;
+  width: 15rem; }
+  @media (min-width: 762px) {
+    .button-follow {
+      padding: 0.2rem 2rem 0.2rem 2rem; } }
+  @media (min-width: 1024px) {
+    .button-follow {
+      padding: 0.2rem 4rem 0.2rem 4rem; } }
+  .button-follow:hover {
+    background-color: #007e68;
+    transition: 0.2s; }
+
+.button-following {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+  border: solid 2px #01CDA9 !important; }
+
+.button-unfollow {
+  background-color: rgba(211, 70, 10, 0.1) !important;
+  color: #d34646 !important;
+  border: solid 2px #d34646 !important; }
+
+@media (min-width: 762px) {
+  .profile-data {
+    flex-direction: row;
+    align-items: flex-end; }
+    .profile-data__img-user {
+      flex-direction: row; }
+    .profile-data__button {
+      display: flex;
+      padding-bottom: 1rem; }
+  .user-name h3,
+  .user-name h2 {
+    text-align: left; } }

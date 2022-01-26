@@ -1,87 +1,139 @@
-@import '../../variables/variables';
+@import "variables";
+@import "generic";
+@import "scrollbar";
+@import "checkbox";
 
 body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  margin: 0;
+  padding: 0;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 main {
-    width: 80%;
-    height: 95%;
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
 }
 
 .left-part {
-    background-color: $decklearn-green;
-    height: 100%;
-    max-height: 100%;
+  @include colored-part;
 }
 
 .right-part {
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  display: grid;
+
+  &__inside {
     height: 100%;
     max-height: 100%;
-    display: grid;
-    /* grid-template-rows: 1fr 3fr 2fr; */
-    justify-content: center;
-}
+    width: fit-content;
 
-.right-part > img {
-    width: 65%;
-    padding: 1rem;
-    justify-self: center;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    > img {
+      width: 65%;
+      padding: 1rem;
+      justify-self: center;
+    }
+  }
+
+  &__messages {
+    font-weight: 200;
+    #error {
+      color: red;
+    }
+  }
 }
 
 .inputs {
+  display: grid;
+  grid-template-rows: auto auto auto auto auto 1fr;
+  padding-top: 2rem;
+  row-gap: 1.75rem;
+  width: 100%;
+
+  > .user-fields {
     display: flex;
     flex-direction: column;
-    column-gap: 1rem;
-    row-gap: 1rem;
+    gap: 3rem;
+  }
 }
 
 .custom-input {
-    border: 0;
-    border-bottom: 1px solid $input-underline;
-    outline: 0;
-    font-size: 1.3rem;
+  @include custom-input;
+}
+
+::placeholder {
+  color: $placeholder-color;
 }
 
 .checkboxes {
+  display: flex;
+  justify-content: space-between;
+
+  > div {
     display: flex;
-    justify-content: space-evenly;
+  }
+}
+
+.bordered-checkbox {
+  padding: 0 0.25rem 0 0;
 }
 
 .custom-submit {
-    background-color: $custom-button-bg;
-    border: none;
-    border-radius: $button-radius;
-    color: $custom-button-color;
-    padding: .5rem;
-    font-size: $button-font-size;
-    font-weight: 100;
-    cursor: pointer;
+  @include custom-submit;
 }
 
 .custom-button {
-    text-decoration: none;
-    text-align: center;
-    background-color: $custom-button-sec-bg;
-    border: 2px solid $custom-button-sec-border;
-    border-radius: $button-radius;
-    height: fit-content;
-    font-size: $button-font-size;
-    font-weight: 100;
-    padding: .5rem;
-    color: $custom-button-sec-color;
+  text-decoration: none;
+  text-align: center;
+  background-color: $custom-button-sec-bg;
+  border: 2px solid $custom-button-sec-border;
+  border-radius: $button-radius;
+  font-size: $button-font-size;
+  font-weight: 100;
+  padding: 0.05rem 3.5rem 0.5rem 3.5rem;
+  color: $custom-button-sec-color;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $darkened-for-white-buttons-color;
+    transition: 0.2s;
+  }
 }
 
 .forgot-password {
-    text-align: center;
-    text-decoration: none;
-    color: $button-green;
+  text-align: center;
+  text-decoration: none;
+  color: $button-green;
+
+  &:hover {
+    text-decoration: underline;
+    transition: 0.2s;
+  }
+}
+
+@media (min-width: screen-size-login(medium)) {
+  main {
+    width: 80%;
+    height: 95%;
+  }
+}
+
+@media (min-height: screen-size-login-vertical()) {
+  body {
+    height: 100vh;
+  }
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error | Deck Learn</title>
+    <link rel="stylesheet" th:href="@{/styles/modules/css/error.css}">
+    <link rel="stylesheet" th:href="@{/styles/modules/css/base_imports.css}">
+    <link rel="icon" th:href="@{/images/favicon.ico}">
+
+</head>
+
+<body>
+  <div th:replace="fragments/left-nav :: left-nav"></div>
+
+  <main class="center-screen">
+
+    <div th:replace="fragments/top-nav :: top-nav"></div>
+
+    <div class="content-container">
+      <div class="content">
+        <div class="error-description">
+          <h1>Oops!</h1>
+          <p>The page you are looking for was not found.</p>
+          <p>Perhaps you can find it in the list below.</p>
+        </div>
+        <div class="error-image">
+          <img class="" th:src="@{/images/error.png}">
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+
+</html>
