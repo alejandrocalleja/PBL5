@@ -54,7 +54,7 @@ public class StudyController {
     StatsCalculator statsCalculator;
 
     @PostMapping("/study/{deckId}")
-    private String studyDeck(@PathVariable("deckId") Integer deckId) {
+    private String studyDeck(@PathVariable("deckId") Integer deckId,  HttpServletRequest req, HttpServletResponse response) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String loggedUser = authentication.getName();
@@ -105,6 +105,12 @@ public class StudyController {
         // Get the card Id and load all the params from DB bc if there is a second time the card is empty
         CardModel card = sessionCardManager.getNextCard();
         Optional<CardModel> optional = cardRepository.findById(card.getId());
+
+        
+        TrainingSessionModel currentTraining = sessionCardManager.getCurrentTrainingSession();
+        // Add sessionId to response header (for testing)
+        response.setHeader("sessionId", String.valueOf(currentTraining.getId()));
+
         if(optional.isPresent()) {
             card = optional.get();
 
@@ -116,7 +122,6 @@ public class StudyController {
         } else {
             return "redirect:/error";
         }
-
     }
 
     @GetMapping("/study/{deckId}/{cardId}")
@@ -155,11 +160,11 @@ public class StudyController {
             TrainingSessionModel currentTraining = sessionCardManager.getCurrentTrainingSession();
             sessionManager.removeSession(loggedUser);
 
-            return "redirect:/study/ststs/" + currentTraining.getId();
+            return "redirect:/study/stats/" + currentTraining.getId();
         }
     }
 
-    @GetMapping("/study/ststs/{trainingSessionId}")
+    @GetMapping("/study/stats/{trainingSessionId}")
     private String getTrainingSessionStats(@PathVariable("trainingSessionId") Integer trainingSessionId, HttpServletRequest req, HttpServletResponse response) {
 
         Optional<TrainingSessionModel> optionalTrainingSession = trainingSessionRepository.findById(trainingSessionId);

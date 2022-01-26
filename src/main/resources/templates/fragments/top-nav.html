@@ -6,6 +6,7 @@
     </form>
 
     <div class="top-nav__profile">
+      <img th:src="${#session.getAttribute('userImg')}" alt="">
       <a th:href="@{/{user}(user=${#httpServletRequest.remoteUser})}" th:inline="text" tabindex="0">
         [[${#httpServletRequest.remoteUser}]]
       </a>

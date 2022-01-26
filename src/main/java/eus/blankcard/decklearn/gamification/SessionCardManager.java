@@ -30,7 +30,6 @@ import eus.blankcard.decklearn.repository.trainingSession.TrainingSessionReposit
 @Scope("prototype")
 public class SessionCardManager {
     private TrainingSessionModel trainingSession;
-    private Buffer buffer;
     private List<CardModel> cards;
     private Map<Integer, List<CardResponseModel>> resultResponseMap;
     private LocalTime cardSendTime;
@@ -56,7 +55,7 @@ public class SessionCardManager {
         System.out.println("Creating a new SessionCardManager for trainingSession " + trainingSession.getId());
 
         resultResponseMap = new HashMap<>();
-        buffer = new Buffer();
+        cards = new ArrayList<>();
 
         loadCards();
         initMap();
@@ -115,15 +114,19 @@ public class SessionCardManager {
 
             prevTraining.getResults().forEach(result -> {
                 int boxNum = result.getBoxNumber();
+                System.out.println("Box number of card " + result.getCard().getId() + ": " + result.getBoxNumber());
                 LocalDate resDate = result.getCardResponses().get(0).getResponseDate().toLocalDate();
 
                 if (boxNum != 0) {
-                    Long daysBetween = Duration.between(resDate, LocalDate.now()).toDays();
+                    Long daysBetween = Duration.between(resDate.atStartOfDay(), LocalDate.now().atStartOfDay()).toDays();
                     CardModel card = result.getCardResponses().get(0).getCard();
+                    System.out.println("days between the response and the card " + daysBetween + " Card: " + card.getId());
 
-                    if (Math.pow(2, boxNum - (double) 1) >= daysBetween) {
+                    if (Math.pow(2, boxNum - (double) 1) <= daysBetween) {
+                        System.out.println("Card required, adding it to the cards");
                         cards.add(card);
                     } else {
+                        System.out.println("The card is not required, putting it on the results of this session");
                         // If the card is not required I pass the previous cardResponses
                         resultResponseMap.put(card.getId(), result.getCardResponses());
                     }
@@ -236,14 +239,6 @@ public class SessionCardManager {
 
     public void setTrainingSessionId(TrainingSessionModel trainingSession) {
         this.trainingSession = trainingSession;
-    }
-
-    public Buffer getBuffer() {
-        return buffer;
-    }
-
-    public void setBuffer(Buffer buffer) {
-        this.buffer = buffer;
     }
 
     public void saveCardResponse(CardModel card, boolean correct) {

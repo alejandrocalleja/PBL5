@@ -1,10 +1,9 @@
 package eus.blankcard.decklearn.controller;
 
-import java.time.LocalDate;
+import java.sql.Time;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,12 +16,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import eus.blankcard.decklearn.models.TrainingModel;
 import eus.blankcard.decklearn.models.deck.DeckModel;
 import eus.blankcard.decklearn.models.user.UserModel;
 import eus.blankcard.decklearn.repository.deck.DeckRepository;
 import eus.blankcard.decklearn.repository.user.UserRepository;
 import eus.blankcard.decklearn.util.DeckCreationUtils;
+import eus.blankcard.decklearn.util.StatsCalculator;
 
 @Controller
 public class DeckController {
@@ -35,6 +34,9 @@ public class DeckController {
 
     @Autowired
     DeckCreationUtils deckCreationUtils;
+
+    @Autowired
+    StatsCalculator statsCalculator;
 
     @GetMapping("/deck/{deckId}")
     public String getMethodName(@PathVariable("deckId") Integer deckId, HttpServletRequest req,
@@ -65,18 +67,19 @@ public class DeckController {
             HttpServletResponse response) {
         DeckModel deck = deckRepository.getById(deckId);
 
+        
+        AtomicInteger monthStudies = statsCalculator.getMonthStudies(deck);
+        int totalStudies = deck.getTrainings().size();
+        Time avgTime = statsCalculator.getAvgResponseTime(deck);
+        int totalSaves = deck.getSavers().size();
+        int averagePass = statsCalculator.getAveragePassRatio(deck);
+        
         req.setAttribute("deck", deck);
-
-        LocalDate now = LocalDate.now();
-        List<TrainingModel> monthTraining = deck.getTrainings().stream()
-                .filter(t -> t.getTrainingDate().toLocalDateTime().getMonthValue() == now.getMonthValue())
-                .collect(Collectors.toCollection(ArrayList::new));
-
-        req.setAttribute("monthStudies", monthTraining.size());
-        req.setAttribute("totalStudies", deck.getTrainings().size());
-        req.setAttribute("avgTime", 1);
-        req.setAttribute("totalSaves", deck.getSavers().size());
-        req.setAttribute("averagePass", 100);
+        req.setAttribute("monthStudies", monthStudies);
+        req.setAttribute("totalStudies", totalStudies);
+        req.setAttribute("avgTime", avgTime);
+        req.setAttribute("totalSaves", totalSaves);
+        req.setAttribute("averagePass", averagePass);
         req.setAttribute("stats", true);
 
         return "/deck/deck_stats";

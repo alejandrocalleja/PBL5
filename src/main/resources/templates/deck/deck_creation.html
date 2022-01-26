@@ -29,7 +29,7 @@
                 <h4>Title:</h4>
 
                 <input type="text" name="title" placeholder="Title" title="Type in a title" class="card-creation__data"
-                  th:value="${deck.title}">
+                  th:value="${deck.title}" required>
               </div>
 
               <div>
@@ -37,7 +37,7 @@
 
                 <textarea name="description" cols="50" rows="1" placeholder="Description"
                   class="card-creation__data card-creation__data__of-hidden"
-                  th:inline="text">[[${deck.description}]]</textarea>
+                  th:inline="text" required>[[${deck.description}]]</textarea>
               </div>
               <button class="creation-button"><img th:src="@{/images/icons/Upload.svg}" alt="">Upload
                 image</button>
