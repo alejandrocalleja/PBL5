@@ -2,6 +2,7 @@ package eus.blankcard.decklearn.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import eus.blankcard.decklearn.models.deck.DeckModel;
 import eus.blankcard.decklearn.models.user.UserModel;
 import eus.blankcard.decklearn.repository.deck.DeckRepository;
 import eus.blankcard.decklearn.repository.user.UserRepository;
+import eus.blankcard.decklearn.util.UserUtils;
 
 @Controller
 public class HomeController {
@@ -27,6 +29,9 @@ public class HomeController {
 
   @Autowired
   DeckRepository deckRepository;
+
+  @Autowired
+  UserUtils userUtils;
 
   @GetMapping("/home")
   public String getHome(HttpServletRequest req, HttpServletResponse response) {
@@ -41,8 +46,14 @@ public class HomeController {
     user.getTrainings().forEach(t -> studySessions.add(t.getDeck()));
     req.setAttribute("study_sessions", studySessions);
 
-    Pageable limit = PageRequest.of(0, 20);
-    req.setAttribute("explore_deck", deckRepository.findAll(limit));
+    Set<DeckModel> followedDecks = userUtils.getFollowingDecks(user);
+
+    if(followedDecks.size() == 0) {
+      Pageable limit = PageRequest.of(0, 20);
+      followedDecks = deckRepository.findAll(limit).toSet();
+    }
+
+    req.setAttribute("explore_deck", followedDecks);
 
     req.setAttribute("home", true);
 
