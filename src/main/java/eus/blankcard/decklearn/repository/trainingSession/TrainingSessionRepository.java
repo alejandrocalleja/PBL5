@@ -1,4 +1,4 @@
-package eus.blankcard.decklearn.repository.trainingSession;
+package eus.blankcard.decklearn.repository.trainingsession;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -50,7 +50,7 @@ public class DeckCreationUtils {
     }
 
     deck.addType(type);
-    type = deckTypeRepository.save(type);
+    deckTypeRepository.save(type);
     deckRepository.save(deck);
   }
 

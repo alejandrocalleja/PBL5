@@ -16,46 +16,45 @@ import org.springframework.util.MultiValueMap;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class SearchTest {
+class SearchTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired
+  private MockMvc mockMvc;
 
-    @Test
-    void shouldCreateMockMvc() throws Exception {
-        assertNotNull(mockMvc);
-    }
+  @Test
+  void shouldCreateMockMvc() throws Exception {
+    assertNotNull(mockMvc);
+  }
 
-    @Test
-    @WithMockUser(username = "testUser", roles = "USER")
-    void shouldReturnSearchResults() throws Exception {
-        String url = "/deck/search";
+  @Test
+  @WithMockUser(username = "testUser", roles = "USER")
+  void shouldReturnSearchResults() throws Exception {
+    String url = "/deck/search";
 
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+    MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
-        String searchName = "girl";
+    String searchName = "girl";
 
-        params.add("searchName", searchName);
+    params.add("searchName", searchName);
 
-        mockMvc.perform(MockMvcRequestBuilders.get(url)
-                .params(params))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+    mockMvc.perform(MockMvcRequestBuilders.get(url)
+        .params(params))
+        .andExpect(MockMvcResultMatchers.status().isOk());
+  }
 
-    
-    @Test
-    @WithMockUser(username = "testUser", roles = "USER")
-    void shoulNotReturnSearchResults() throws Exception {
-        String url = "/deck/search";
+  @Test
+  @WithMockUser(username = "testUser", roles = "USER")
+  void shoulNotReturnSearchResults() throws Exception {
+    String url = "/deck/search";
 
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+    MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
-        String searchName = "";
+    String searchName = "";
 
-        params.add("searchName", searchName);
+    params.add("searchName", searchName);
 
-        mockMvc.perform(MockMvcRequestBuilders.get(url)
-                .params(params))
-                .andExpect(redirectedUrl("/home"));
-    }
+    mockMvc.perform(MockMvcRequestBuilders.get(url)
+        .params(params))
+        .andExpect(redirectedUrl("/home"));
+  }
 }
