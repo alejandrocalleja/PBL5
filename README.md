@@ -1,5 +1,5 @@
 <p align="center">
- <img width="100px" src="https://res.cloudinary.com/anuraghazra/image/upload/v1594908242/logo_ccswme.svg" align="center" alt="GitHub Readme Stats" />
+ <img width="100px" src="https://github.com/alejandrocalleja/PBL5/blob/develop/src/main/resources/static/images/user/decklearn.jpg?raw=true" align="center" alt="GitHub Readme Stats" />
  <h2 align="center">Deck Learn</h2>
  <p align="center">A spaced repetition based learning application</p>
 </p>
