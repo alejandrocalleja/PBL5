@@ -46,10 +46,10 @@
           <a th:href="@{/register}" class="forgot-password">Forgot your password?</a>
         </form>
         <div class="right-part__messages">
-          <p id="error" th:if="${(param.error != null) and (param.error[0] == 'fail')}" th:inline="text">
+          <p id="error" th:if="${(param.handler != null) and (param.handler[0] == 'fail')}" th:inline="text">
             Invalid credentials!
           </p>
-          <p id="success" th:if="${(param.error != null) and (param.error[0] == 'logout')}" th:inline="text">
+          <p id="success" th:if="${(param.handler != null) and (param.handler[0] == 'logout')}" th:inline="text">
             Correctly logged out.
           </p>
         </div>

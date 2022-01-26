@@ -282,13 +282,12 @@ input[type="checkbox"] {
     height: 100%;
     display: flex;
     flex-direction: column; }
+  .settings-selector__screens__list .selected {
+    border-left: #46B6A0 solid 2px; }
   .settings-selector__screens__list a:hover {
     background-color: #DBDFDF;
     border-radius: 0 1.3rem 1.3rem 0;
     transition: 0.2s; }
-
-.selected {
-  border-left: #46B6A0 solid 2px; }
 
 .logout {
   color: #FA4141;

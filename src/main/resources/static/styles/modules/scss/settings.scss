@@ -48,6 +48,9 @@
   }
 
   &__screens__list {
+    .selected {
+      border-left: $decklearn-green solid 2px;
+    }
     a {
       &:hover {
         background-color: $darkened-for-white-buttons-color;
@@ -56,10 +59,6 @@
       }
     }
   }
-}
-
-.selected {
-  border-left: $decklearn-green solid 2px;
 }
 
 .logout {

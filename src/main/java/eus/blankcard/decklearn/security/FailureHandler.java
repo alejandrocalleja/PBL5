@@ -29,6 +29,6 @@ public class FailureHandler implements AuthenticationFailureHandler {
         "error",
         exception.getMessage());
 
-    response.sendRedirect("/login?error=fail");
+    response.sendRedirect("/login?handler=fail");
   }
 }
