@@ -37,7 +37,6 @@ class StudyTest {
 
     String url;
 
-    // /study/6 --- POST
     url = "/study/6";
 
     mockMvc.perform(MockMvcRequestBuilders.post(url)
