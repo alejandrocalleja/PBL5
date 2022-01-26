@@ -1,6 +1,7 @@
 package eus.blankcard.decklearn.controller;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,13 +37,15 @@ public class StatsController {
         AtomicInteger monthStudies = statsCalculator.getMonthStudies(user);
         int savedDecks = user.getSavedDecks().size();
         Time avgTime = statsCalculator.getAvgResponseTime(user);
+        String timeFormat = new SimpleDateFormat("mm:ss").format(avgTime);
+
         int avgPass = statsCalculator.getAveragePassRatio(user);
 
         req.setAttribute("user", user);
         req.setAttribute("totalStudies", totalStudies);
         req.setAttribute("studiesMonth", monthStudies);
         req.setAttribute("saves", savedDecks);
-        req.setAttribute("avgTime", avgTime);
+        req.setAttribute("avgTime", timeFormat);
         req.setAttribute("averagePass", avgPass);
         req.setAttribute("stats", true);
 

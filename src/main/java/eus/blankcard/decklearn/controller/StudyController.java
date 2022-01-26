@@ -1,6 +1,7 @@
 package eus.blankcard.decklearn.controller;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -174,14 +175,18 @@ public class StudyController {
             DeckModel deck = trainingSession.getTraining().getDeck();
     
             Time totalStudyTime = statsCalculator.getTotalStudyTime(trainingSession);
+            String studyTimeFormat = new SimpleDateFormat("mm:ss").format(totalStudyTime);
+
             Time avgResponseTime = statsCalculator.getAvgResponseTime(trainingSession);
+            String avgFormat = new SimpleDateFormat("mm:ss").format(avgResponseTime);
+            
             int totalSessions = trainingSession.getTraining().getTrainingSessions().size();
             int passRatio = statsCalculator.getPassRatio(trainingSession);
             float gradeChange = statsCalculator.getGradeChange(trainingSession, passRatio);
     
             req.setAttribute("deck", deck);
-            req.setAttribute("totalStudyTime", totalStudyTime.toString());
-            req.setAttribute("avgResponseTime", avgResponseTime.toString());
+            req.setAttribute("totalStudyTime", studyTimeFormat);
+            req.setAttribute("avgResponseTime", avgFormat);
             req.setAttribute("totalSessions", totalSessions);
             req.setAttribute("passRatio", passRatio);
             req.setAttribute("gradeChange", gradeChange);

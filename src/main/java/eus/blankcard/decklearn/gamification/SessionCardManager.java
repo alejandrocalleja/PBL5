@@ -32,7 +32,7 @@ public class SessionCardManager {
     private TrainingSessionModel trainingSession;
     private List<CardModel> cards;
     private Map<Integer, List<CardResponseModel>> resultResponseMap;
-    private LocalTime cardSendTime;
+    private LocalDateTime cardSendTime;
 
     @Autowired
     CardResponseRepository cardResponseRepository;
@@ -210,7 +210,8 @@ public class SessionCardManager {
         long totalMilis = 0;
 
         for(CardResponseModel cardResponse : v) {
-            LocalTime responseTime = cardResponse.getResponseTime().toLocalTime();
+            LocalTime resTim = cardResponse.getResponseTime().toLocalTime();
+            LocalDateTime responseTime = LocalDateTime.of(LocalDate.now(), resTim);
 
             long sec = responseTime.getSecond();
             long min = responseTime.getMinute();
@@ -222,7 +223,7 @@ public class SessionCardManager {
         long milisMean = totalMilis / v.size();
 
         // - 1h bc Time adds an hour depending on your GTM
-        milisMean -= 3600000;
+        // milisMean -= 3600000;
 
         Time time = new Time(milisMean);
 
@@ -240,7 +241,7 @@ public class SessionCardManager {
     }
 
     public void saveCardResponse(CardModel card, boolean correct) {
-        LocalTime cardReciveTime = LocalTime.now();
+        LocalDateTime cardReciveTime = LocalDateTime.now();
 
         Time responseTime = calculateTimeDifference(cardReciveTime, cardSendTime);
 
@@ -270,7 +271,7 @@ public class SessionCardManager {
             cards.remove(card);
         }
 
-        cardSendTime = LocalTime.now();
+        cardSendTime = LocalDateTime.now();
 
         return card;
     }
@@ -279,7 +280,7 @@ public class SessionCardManager {
         return cards.size() > 0;
     }
 
-    private Time calculateTimeDifference(LocalTime closestTime, LocalTime otherTime) {
+    private Time calculateTimeDifference(LocalDateTime closestTime, LocalDateTime otherTime) {
 
         System.out.println("Card show moment: " + otherTime.toString());
         System.out.println("Card response moment: " + closestTime.toString());

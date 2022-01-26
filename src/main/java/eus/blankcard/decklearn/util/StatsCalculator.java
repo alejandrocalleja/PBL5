@@ -2,6 +2,7 @@ package eus.blankcard.decklearn.util;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,8 @@ public class StatsCalculator {
 
         for (ResultsModel result : results) {
             for (CardResponseModel cardResponse : result.getCardResponses()) {
-                LocalTime responseTime = cardResponse.getResponseTime().toLocalTime();
+                LocalTime resTim = cardResponse.getResponseTime().toLocalTime();
+                LocalDateTime responseTime = LocalDateTime.of(LocalDate.now(), resTim);
 
                 long sec = responseTime.getSecond();
                 long min = responseTime.getMinute();
@@ -38,7 +40,7 @@ public class StatsCalculator {
         }
 
         // - 1h bc Time adds an hour depending on your GTM
-        totalMilis -= 3600000;
+        // totalMilis -= 3600000;
 
         Time totalTime = new Time(totalMilis);
 
@@ -55,7 +57,8 @@ public class StatsCalculator {
         long milisMean = 0;
 
         for (CardResponseModel cardResponse : cardResponses) {
-            LocalTime responseTime = cardResponse.getResponseTime().toLocalTime();
+            LocalTime resTim = cardResponse.getResponseTime().toLocalTime();
+            LocalDateTime responseTime = LocalDateTime.of(LocalDate.now(), resTim);
 
             long sec = responseTime.getSecond();
             long min = responseTime.getMinute();
@@ -68,7 +71,7 @@ public class StatsCalculator {
             milisMean = totalMilis / cardResponses.size();
 
             // - 1h bc Time adds an hour depending on your GTM
-            milisMean -= 3600000;
+            // milisMean -= 3600000;
         }
 
         Time time = new Time(milisMean);
@@ -161,8 +164,9 @@ public class StatsCalculator {
         }
 
         for (Time time : avgResponseTimes) {
-            LocalTime responseTime = time.toLocalTime();
-
+            LocalTime resTim = time.toLocalTime();
+            LocalDateTime responseTime = LocalDateTime.of(LocalDate.now(), resTim);
+            
             long sec = responseTime.getSecond();
             long min = responseTime.getMinute();
 
@@ -174,7 +178,7 @@ public class StatsCalculator {
             milisMean = totalMilis / avgResponseTimes.size();
 
             // - 1h bc Time adds an hour depending on your GTM
-            milisMean -= 3600000;
+            // milisMean -= 3600000;
         }
 
         Time time = new Time(milisMean);
@@ -224,7 +228,8 @@ public class StatsCalculator {
         }
 
         for (Time time : avgResponseTimes) {
-            LocalTime responseTime = time.toLocalTime();
+            LocalTime resTim = time.toLocalTime();
+            LocalDateTime responseTime = LocalDateTime.of(LocalDate.now(), resTim);
 
             long sec = responseTime.getSecond();
             long min = responseTime.getMinute();
@@ -237,7 +242,7 @@ public class StatsCalculator {
             milisMean = totalMilis / avgResponseTimes.size();
 
             // - 1h bc Time adds an hour depending on your GTM
-            milisMean -= 3600000;
+            // milisMean -= 3600000;
         }
 
         Time time = new Time(milisMean);
