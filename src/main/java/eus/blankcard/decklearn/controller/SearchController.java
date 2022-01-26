@@ -29,7 +29,7 @@ public class SearchController {
     public String getSearchResults(HttpServletRequest req, HttpServletResponse response) {
         String title = (String) req.getParameter("searchName");
 
-        String strippedTitle = title.strip();
+        String strippedTitle = title.trim();
 
         if(strippedTitle.equals("")) {
             return "redirect:/home";
