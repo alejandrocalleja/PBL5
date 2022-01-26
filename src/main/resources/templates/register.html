@@ -2,59 +2,62 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | Deck Learn</title>
-    <link th:href=@{/styles/modules/css/register.css} rel="stylesheet" />
-    <link rel="icon" th:href="@{/images/favicon.ico}">
-    <script th:src="@{/js/password.js}"></script>
-    <!-- Hotjar Tracking Code for https://decklearn.eus/register -->
-    <script>
-        (function(h,o,t,j,a,r){
-            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:2797889,hjsv:6};
-            a=o.getElementsByTagName('head')[0];
-            r=o.createElement('script');r.async=1;
-            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-    </script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | Deck Learn</title>
+  <link th:href=@{/styles/modules/css/register.css} rel="stylesheet" />
+  <link rel="icon" th:href="@{/images/favicon.ico}">
+  <script th:src="@{/js/password.js}"></script>
+  <!-- Hotjar Tracking Code for https://decklearn.eus/register -->
+  <script>
+    (function (h, o, t, j, a, r) {
+      h.hj = h.hj || function () { (h.hj.q = h.hj.q || []).push(arguments) };
+      h._hjSettings = { hjid: 2797889, hjsv: 6 };
+      a = o.getElementsByTagName('head')[0];
+      r = o.createElement('script'); r.async = 1;
+      r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+  </script>
 </head>
 
 <body>
-    <main>
-        <div class="left-part">
-            <div class="left-part__inside">
-                <img th:src="@{images/svg/Cards_NEGATIVE.svg}" alt="Deck learn logo">
-                <form th:action="@{/register}" method="post" class="flexed-form">
-                    <div class="inputs">
-                        <input title="Name" type="text" class="custom-input" placeholder="Name" name="name" required>
-                        <input title="Surname" type="text" class="custom-input" placeholder="Surname" name="surname" required>
-                        <input title="Email" type="email" class="custom-input" placeholder="Email" name="email" required>
-                        <input title="Username" type="text" class="custom-input" placeholder="Username" name="username" required>
-                        <input title="Purpose" type="text" class="custom-input" placeholder="Purpose" name="purpose" required>
-                        <input title="Birth date" type="date" class="custom-input" placeholder="Birth date" name="birthDate" required>
-                        <input title="Country" type="text" autocomplete="country-name" class="custom-input" placeholder="Country"
-                            name="country" required>
-                        <input title="Postal code" type="text" class="custom-input" placeholder="Postal code" name="postalCode" required>
-                        <input title="Password" type="password" class="custom-input" placeholder="Password" name="password" id="passwordField" required>
-                        <input title="Confirm Password" type="password" class="custom-input" placeholder="Confirm Password" id="passwordConfirmField" required>
-                        <div class="checkboxes">
-                            <div class="bordered-checkbox">
-                                <input type="checkbox" id="check2" th:onclick="changeBothVisivility()">
-                                <label for="check2"></label>
-                            </div>
-                            <label for="">Show password</label>
-                        </div>
-                    </div>
-                    <input type="submit" class="custom-submit" value="Register">
-                </form>
+  <main>
+    <div class="left-part">
+      <div class="left-part__inside">
+        <img th:src="@{images/svg/Cards_NEGATIVE.svg}" alt="Deck learn logo">
+        <form th:action="@{/register}" method="post" class="flexed-form">
+          <div class="inputs">
+            <input title="Name" type="text" class="custom-input" placeholder="Name" name="name" required>
+            <input title="Surname" type="text" class="custom-input" placeholder="Surname" name="surname" required>
+            <input title="Email" type="email" class="custom-input" placeholder="Email" name="email" required>
+            <input title="Username" type="text" class="custom-input" placeholder="Username" name="username" required>
+            <input title="Purpose" type="text" class="custom-input" placeholder="Purpose" name="purpose" required>
+            <input title="Birth date" type="date" class="custom-input" placeholder="Birth date" name="birthDate"
+              required>
+            <input title="Country" type="text" autocomplete="country-name" class="custom-input" placeholder="Country"
+              name="country" required>
+            <input title="Postal code" type="text" class="custom-input" placeholder="Postal code" name="postalCode"
+              required>
+            <input title="Password" type="password" class="custom-input" placeholder="Password" name="password"
+              id="passwordField" required>
+            <input title="Confirm Password" type="password" class="custom-input" placeholder="Confirm Password"
+              id="passwordConfirmField" required>
+            <div class="checkboxes">
+              <div class="bordered-checkbox">
+                <input type="checkbox" id="check2" th:onclick="changeBothVisivility()">
+                <label for="check2"></label>
+              </div>
+              <label for="">Show password</label>
             </div>
           </div>
           <input type="submit" class="custom-submit" value="Register">
         </form>
       </div>
+    </div>
+    </form>
+    </div>
     </div>
     <div class="right-part">
     </div>

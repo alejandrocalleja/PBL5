@@ -24,14 +24,14 @@
 
 <body>
   <main>
-    <div class="left-part">
-    </div>
+    <div class="left-part"></div>
     <div class="right-part">
       <div class="right-part__inside">
         <img th:src="@{images/svg/Cards_NEGATIVE.svg}" alt="Deck learn logo">
         <form th:action="@{/login}" method="post" class="inputs">
           <input title="username" type="text" class="custom-input" placeholder="username" name="username" required>
-          <input title="password" type="password" class="custom-input" placeholder="password" name="password" id="passwordField" required>
+          <input title="password" type="password" class="custom-input" placeholder="password" name="password"
+            id="passwordField" required>
           <div class="checkboxes">
             <div>
               <div class="bordered-checkbox" id="checkbox2">
@@ -45,6 +45,14 @@
           <a th:href="@{/register}" class="custom-button">Sign in</a>
           <a th:href="@{/register}" class="forgot-password">Forgot your password?</a>
         </form>
+        <div class="right-part__messages">
+          <p id="error" th:if="${(param.error != null) and (param.error[0] == 'fail')}" th:inline="text">
+            Invalid credentials!
+          </p>
+          <p id="success" th:if="${(param.error != null) and (param.error[0] == 'logout')}" th:inline="text">
+            Correctly logged out.
+          </p>
+        </div>
       </div>
     </div>
   </main>
