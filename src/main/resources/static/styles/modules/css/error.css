@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'Sans Forgetica Regular';
+  src: local("Sans Forgetica Regular"), url("../../../font/SansForgetica-Regular.woff") format("woff"); }
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-around;
+  align-items: center; }
+  .content img {
+    box-sizing: border-box;
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem 0.5rem 0 0; }
+
+.error-description {
+  text-align: center; }
+  .error-description h1 {
+    font-size: 5rem; }
+  .error-description p {
+    font-size: 1.5rem;
+    text-align: center; }
+
+.error-image {
+  width: auto; }
+
+@media (min-width: 1024px) {
+  .content img {
+    height: 100%;
+    width: auto; } }

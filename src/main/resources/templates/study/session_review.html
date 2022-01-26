@@ -13,77 +13,75 @@
 </head>
 
 <body th:onload="setStats(${averagePass})">
-    <div th:replace="fragments/left-nav :: left-nav"></div>
+  <div th:replace="fragments/left-nav :: left-nav"></div>
 
-    <main class="center-screen">
-        <div th:replace="fragments/top-nav :: top-nav"></div>
+  <main class="center-screen">
+    <div th:replace="fragments/top-nav :: top-nav"></div>
 
-        <section class="content-container">
-            <section class="content">
-                <section class="stats-section">
-                    <h2>Session review</h2>
-                    <div class="titled-stats-section__list">
-                        <h2 th:inline="text">[[${deck.title}]]</h2>
-                        <div class="stats-section__list">
-                            <div class="stats-card__list">
-                                <div class="stats-card">
-                                    <h3>Grade change today</h3>
-                                    <div class="stats-card__content special">
-                                        <p id="grade-change" th:inline="text"
-                                            th:style="${up} ? 'color:#4abb15' : 'color:#cd0101'">[[${gradeChange}]]%</p>
+    <section class="content-container">
+      <section class="content">
+        <section class="stats-section">
+          <h1>Session review</h1>
+          <div class="titled-stats-section__list">
+            <h2 th:inline="text">[[${deck.title}]]</h2>
+            <div class="stats-section__list">
+              <div class="stats-card__list">
+                <div class="stats-card">
+                  <h3>Grade change today</h3>
+                  <div class="stats-card__content special">
+                    <p id="grade-change" th:inline="text" th:style="${up} ? 'color:#4abb15' : 'color:#cd0101'">
+                      [[${gradeChange}]]%</p>
 
-                                        <img alt="" th:src="@{/images/icons/GradeUP.svg}"
-                                            th:style="${up} ? '' : 'display:none'">
-                                        <img alt="" th:src="@{/images/icons/GradeDOWN.svg}"
-                                            th:style="${down} ? '' : 'display:none'">
-                                    </div>
-                                    <p class="stats-card__decoration"> </p>
-                                </div>
+                    <img alt="" th:src="@{/images/icons/GradeUP.svg}" th:style="${up} ? '' : 'display:none'">
+                    <img alt="" th:src="@{/images/icons/GradeDOWN.svg}" th:style="${down} ? '' : 'display:none'">
+                  </div>
+                  <p class="stats-card__decoration"> </p>
+                </div>
 
-                                <div class="stats-card">
-                                    <h3>Total study time</h3>
-                                    <div class="stats-card__content">
-                                        <p th:inline="text">[[${totalStudyTime}]]</p>
-                                    </div>
-                                    <p class="stats-card__decoration"> </p>
-                                </div>
+                <div class="stats-card">
+                  <h3>Total study time</h3>
+                  <div class="stats-card__content">
+                    <p th:inline="text">[[${totalStudyTime}]]</p>
+                  </div>
+                  <p class="stats-card__decoration"> </p>
+                </div>
 
-                                <div class="stats-card">
-                                    <h3>Average response time</h3>
-                                    <div class="stats-card__content">
-                                        <p th:inline="text">[[${avgResponseTime}]]</p>
-                                        <img th:src="@{/images/icons/Timer.svg}" alt="">
-                                    </div>
-                                    <p class="stats-card__decoration"> </p>
-                                </div>
+                <div class="stats-card">
+                  <h3>Average response time</h3>
+                  <div class="stats-card__content">
+                    <p th:inline="text">[[${avgResponseTime}]]</p>
+                    <img th:src="@{/images/icons/Timer.svg}" alt="">
+                  </div>
+                  <p class="stats-card__decoration"> </p>
+                </div>
 
-                                <div class="stats-card">
-                                    <h3>Total sessions</h3>
-                                    <div class="stats-card__content">
-                                        <p th:inline="text">[[${totalSessions}]]</p>
-                                        <img th:src="@{/images/icons/book.svg}" alt="">
-                                    </div>
-                                    <p class="stats-card__decoration"> </p>
-                                </div>
-                            </div>
+                <div class="stats-card">
+                  <h3>Total sessions</h3>
+                  <div class="stats-card__content">
+                    <p th:inline="text">[[${totalSessions}]]</p>
+                    <img th:src="@{/images/icons/book.svg}" alt="">
+                  </div>
+                  <p class="stats-card__decoration"> </p>
+                </div>
+              </div>
 
-                            <div class="stats-graphic">
-                                <h3 class="stats-graphic__title">Pass ratio</h3>
-                                <div id="graph1" class="donut-chart chart1">
-                                    <div id="graph_part1" class="slice one"></div>
-                                    <div id="graph_part2" class="slice two"></div>
-                                    <div class="chart-center">
-                                        <span id="texto" th:data-after="${passRatio}"></span>
-                                    </div>
-                                </div>
-                                <a tabindex="0" th:href="@{/home}">Return to home</a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </section>
+              <div class="stats-graphic">
+                <h3 class="stats-graphic__title">Pass ratio</h3>
+                <div id="graph1" class="donut-chart chart1">
+                  <div id="graph_part1" class="slice one"></div>
+                  <div id="graph_part2" class="slice two"></div>
+                  <div class="chart-center">
+                    <span id="texto" th:data-after="${passRatio}"></span>
+                  </div>
+                </div>
+                <a tabindex="0" th:href="@{/home}">Return to home</a>
+              </div>
+            </div>
+          </div>
         </section>
-    </main>
+      </section>
+    </section>
+  </main>
 </body>
 
 </html>

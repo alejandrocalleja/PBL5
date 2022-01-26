@@ -11,32 +11,31 @@
 </head>
 
 <body>
-    <div th:replace="fragments/left-nav :: left-nav"></div>
+  <div th:replace="fragments/left-nav :: left-nav"></div>
 
-    <main class="center-screen">
-        <div th:replace="fragments/top-nav :: top-nav"></div>
+  <main class="center-screen">
+    <div th:replace="fragments/top-nav :: top-nav"></div>
 
-        <div class="content-container">
-            <section class="content">
-                <h2>Studying: French Revolution</h2>
+    <div class="content-container">
+      <section class="content">
+        <h1>Studying: French Revolution</h2>
 
-                <div class="card-view">
-                    <div class="card-content">
-                        <p class="card-content__question" th:inline="text">[[${card.question}]]</p>
-                        <p class="card-content__answer" th:inline="text">[[${card.answer}]]</p>
-                        <div class="card-content__buttons">
-                            <form th:action="@{/study/{deckId}/{cardId}(deckId=${deck.id}, cardId=${card.id})}"
-                                method="post">
-                                <input class="card-content__buttons-pass" type="submit" name="response" value="pass">
-                                <input class="card-content__buttons-fail" type="submit" name="response" value="fail">
-                            </form>
-                        </div>
-                    </div>
-                </div>
+          <div class="card-view">
+            <div class="card-content">
+              <p class="card-content__question" th:inline="text">[[${card.question}]]</p>
+              <p class="card-content__answer" th:inline="text">[[${card.answer}]]</p>
+              <div class="card-content__buttons">
+                <form th:action="@{/study/{deckId}/{cardId}(deckId=${deck.id}, cardId=${card.id})}" method="post">
+                  <input class="card-content__buttons-pass" type="submit" name="response" value="pass">
+                  <input class="card-content__buttons-fail" type="submit" name="response" value="fail">
+                </form>
+              </div>
+            </div>
+          </div>
 
-            </section>
-        </div>
-    </main>
+      </section>
+    </div>
+  </main>
 </body>
 
 </html>

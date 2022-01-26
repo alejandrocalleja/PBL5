@@ -51,7 +51,7 @@ body {
     padding: 0.5rem 0.5rem 0.5rem 0.5rem;
     text-decoration: none;
     color: #FFFFFF;
-    border-radius: 1.3rem; }
+    border-radius: 50%; }
     .nav-bar__list > li > a:hover {
       background-color: #007e68;
       transition: 0.4s; }
@@ -102,19 +102,38 @@ body {
       font-weight: 500;
       font-size: 1.2rem;
       text-decoration: none;
+      color: black;
       cursor: pointer; }
+
+.logout {
+  color: #FA4141;
+  justify-content: center;
+  display: flex;
+  gap: 0.5rem;
+  height: 3rem;
+  border-radius: 50%;
+  padding: 0.3rem; }
+  .logout > p {
+    font-weight: 500;
+    font-size: 1.1rem; }
+  .logout:hover {
+    background-color: #DBDFDF;
+    border-radius: 1.3rem;
+    transition: 0.2s; }
 
 .search-bar {
   width: 50%; }
   .search-bar > input {
     min-height: 3rem;
+    width: 100%;
     margin: 0;
     border-radius: 4rem;
     border: 1px solid #BAB8B8;
     background-image: url("/images/icons/search.svg");
     background-position: 10px 12px;
     background-repeat: no-repeat;
-    padding-left: 3rem; }
+    padding-left: 3rem;
+    padding-right: 1rem; }
 
 ::placeholder {
   font-size: 1.2rem; }
@@ -154,14 +173,15 @@ body {
 
 @media (min-width: 1307px) {
   .left-nav {
-    padding: 0; }
+    padding: 0.5rem; }
   body {
     grid-template-columns: 1fr 6fr;
     grid-template-areas: none; }
   .nav-bar__list {
     align-items: normal; }
     .nav-bar__list li > a {
-      padding: 0.5rem 0.5rem 0.5rem 0.7rem; }
+      padding: 0.5rem 0.5rem 0.5rem 0.7rem;
+      border-radius: 1.3rem; }
       .nav-bar__list li > a > span {
         padding: 0.2rem 0.2rem 0.2rem 0.5rem;
         display: inline-block; } }
@@ -247,7 +267,7 @@ body {
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   border-bottom: 1px solid #BAB8B8;
   padding: 1rem; }
   .top-nav__profile {
@@ -262,11 +282,15 @@ body {
       font-weight: 500;
       font-size: 1.2rem;
       text-decoration: none;
+      color: black;
       cursor: pointer; }
 
 .profile__top-title {
-  border-bottom: #BAB8B8 1px solid;
-  padding: 0.1rem; }
+  display: flex;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  border-bottom: 1px solid #BAB8B8; }
 
 .profile-data {
   padding-top: 1.5rem;
@@ -353,5 +377,6 @@ body {
     .profile-data__button {
       display: flex;
       padding-bottom: 1rem; }
-  .user-name h3, .user-name h2 {
+  .user-name h3,
+  .user-name h2 {
     text-align: left; } }

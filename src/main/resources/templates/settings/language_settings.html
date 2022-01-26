@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title th:inline="text"> [[${user.username}]] Language Settings | Deck Learn </title>
+  <link rel="stylesheet" th:href="@{/styles/modules/css/home.css}">
   <link rel="stylesheet" th:href="@{/styles/modules/css/settings.css}">
   <link rel="icon" th:href="@{/images/favicon.ico}">
 </head>
@@ -37,7 +38,7 @@
               </div>
               <div class="settings-selector__logout">
                 <nav>
-                  <a th:href="@{/logout}" id="logout">
+                  <a th:href="@{/logout}" class="logout">
                     <img th:src="@{/images/icons/Log_out.svg}" alt="">
                     <p>Log out</p>
                   </a>
@@ -67,7 +68,7 @@
                     <input type="radio" name="lang" value="fr" id="radio4" class="custom-radio">
                     <label for="radio4"></label>
                   </div>
-                  <input type="" class="altered-custom-submit" value="Save settings">
+                  <input type="submit" class="altered-custom-submit" value="Save settings">
                 </form>
               </div>
             </div>

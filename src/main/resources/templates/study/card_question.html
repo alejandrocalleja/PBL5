@@ -11,24 +11,24 @@
 </head>
 
 <body>
-    <div th:replace="fragments/left-nav :: left-nav"></div>
+  <div th:replace="fragments/left-nav :: left-nav"></div>
 
-    <main class="center-screen">
-        <div th:replace="fragments/top-nav :: top-nav"></div>
+  <main class="center-screen">
+    <div th:replace="fragments/top-nav :: top-nav"></div>
 
-        <div class="content-container">
-            <section class="content">
-                <h2 th:inline="text">Studying: [[${deck.title}]]</h2>
+    <div class="content-container">
+      <section class="content">
+        <h1 th:inline="text">Studying: [[${deck.title}]]</h1>
 
-                <div class="card-view">
-                    <div class="card-content">
-                        <p class="card-content__question" th:inline="text">[[${card.question}]]</p>
-                        <a th:href="@{/study/{deckId}/{cardId}(deckId=${deck.id}, cardId=${card.id})}">View answer</a>
-                    </div>
-                </div>
-            </section>
+        <div class="card-view">
+          <div class="card-content">
+            <p class="card-content__question" th:inline="text">[[${card.question}]]</p>
+            <a th:href="@{/study/{deckId}/{cardId}(deckId=${deck.id}, cardId=${card.id})}">View answer</a>
+          </div>
         </div>
-    </main>
+      </section>
+    </div>
+  </main>
 </body>
 
 </html>

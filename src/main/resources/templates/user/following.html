@@ -5,8 +5,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deck Learn</title>
+  <title>[[${type}]] | Deck Learn</title>
   <link rel="stylesheet" th:href="@{/styles/modules/css/following.css}">
+  <link rel="stylesheet" th:href="@{/styles/modules/css/profile_visit.css}">
   <link rel="icon" th:href="@{/images/favicon.ico}">
 </head>
 
@@ -20,10 +21,10 @@
 
     <div class="content-container">
       <section class="content">
-        <h2>Following</h2>
+        <h1 th:inline="text">[[${type}]]</h1>
         <div class="container__following">
 
-          <div class="following__card" th:each="follower: ${followers}">
+          <div class="following__card" th:each="follower: ${loggedUserFollowing}">
             <a class="following__content" th:href="@{/{username}(username=${follower.username})}">
               <img class="card__img" th:src="@{{username}(username=${follower.imgPath})}" alt="">
               <div class="card__data">
@@ -42,7 +43,34 @@
               </div>
             </a>
             <div class="card__input">
-              <a href="" class="custom-button selectable">Following</a>
+              <form th:action="@{/{username}/follow(username=${follower.username})}" method="post">
+                <input type="submit" class="button-following button-follow" tabindex="0" name="follow"
+                  value="Following">
+              </form>
+            </div>
+          </div>
+          <div class="following__card" th:each="follower: ${loggedUserNotFollowing}">
+            <a class="following__content" th:href="@{/{username}(username=${follower.username})}">
+              <img class="card__img" th:src="@{{username}(username=${follower.imgPath})}" alt="">
+              <div class="card__data">
+                <div class="data__user">
+                  <h2 th:inline="text">[[${follower.name}]]</h2>
+                  <h3 th:inline="text">[[${follower.username}]]</h3>
+                </div>
+                <div class="data__follow">
+                  <a th:href="@{/{username}/following(username=${follower.username})}">
+                    <p> <span th:inline="text">[[${follower.followed.size}]]</span> Following</p>
+                  </a>
+                  <a th:href="@{/{username}/followers(username=${follower.username})}">
+                    <p> <span th:inline="text">[[${follower.followers.size}]]</span> Followers</p>
+                  </a>
+                </div>
+              </div>
+            </a>
+            <div class="card__input">
+              <form th:action="@{/{username}/follow(username=${follower.username})}" method="post">
+                <input type="submit" class="button-following button-follow" tabindex="0" name="follow" value="Follow">
+              </form>
             </div>
           </div>
 

@@ -12,32 +12,32 @@
 </head>
 
 <body>
-    <div th:replace="fragments/left-nav :: left-nav"></div>
+  <div th:replace="fragments/left-nav :: left-nav"></div>
 
-    <main class="center-screen">
+  <main class="center-screen">
 
-        <div th:replace="fragments/top-nav :: top-nav"></div>
+    <div th:replace="fragments/top-nav :: top-nav"></div>
 
-        <section class="content">
-            <section class="card-section">
-                <h2 th:inline="text">[[${pageName}]]</h2>
+    <section class="content">
+      <section class="card-section">
+        <h1 th:inline="text">[[${pageName}]]</h1>
 
-                <div class="card-section__list">
-                    <div class="card" th:each="deck: ${decks}">
-                        <div class="card-content">
-                            <img class="" th:src="${deck.imgPath}"></img>
-                            <div>
-                                <h3 th:inline="text">[[${deck.title}]]</h3>
-                                <span th:text="${deck.description}"></span>
-                            </div>
-                        </div>
-                        <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
-                    </div>
+        <div class="card-section__list">
+          <div class="card" th:each="deck: ${decks}">
+            <div class="card-content">
+              <img class="" th:src="${deck.imgPath}">
+              <div>
+                <h3 th:inline="text">[[${deck.title}]]</h3>
+                <span th:text="${deck.description}"></span>
+              </div>
+            </div>
+            <a th:href="@{/deck/{id}(id=${deck.id})}">View</a>
+          </div>
 
-                </div>
-            </section>
-        </section>
-    </main>
+        </div>
+      </section>
+    </section>
+  </main>
 </body>
 
 </html>
