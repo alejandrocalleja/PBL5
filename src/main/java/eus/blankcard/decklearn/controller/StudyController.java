@@ -199,6 +199,5 @@ public class StudyController {
         } else {
             return "redirect:/error";
         }
-
     }
 }
