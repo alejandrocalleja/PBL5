@@ -67,7 +67,6 @@ public class DeckController {
     public String getDeckStats(@PathVariable("deckId") Integer deckId, HttpServletRequest req,
             HttpServletResponse response) {
         DeckModel deck = deckRepository.getById(deckId);
-
         
         AtomicInteger monthStudies = statsCalculator.getMonthStudies(deck);
         int totalStudies = deck.getTrainings().size();
