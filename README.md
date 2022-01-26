@@ -37,4 +37,19 @@ explains the development of the product, named DeckLearn, as well as its impact 
 established objectives and working hypotheses.
 
 ## Used technologies
+* [![image](https://img.shields.io/badge/Spring_Boot-F2F4F9?style=for-the-badge&logo=spring-boot)](https://spring.io/projects/spring-boot)
+* [Thymeleaf](https://www.thymeleaf.org/)
+* [![image](https://img.shields.io/badge/Hibernate-59666C?style=for-the-badge&logo=Hibernate&logoColor=white)](https://hibernate.org/)
+* [![image](https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white)](https://www.jenkins.io/)
+* [![image](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)](https://www.nginx.com/)
+* [Sonarqube](https://www.sonarqube.org/)
 
+
+## CI/CD
+
+## 
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
