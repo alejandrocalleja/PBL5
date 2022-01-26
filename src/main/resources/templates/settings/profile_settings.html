@@ -48,10 +48,6 @@
             <div class="settings-central">
               <div class="profile-photo">
                 <img class="profile-photo__image" th:src="${user.imgPath}" th:alt="${user.username}">
-                <div>
-                  <p>Profile photo: </p>
-                  <button class="profile-photo__button">Edit</button>
-                </div>
               </div>
               <div class="user-data-form">
                 <form th:action="@{/settings/profile}" class="grided-form" method="post">
