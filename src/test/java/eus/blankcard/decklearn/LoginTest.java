@@ -77,7 +77,7 @@ class LoginTest {
     mockMvc.perform(MockMvcRequestBuilders.post(url)
         .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken())
         .params(params))
-        .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+        .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
   }
 
   @Test
@@ -99,6 +99,6 @@ class LoginTest {
     mockMvc.perform(MockMvcRequestBuilders.post(url)
         .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken())
         .params(params))
-        .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+        .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
   }
 }

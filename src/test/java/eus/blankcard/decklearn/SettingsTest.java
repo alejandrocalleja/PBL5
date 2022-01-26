@@ -64,7 +64,7 @@ class SettingsTest {
     String url = "/logout";
 
     mockMvc.perform(MockMvcRequestBuilders.get(url))
-        .andExpect(redirectedUrl("/login?logout"));
+        .andExpect(redirectedUrl("/login?handler=logout"));
   }
 
   @Test
