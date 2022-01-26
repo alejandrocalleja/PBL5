@@ -269,7 +269,7 @@ body {
 .deck-creation {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: flex-start;
   gap: 1rem; }
 

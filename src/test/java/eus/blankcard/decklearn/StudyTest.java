@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class StudyTest {
+class StudyTest {
 
   @Autowired
   private MockMvc mockMvc;
@@ -39,7 +39,7 @@ public class StudyTest {
 
     // /study/6 --- POST
     url = "/study/6";
-    
+
     mockMvc.perform(MockMvcRequestBuilders.post(url)
         .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(), csrfToken.getToken()))
         .andExpect(redirectedUrl("/study/6"));
@@ -65,7 +65,6 @@ public class StudyTest {
         .param("response", "pass"))
         .andExpect(redirectedUrl("/study/stats/" + sessionId));
 
-    
     // /study/stats/sessionId --- GET
     url = "/study/stats/" + sessionId;
     mockMvc.perform(MockMvcRequestBuilders.get(url)
