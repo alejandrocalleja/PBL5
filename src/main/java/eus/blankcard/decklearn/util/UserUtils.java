@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import eus.blankcard.decklearn.models.deck.DeckModel;
 import eus.blankcard.decklearn.models.user.UserModel;
 
 @Component
@@ -18,4 +19,7 @@ public class UserUtils {
     return targetList.stream().filter(user -> loggedUser.getFollowed().contains(user)).collect(Collectors.toSet());
   }
 
+  public Set<DeckModel> getFollowingDecks(UserModel loggedUser) {
+    return loggedUser.getFollowed().stream().map(user -> user.getDecks()).flatMap(Set::stream).collect(Collectors.toSet());
+  }
 }

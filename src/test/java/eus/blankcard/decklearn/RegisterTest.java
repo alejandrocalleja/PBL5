@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,6 +21,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import eus.blankcard.decklearn.models.user.UserModel;
+import eus.blankcard.decklearn.repository.user.UserRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -27,6 +29,12 @@ class RegisterTest {
 
   @Autowired
   private MockMvc mockMvc;
+
+  @Autowired
+  UserRepository userRepository;
+
+  @Autowired
+  private BCryptPasswordEncoder encoder;
 
   @Test
   void shouldCreateMockMvc() {
@@ -63,11 +71,12 @@ class RegisterTest {
     String name = "MVC";
     String surname = "Test";
     String email = "mvctest@decklearn.eus";
-    String username = "testRegister";
+    String username = encoder.encode("testRegister");
+    username = username.substring(0, Math.min(username.length(), 10));
     String purpose = "Testing";
     String country = "World";
     String postalCode = "01234";
-    String password = "testPass";
+    String password = encoder.encode("testPass");
 
     params.add("name", name);
     params.add("surname", surname);
@@ -77,9 +86,6 @@ class RegisterTest {
     params.add("country", country);
     params.add("postalCode", postalCode);
     params.add("password", password);
-
-    UserModel userModel = new UserModel();
-    userModel.setName(name);
 
     mockMvc.perform(MockMvcRequestBuilders.post(url)
         .sessionAttr(TOKEN_ATTR_NAME, csrfToken).param(csrfToken.getParameterName(),

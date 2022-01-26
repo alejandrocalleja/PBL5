@@ -52,8 +52,6 @@ public class SessionCardManager {
     public void initSessionCardManager(TrainingSessionModel trainingSession) {
         this.trainingSession = trainingSession;
 
-        System.out.println("Creating a new SessionCardManager for trainingSession " + trainingSession.getId());
-
         resultResponseMap = new HashMap<>();
         cards = new ArrayList<>();
 
@@ -69,15 +67,9 @@ public class SessionCardManager {
         List<TrainingSessionModel> traininSessions = trainingSession.getTraining().getTrainingSessions();
 
         // If it's the first traininSession of the training load all the cards
-        System.out.println("There are a total of " + traininSessions.size() + " sessions.");
 
         if (traininSessions.size() <= 1) {
-
-            System.out.println("It's the first study session for this training");
-            System.out.println("Loading all the cards of deck");
-
             this.cards = trainingSession.getTraining().getDeck().getCards();
-
         } else {
             // Get the previous to the current one
             TrainingSessionModel prevTraining = traininSessions.get(traininSessions.size() - 2);
@@ -86,69 +78,52 @@ public class SessionCardManager {
             Long daysBetween = Duration.between(prevDate, LocalDateTime.now()).toDays();
 
             // If it's the second study today, load all the cards and ignore the previous
-            System.out.println("Days between prev and current training session: " + daysBetween);
             if (daysBetween < 1) {
-                System.out.println("Loading all the cards of deck");
                 this.cards = trainingSession.getTraining().getDeck().getCards();
 
             } else {
 
-                System.out.println("Loading required cards of the deck");
                 loadRequiredCards();
             }
         }
 
-        System.out.println(cards.size() + " cards loaded for the session.");
     }
 
     private void loadRequiredCards() {
-
         // Load the previous
         List<TrainingSessionModel> traininSessions = trainingSession.getTraining().getTrainingSessions();
         TrainingSessionModel prevTraining = traininSessions.get(traininSessions.size() - 2);
 
         if (prevTraining != null) {
-            System.out.println("Previous training found. Loading required cards.");
 
             prevTraining.getResults().forEach(result -> {
                 int boxNum = result.getBoxNumber();
-                System.out.println("Box number of card " + result.getCard().getId() + ": " + result.getBoxNumber());
                 LocalDate resDate = result.getCardResponses().get(0).getResponseDate().toLocalDate();
 
                 if (boxNum != 0) {
                     Long daysBetween = Duration.between(resDate.atStartOfDay(), LocalDate.now().atStartOfDay()).toDays();
                     CardModel card = result.getCardResponses().get(0).getCard();
-                    System.out.println("days between the response and the card " + daysBetween + " Card: " + card.getId());
 
                     if (Math.pow(2, boxNum - (double) 1) <= daysBetween) {
-                        System.out.println("Card required, adding it to the cards");
                         cards.add(card);
                     } else {
-                        System.out.println("The card is not required, putting it on the results of this session");
                         // If the card is not required I pass the previous cardResponses
                         resultResponseMap.put(card.getId(), result.getCardResponses());
                     }
                 }
             });
         } else {
-            System.out.println("No previous training session. Loading all the cards");
             this.cards = trainingSession.getTraining().getDeck().getCards();
         }
     }
 
     public void saveSessionResults() {
-
-        System.out.println("Saving results for training Session " + trainingSession.getId());
         List<TrainingSessionModel> traininSessions = trainingSession.getTraining().getTrainingSessions();
         
-        System.out.println("Iterating through resultsResponseMap");
         resultResponseMap.forEach((k, v) -> {
-            System.out.println("Key: " + k);
-            System.out.println("Value lenghth: " + v.size());
 
             ResultsModel result = new ResultsModel();
             CardModel card = cardRepository.getById(k);
-            System.out.println("Card " + card.getId() + " loaded for the new result entry.");
 
             result.setCard(card);
             result.setTrainingSession(trainingSession);
@@ -156,30 +131,23 @@ public class SessionCardManager {
             // Mirar el anterior que caja es. Si no existe anterior a la caja 1, si existe y es a la primera bien
             // Anterior caja + 1 y si está mal directamente a la 1.
             if (v.size() > 1) {
-                System.out.println("There is more than one card response. Setting the box number to 1.");
                 result.setBoxNumber(1);
 
             } else {
                 // If it's the first trainingSession and the card is correct put on box 1
                 if (traininSessions.size() <= 1)  {
 
-                    System.out.println("It's the first training session. Setting the box number to 1");
                     result.setBoxNumber(1);
                 } else {
-                    System.out.println("Not the first training session. Getting the previous one.");
                     TrainingSessionModel prevTraining = traininSessions.get(traininSessions.size() - 2);
-
-                    System.out.println("Previous training has id " + prevTraining.getId());
 
                     // I load the whole prevTraining to be able to acces it's child tables. Bc if i dont load it, i get a LazyInitializationException
                     prevTraining = trainingSessionRepository.getById(prevTraining.getId());
 
                     List<ResultsModel> previousResults = prevTraining.getResults();
-                    System.out.println("Previous results size " + previousResults.size());
 
                     for(ResultsModel prevResult : previousResults) {
                         if(prevResult.getCard().getId().equals(k)) {
-                            System.out.println("Prev result box found. Box number: " + prevResult.getBoxNumber());
                             result.setBoxNumber(prevResult.getBoxNumber() + 1);
                             break;
                         }
@@ -187,15 +155,11 @@ public class SessionCardManager {
                 }
             }
 
-            System.out.println("Setting error count to " + v.size());
             result.setErrorCount(v.size());
-            System.out.println("Setting avg Time");
             result.setAvgTime(calculateAvgTime(v));
             
-            System.out.println("Saving the result to the result repository");
             result = resultsRepository.save(result);
 
-            System.out.println("Setting the resultModel to the cardResponses and saving them into the DB");
             // Ponerle el padre a cada CardResponse y guardarla
             for(CardResponseModel cardResponse : v) {
                 cardResponse.setResult(result);
@@ -204,12 +168,18 @@ public class SessionCardManager {
         });
     }
 
-    private Time calculateAvgTime(List<CardResponseModel> v) {
+    /**
+    * Calculates the average time of the given List of CardResponseModel. 
+    *
+    * @param  cardResponses List of CardResponseModel.
+    * @return Time with the average time of the given List of CardResponseModel.
+    */
+    private Time calculateAvgTime(List<CardResponseModel> cardResponses) {
         // Todo a segundos, sacar AVG de eso y pasarlo otra vez a formato
 
         long totalMilis = 0;
 
-        for(CardResponseModel cardResponse : v) {
+        for(CardResponseModel cardResponse : cardResponses) {
             LocalTime resTim = cardResponse.getResponseTime().toLocalTime();
             LocalDateTime responseTime = LocalDateTime.of(LocalDate.now(), resTim);
 
@@ -220,14 +190,13 @@ public class SessionCardManager {
             totalMilis += (min * 60) * 1000;
         }
 
-        long milisMean = totalMilis / v.size();
+        long milisMean = totalMilis / cardResponses.size();
 
         // - 1h bc Time adds an hour depending on your GTM
         // milisMean -= 3600000;
 
         Time time = new Time(milisMean);
 
-        System.out.println("Avg time is " + time.toString());
 
         return time;
     }
@@ -240,6 +209,15 @@ public class SessionCardManager {
         this.trainingSession = trainingSession;
     }
 
+    /**
+    * Saves a card response into database. 
+    * The card must have been loaded from the database
+    * This method will add the card to the current session buffer if it's not correct.
+    *
+    * @param  card The card that has been answered by the user
+    * @param  correct The boolean that indicates if the card was answered correctly
+    * @return      void
+    */
     public void saveCardResponse(CardModel card, boolean correct) {
         LocalDateTime cardReciveTime = LocalDateTime.now();
 
@@ -255,17 +233,24 @@ public class SessionCardManager {
 
         // Si está mal la vuelves a meter para que la pregunte otra vez
         if (!correct) {
-            System.out.println("Card not correct. Adding it again");
             cards.add(card);
-            System.out.println("Cards remaining after adding: " + cards.size());
         }
         resultResponseMap.get(card.getId()).add(cardResponse);
     }
 
+    /**
+    * Returns the next card of the study session and deletes it. 
+    * When this method is called, the current time is stored as the time when the card was sent.
+    * This method will return null if there are no more cards to study.
+    *
+    * @param  card The card that has been answered by the user
+    * @param  correct The boolean that indicates if the card was answered correctly
+    * @return      CardModel if the card was found
+    *              of null if there are no more cards to study.
+    */
     public CardModel getNextCard() {
         CardModel card = null;
 
-        // AQUI SE CAMBIA ESTO POR LA GAMIFICATION
         if (cards.size() > 0) {
             card = cards.get(0);
             cards.remove(card);
@@ -280,27 +265,26 @@ public class SessionCardManager {
         return cards.size() > 0;
     }
 
+    /**
+    * Returns the difference between two LocalDateTimes.
+    *
+    * @param  card The card that has been answered by the user
+    * @param  correct The boolean that indicates if the card was answered correctly
+    * @return      CardModel if the card was found
+    *              of null if there are no more cards to study.
+    */
     private Time calculateTimeDifference(LocalDateTime closestTime, LocalDateTime otherTime) {
-
-        System.out.println("Card show moment: " + otherTime.toString());
-        System.out.println("Card response moment: " + closestTime.toString());
-        
         long secDiff = SECONDS.between(otherTime, closestTime);
         long minDiff = MINUTES.between(otherTime, closestTime);
-        System.out.println("secDiff " + secDiff);
-        System.out.println("minDiff " + minDiff);
 
         long milis = 0; 
         milis += secDiff * 1000;
         milis += (minDiff * 60) * 1000;
-        System.out.println("total milis: " + milis);
 
         // - 1h bc Time adds an hour depending on your GTM
         milis -= 3600000;
 
         Time time = new Time(milis);
-
-        System.out.println("Final time sql " + time.toString());
 
         return time;
     }

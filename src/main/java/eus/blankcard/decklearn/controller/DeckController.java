@@ -67,7 +67,6 @@ public class DeckController {
     public String getDeckStats(@PathVariable("deckId") Integer deckId, HttpServletRequest req,
             HttpServletResponse response) {
         DeckModel deck = deckRepository.getById(deckId);
-
         
         AtomicInteger monthStudies = statsCalculator.getMonthStudies(deck);
         int totalStudies = deck.getTrainings().size();
@@ -103,7 +102,6 @@ public class DeckController {
             UserModel userModel = userRepository.findByUsername(loggedUsername);
 
             if (userModel.getSavedDecks().contains(deckModel)) {
-                System.out.println("The user has it saved. Unsaving it");
                 userModel.getSavedDecks().remove(deckModel);
             } else {
                 userModel.getSavedDecks().add(deckModel);

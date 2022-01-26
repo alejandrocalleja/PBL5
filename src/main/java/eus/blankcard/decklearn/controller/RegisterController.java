@@ -29,11 +29,20 @@ public class RegisterController {
 
   @PostMapping("/register")
   public String registerSubmit(UserModel user) {
-    user.setPassword(encoder.encode(user.getPassword()));
-    user.setImgPath("/images/user/default.png");
-    user = userRepository.save(user);
-    registerUtils.setDefaultFollower(user);
 
-    return "redirect:/login";
+    String redirectUrl = "redirect:/login";
+
+    UserModel existingUser = userRepository.findByUsername(user.getUsername());
+
+    if(existingUser == null) {
+      user.setPassword(encoder.encode(user.getPassword()));
+      user.setImgPath("/images/user/default.png");
+      user = userRepository.save(user);
+      registerUtils.setDefaultFollower(user);      
+    } else {
+      redirectUrl = "redirect:/register";
+    }
+
+    return redirectUrl;
   }
 }
